@@ -12,6 +12,7 @@ envs/cpp/assets/icon.ico
 envs/cpp/assets/icon.png
 envs/cpp/assets/roundabout.png
 envs/cpp/third_party/imgui/misc/debuggers/imgui_lldb.py
+sim_marl/__init__.py
 sim_marl.egg-info/PKG-INFO
 sim_marl.egg-info/SOURCES.txt
 sim_marl.egg-info/dependency_links.txt

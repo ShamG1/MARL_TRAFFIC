@@ -121,7 +121,7 @@ env = ScenarioEnv(config)
 
 # 3. 运行循环
 obs, info = env.reset()
-for _ in range(100):
+for _ in range(1000):
     action = np.array([0.5, 0.0])
     obs, reward, terminated, truncated, info = env.step(action)
     env.render()
