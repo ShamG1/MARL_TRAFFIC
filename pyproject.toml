@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61.0", "pybind11>=2.10.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sim-marl"
+version = "0.1.0"
+description = "A lightweight MARL intersection environment with C++ backend"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "numpy>=1.21.0",
+    "pillow>=9.0.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["envs*", "sim_marl*"]
+
+[tool.setuptools.package-data]
+"*" = ["*.png", "*.ico", "*.ini"]

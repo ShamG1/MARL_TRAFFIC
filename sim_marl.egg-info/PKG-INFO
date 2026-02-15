@@ -1,3 +1,13 @@
+Metadata-Version: 2.1
+Name: sim-marl
+Version: 0.1.0
+Summary: A lightweight MARL intersection environment with C++ backend
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy>=1.21.0
+Requires-Dist: pillow>=9.0.0
+
 # MARL 无信号路口环境 🚦
 
 这是一个基于 **C++ (pybind11) + OpenGL/GLFW** 的轻量级多智能体强化学习 (MARL) 无信号路口仿真环境。
@@ -55,57 +65,31 @@
 
 ### 安装
 
-#### 构建依赖
-
-- `CMake >= 3.18`
-- 支持 `C++17` 的编译器（Linux: GCC/Clang；Windows: MSVC）
-- `OpenGL`
-- `GLFW`（Linux 下 CMake 会 `find_package(glfw3 3.3 REQUIRED)`）
-- `PyTorch`（用于提供 C++ 侧 `LibTorch`，CMake 会通过 Python 自动定位 Torch 的 CMake 配置）
-
-#### 1. 编译 C++ 后端
+#### 从源码安装
 
 ```bash
+# 进入项目根目录
+
+# 配置并编译 C++ 后端（Windows / MSVC）
 cd envs/cpp
-mkdir -p build && cd build
+mkdir build && cd build
 cmake -DCMAKE_BUILD_TYPE=Release ..
-# Linux
 make -j$(nproc)
-# Windows (MSVC)
-cmake --build . --config Release
 ```
 
-#### 2. pip 安装本环境 (推荐开发模式)
-
-在项目根目录执行：
-
-```bash
-pip install -e .
-```
-
-也可以仅安装 Python 依赖：
-
-```bash
-pip install -r requirements.txt
-```
-
-#### 3. 运行测试
+编译成功后，可直接运行测试：
 
 ```bash
 python test.py
 ```
 
----
-
-## 🎮 使用方法
-
-安装完成后，你可以在任何地方通过 `sim_marl` 导入并使用环境：
+### 基本使用
 
 ```python
-from sim_marl import ScenarioEnv
+from envs.env import ScenarioEnv
 import numpy as np
 
-# 1. 准备配置
+# 创建环境
 config = {
     'scenario_name': 'cross_2lane',  # 必填：匹配 scenarios/ 下的目录名
     'traffic_flow': True,            # True=单智能体+交通流, False=多智能体
@@ -116,17 +100,27 @@ config = {
     'max_steps': 2000,
 }
 
-# 2. 创建环境
 env = ScenarioEnv(config)
 
-# 3. 运行循环
+# 重置环境
 obs, info = env.reset()
-for _ in range(100):
+
+# 运行一个回合
+for step in range(100):
+    # 随机动作 [throttle, steer]，范围 [-1, 1]
     action = np.array([0.5, 0.0])
+    
+    # 执行一步
     obs, reward, terminated, truncated, info = env.step(action)
+    done = terminated or truncated
+    
+    # 渲染（如果 render_mode='human'）
     env.render()
-    if terminated or truncated:
+    
+    if done:
         obs, info = env.reset()
+
+env.close()
 ```
 
 ---
@@ -156,6 +150,12 @@ config = {
     'use_team_reward': True,  # 是否使用团队奖励
     'render_mode': 'human',
     'max_steps': 2000,
+    'ego_routes': [  # 可选：指定每个智能体的路线
+        ('IN_6', 'OUT_2'),
+        ('IN_4', 'OUT_8'),
+        ('IN_5', 'OUT_7'),
+        ('IN_0', 'OUT_3')
+    ],
 }
 ```
 

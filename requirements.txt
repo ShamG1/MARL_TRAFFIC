@@ -1,0 +1,4 @@
+numpy>=1.21.0
+pybind11>=2.10.0
+pillow>=9.0.0
+# OpenGL/GLFW 依赖于系统库，Python 侧通常由 C++ 扩展处理
