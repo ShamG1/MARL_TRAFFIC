@@ -12,7 +12,7 @@
   <tr>
     <td align="center" width="50%">
       <img src="envs/cpp/assets/cross.png" alt="Cross Intersection" width="100%" />
-      <br />Cross
+      <br />Intersection
     </td>
     <td align="center" width="50%">
       <img src="envs/cpp/assets/T.png" alt="T Intersection" width="100%" />
