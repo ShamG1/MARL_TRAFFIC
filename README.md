@@ -11,27 +11,27 @@
 <table>
   <tr>
     <td align="center" width="50%">
-      <img src="envs/cpp/assets/cross.png" alt="Cross Intersection" width="100%" />
+      <img src="core/cpp/assets/cross.png" alt="Cross Intersection" width="100%" />
       <br />Intersection
     </td>
     <td align="center" width="50%">
-      <img src="envs/cpp/assets/T.png" alt="T Intersection" width="100%" />
+      <img src="core/cpp/assets/T.png" alt="T Intersection" width="100%" />
       <br />T
     </td>
   </tr>
   <tr>
     <td align="center" width="50%">
-      <img src="envs/cpp/assets/roundabout.png" alt="Roundabout" width="100%" />
+      <img src="core/cpp/assets/roundabout.png" alt="Roundabout" width="100%" />
       <br />Roundabout
     </td>
     <td align="center" width="50%">
-      <img src="envs/cpp/assets/highway.png" alt="Highway" width="100%" />
+      <img src="core/cpp/assets/highway.png" alt="Highway" width="100%" />
       <br />Highway
     </td>
   </tr>
   <tr>
     <td align="center" width="50%">
-      <img src="envs/cpp/assets/onramp_merge.png" alt="Onramp Merge" width="100%" />
+      <img src="core/cpp/assets/onramp_merge.png" alt="Onramp Merge" width="100%" />
       <br />Onramp Merge
     </td>
     <td align="center" width="50%"></td>
@@ -43,10 +43,10 @@
 ## 📂 文件结构
 
 ### 核心文件
-- `envs/env.py`：Python 侧环境封装（对外 API：`ScenarioEnv`），负责参数配置、调用 C++ 后端、组织 obs/reward/info
-- `envs/cpp_backend.py`：Python ↔ C++ 后端桥接
-- `envs/cpp/`：C++ 后端源码（pybind11 扩展模块），包含仿真、渲染（OpenGL/GLFW）与传感器/交通流逻辑
-- `envs/utils.py`：路线映射、lane layout 等辅助
+- `core/env.py`：Python 侧环境封装（对外 API：`ScenarioEnv`），负责参数配置、调用 C++ 后端、组织 obs/reward/info
+- `core/cpp_backend.py`：Python ↔ C++ 后端桥接
+- `core/cpp/`：C++ 后端源码（pybind11 扩展模块），包含仿真、渲染（OpenGL/GLFW）与传感器/交通流逻辑
+- `core/utils.py`：路线映射、lane layout 等辅助
 - `scenarios/`：场景资源目录。每个场景文件夹（如 `cross_2lane/`）包含：
   - `drivable.png`：可行驶区域掩码
   - `yellowline.png`：黄线/实线掩码（用于压线碰撞/惩罚）
@@ -73,7 +73,7 @@
 #### 1. 编译 C++ 后端
 
 ```bash
-cd envs/cpp
+cd core/cpp
 mkdir -p build && cd build
 cmake -DCMAKE_BUILD_TYPE=Release ..
 # Linux
@@ -169,10 +169,10 @@ config = {
 
 ## 🎯 奖励函数配置
 
-奖励函数已集成在 `envs/env.py` 中，可以通过 `reward_config` 参数自定义：
+奖励函数已集成在 `core/env.py` 中，可以通过 `reward_config` 参数自定义：
 
 ```python
-from envs.env import DEFAULT_REWARD_CONFIG
+from core.env import DEFAULT_REWARD_CONFIG
 
 # 1. 使用默认配置
 config = {

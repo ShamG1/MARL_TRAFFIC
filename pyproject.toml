@@ -15,7 +15,7 @@ dependencies = [
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["envs*", "sim_marl*"]
+include = ["core*", "sim_marl*"]
 
 [tool.setuptools.package-data]
 "*" = ["*.png", "*.ico", "*.ini"]

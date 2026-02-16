@@ -1,7 +1,0 @@
-{
-	"InstallScripts" : 
-	[
-		"/home/g/SIM_MARL/envs/cpp/build/cmake_install.cmake"
-	],
-	"Parallel" : false
-}
