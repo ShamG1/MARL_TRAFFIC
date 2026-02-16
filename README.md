@@ -34,7 +34,10 @@
       <img src="core/cpp/assets/onramp_merge.png" alt="Onramp Merge" width="100%" />
       <br />Onramp Merge
     </td>
-    <td align="center" width="50%"></td>
+    <td align="center" width="50%">
+      <img src="core/cpp/assets/bottleneck.png" alt="Lane Bottleneck" width="100%" />
+      <br />Lane Bottleneck
+    </td>
   </tr>
 </table>
 

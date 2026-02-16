@@ -10,15 +10,16 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from core.env import ScenarioEnv, ROUTE_MAP_BY_SCENARIO
 
-# mapping: cross_2lane, cross_3lane, roundabout_2lane, roundabout_3lane
-#          T_2lane, T_3lane, highway_2lane, highway_4lane, onrampmerge_3lane
+# mapping: cross_2lane, cross_3lane, roundabout_2lane, roundabout_3lane,
+#          T_2lane, T_3lane, highway_2lane, 
+#          highway_4lane, onrampmerge_3lane, bottleneck
 
 def main():
     config = {
-        'traffic_flow': True,
+        'traffic_flow': False,
         'traffic_density': 1,
         'num_agents': 1,
-        'scenario_name': 'onrampmerge_3lane',
+        'scenario_name': 'bottleneck',
         'render_mode': 'human',
         'max_steps': 2000,
         'respawn_enabled': True,

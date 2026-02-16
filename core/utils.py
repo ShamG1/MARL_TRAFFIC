@@ -67,6 +67,9 @@ ROUTE_MAP_BY_SCENARIO = {
         "straight": {1: 1, 2: 2},
         "ramp": {"IN_RAMP_1": "OUT_2"},
     },
+    "bottleneck": {
+        "straight": {1: 1, 2: 2, 3: 3},
+    },
 }
 
 

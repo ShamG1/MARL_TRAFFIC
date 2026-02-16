@@ -217,6 +217,8 @@ void ScenarioEnv::try_spawn_traffic_car() {
     std::vector<std::pair<float,float>> path;
     if (scenario_name.find("roundabout") != std::string::npos) {
         path = generate_path_roundabout_cpp(lane_layout, num_lanes, intent, route.first, route.second);
+    } else if (scenario_name.find("bottleneck") != std::string::npos) {
+        path = generate_path_bottleneck_cpp(lane_layout, num_lanes, route.first, route.second);
     } else {
         path = generate_path_cpp(lane_layout, num_lanes, intent, route.first, route.second);
     }

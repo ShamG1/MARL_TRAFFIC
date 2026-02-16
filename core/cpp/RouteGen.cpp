@@ -230,6 +230,36 @@ LaneLayout build_lane_layout_merge_cpp(int num_lanes) {
     return layout;
 }
 
+LaneLayout build_lane_layout_bottleneck_cpp(int num_lanes) {
+    LaneLayout layout;
+    const float CY = HEIGHT * 0.5f;
+    const float MARGIN = 30.0f;
+
+    // Bottleneck: 1D highway-style (W -> E)
+    layout.dir_order = {"E"};
+    layout.in_by_dir = {{"E", {}}};
+    layout.out_by_dir = {{"E", {}}};
+
+    for (int j = 0; j < num_lanes; ++j) {
+        float offset = (j - (num_lanes - 1) / 2.0f) * LANE_WIDTH_PX;
+        float y_pos = CY + offset;
+
+        std::string in_name = "IN_" + std::to_string(j + 1);
+        std::string out_name = "OUT_" + std::to_string(j + 1);
+
+        layout.points[in_name] = {MARGIN, y_pos};
+        layout.points[out_name] = {WIDTH - MARGIN, y_pos};
+        layout.dir_of[in_name] = "E";
+        layout.dir_of[out_name] = "E";
+        layout.idx_of[in_name] = j;
+        layout.idx_of[out_name] = j;
+
+        layout.in_by_dir["E"].push_back(in_name);
+        layout.out_by_dir["E"].push_back(out_name);
+    }
+    return layout;
+}
+
 LaneLayout build_lane_layout_roundabout_cpp(int num_lanes) {
     return build_lane_layout_cpp(num_lanes);
 }
@@ -366,6 +396,67 @@ static ArcDef calculate_exit_arc_ccw(std::pair<float, float> pt, std::string dir
     }
     arc.center = std::make_pair(fx, fy);
     return arc;
+}
+
+std::vector<std::pair<float,float>> generate_path_bottleneck_cpp(const LaneLayout& layout,
+                                                                 int num_lanes,
+                                                                 const std::string& start_id,
+                                                                 const std::string& end_id) {
+    const float CY = HEIGHT * 0.5f;
+
+    // Keep these consistent with scripts/generate_bottleneck_assets.py
+    // WIDTH = 1000
+    // 左侧直道 X1 = 300
+    // 过渡段 TRANS = 150
+    // 瓶颈段 BNECK = 100
+    const float X1 = 300.0f;
+    const float X2 = 450.0f; // 300 + 150
+    const float X3 = 550.0f; // 450 + 100
+    const float X4 = 700.0f; // 550 + 150
+
+    auto p_start = layout.points.at(start_id);
+    auto p_end = layout.points.at(end_id);
+
+    float start_y = p_start.second;
+    float end_y = p_end.second;
+    float mid_y = CY;
+
+    auto smoothstep = [](float t) {
+        if (t < 0.0f) t = 0.0f;
+        if (t > 1.0f) t = 1.0f;
+        return t * t * (3.0f - 2.0f * t);
+    };
+
+    std::vector<std::pair<float,float>> path;
+    path.reserve(260);
+
+    const float x0 = p_start.first;
+    const float xN = p_end.first;
+
+    const int steps = 240;
+    for (int i = 0; i <= steps; ++i) {
+        float t = float(i) / float(steps);
+        float x = x0 + (xN - x0) * t;
+
+        float y;
+        if (x <= X1) {
+            y = start_y;
+        } else if (x <= X2) {
+            float lt = (x - X1) / (X2 - X1);
+            y = start_y + (mid_y - start_y) * smoothstep(lt);
+        } else if (x <= X3) {
+            y = mid_y;
+        } else if (x <= X4) {
+            float lt = (x - X3) / (X4 - X3);
+            y = mid_y + (end_y - mid_y) * smoothstep(lt);
+        } else {
+            y = end_y;
+        }
+
+        path.emplace_back(x, y);
+    }
+
+    return path;
 }
 
 std::vector<std::pair<float,float>> generate_path_roundabout_cpp(const LaneLayout& layout,

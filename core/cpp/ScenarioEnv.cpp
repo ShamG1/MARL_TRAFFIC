@@ -102,6 +102,8 @@ bool ScenarioEnv::load_scenario_bitmaps(const std::string& drivable_png,
         lane_layout = build_lane_layout_t_junction_cpp(num_lanes);
     } else if (scenario_name.find("highway") != std::string::npos) {
         lane_layout = build_lane_layout_highway_cpp(num_lanes);
+    } else if (scenario_name.find("bottleneck") != std::string::npos) {
+        lane_layout = build_lane_layout_bottleneck_cpp(num_lanes);
     } else if (scenario_name.find("merge") != std::string::npos) {
         lane_layout = build_lane_layout_merge_cpp(num_lanes);
     } else {
@@ -156,6 +158,8 @@ void ScenarioEnv::add_car_with_route(const std::string& start_id, const std::str
     std::vector<std::pair<float,float>> path;
     if (scenario_name.find("roundabout") != std::string::npos) {
         path = generate_path_roundabout_cpp(lane_layout, num_lanes, intent, start_id, end_id);
+    } else if (scenario_name.find("bottleneck") != std::string::npos) {
+        path = generate_path_bottleneck_cpp(lane_layout, num_lanes, start_id, end_id);
     } else {
         path = generate_path_cpp(lane_layout, num_lanes, intent, start_id, end_id);
     }

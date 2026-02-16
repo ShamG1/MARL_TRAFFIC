@@ -24,6 +24,7 @@ LaneLayout build_lane_layout_cpp(int num_lanes);
 LaneLayout build_lane_layout_t_junction_cpp(int num_lanes);
 LaneLayout build_lane_layout_highway_cpp(int num_lanes);
 LaneLayout build_lane_layout_merge_cpp(int num_lanes);
+LaneLayout build_lane_layout_bottleneck_cpp(int num_lanes);
 LaneLayout build_lane_layout_roundabout_cpp(int num_lanes);
 
 // Determine intent from start/end lane ids
@@ -35,6 +36,11 @@ std::vector<std::pair<float,float>> generate_path_cpp(const LaneLayout& layout,
                                                       int intent,
                                                       const std::string& start_id,
                                                       const std::string& end_id);
+
+std::vector<std::pair<float,float>> generate_path_bottleneck_cpp(const LaneLayout& layout,
+                                                                 int num_lanes,
+                                                                 const std::string& start_id,
+                                                                 const std::string& end_id);
 
 std::vector<std::pair<float,float>> generate_path_roundabout_cpp(const LaneLayout& layout,
                                                                  int num_lanes,

@@ -79,11 +79,17 @@ def _parse_num_lanes_from_scenario_name(name: str) -> int:
         return 3
     # Accept patterns like: cross_2lane, t_junction_3lane_v2, roundabout_4lane
     m = re.findall(r"(?:^|_)(\d+)lane(?:$|_)", str(name))
-    if not m:
-        raise ValueError(
-            f"Cannot parse num_lanes from scenario_name={name!r}. Expected to contain like '_2lane'."
-        )
-    return int(m[-1])
+    if m:
+        return int(m[-1])
+
+    # Allow scenarios without lane suffix by explicit mapping.
+    # Keep this minimal: only handle known special cases here.
+    if str(name) == "bottleneck":
+        return 3
+
+    raise ValueError(
+        f"Cannot parse num_lanes from scenario_name={name!r}. Expected to contain like '_2lane', or be a known special-case scenario (e.g. 'bottleneck')."
+    )
 
 
 class ScenarioEnv:
