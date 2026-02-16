@@ -185,6 +185,51 @@ LaneLayout build_lane_layout_highway_cpp(int num_lanes) {
     return layout;
 }
 
+LaneLayout build_lane_layout_merge_cpp(int num_lanes) {
+    LaneLayout layout;
+    const float CY = HEIGHT * 0.5f;
+    const float MARGIN = 30.0f;
+    const float LW = LANE_WIDTH_PX;
+
+    // Merge: Main road (W->E) + Ramp (SW->Join)
+    layout.dir_order = {"E", "R"};
+    layout.in_by_dir = {{"E", {}}, {"R", {}}};
+    layout.out_by_dir = {{"E", {}}};
+
+    // Main Road (fixed 2 lanes for this specific scenario)
+    // Lane 1: Top, Lane 2: Middle
+    for (int j = 0; j < 2; ++j) {
+        // Assets use: main_upper = yc - 1.5*lw, main_lower = yc + 0.5*lw
+        // Lane 1 center: yc - 1.0 * lw
+        // Lane 2 center: yc + 0.0 * lw
+        float y = (CY - LW) + j * LW;
+        
+        std::string in_id = "IN_" + std::to_string(j + 1);
+        std::string out_id = "OUT_" + std::to_string(j + 1);
+
+        layout.points[in_id] = {MARGIN, y};
+        layout.points[out_id] = {WIDTH - MARGIN, y};
+        layout.dir_of[in_id] = "E";
+        layout.dir_of[out_id] = "E";
+        layout.idx_of[in_id] = j;
+        layout.idx_of[out_id] = j;
+
+        layout.in_by_dir["E"].push_back(in_id);
+        layout.out_by_dir["E"].push_back(out_id);
+    }
+
+    // Ramp (Single lane)
+    // Assets use: ramp_start_x = 0, y_center(x) = (yc + 3.8 * lw) + (-0.007 * lw) * x
+    // Spawn at x=30: y = yc + (3.8 - 0.007 * 30) * lw = yc + (3.8 - 0.21) * lw = yc + 3.59 * lw
+    std::string ramp_in = "IN_RAMP_1";
+    layout.points[ramp_in] = {30.0f, CY + 3.59f * LW};
+    layout.dir_of[ramp_in] = "R";
+    layout.idx_of[ramp_in] = 2; // Treat as 3rd lane index
+    layout.in_by_dir["R"].push_back(ramp_in);
+
+    return layout;
+}
+
 LaneLayout build_lane_layout_roundabout_cpp(int num_lanes) {
     return build_lane_layout_cpp(num_lanes);
 }
@@ -480,7 +525,69 @@ std::vector<std::pair<float,float>> generate_path_cpp(const LaneLayout& layout,
     std::vector<std::pair<float,float>> path;
     path.reserve(200);
 
-    if (intent == INTENT_STRAIGHT) {
+    // Special-case: Merge scenario ramp path (bitmap-based)
+    // IN_RAMP_1 -> OUT_2: ramp into 3-lane section, then merge into lane2 near the narrowing fillet.
+    if (start_id == "IN_RAMP_1" && end_id == "OUT_2") {
+        const float lw = LANE_WIDTH_PX;
+        const float y_lane2 = CY;                         // center of lane 2
+        const float y_lane3 = CY + 1.0f * lw;             // center of added bottom lane (lane 3)
+
+        // Assets coordinates
+        const float x_spawn = 30.0f;
+        const float x_merge = 400.0f;
+        const float x_drop = 800.0f;
+        
+        // y centers at specific x positions based on asset slope
+        // At x=0, y_center = CY + 3.8*lw. At x=400, y_center = CY + 1.0*lw
+        // slope k = (1.0 - 3.8) * lw / 400 = -0.007 * lw
+        auto get_ramp_y = [&](float x) {
+            float k = -0.007f * lw;
+            return (CY + 3.8f * lw) + k * x;
+        };
+
+        // 1) Ramp internal path (from x=30 to x=merge, strictly following ramp center)
+        const int steps1 = 100;
+        for (int i = 0; i <= steps1; ++i) {
+            float t = (float)i / steps1;
+            float x = x_spawn + (x_merge - x_spawn) * t;
+            path.emplace_back(x, get_ramp_y(x));
+        }
+
+        // 2) Stay in Lane 3 (already at y_lane3 at x_merge)
+        const float x_curve2_start = x_drop - 150.0f;
+        if (x_curve2_start > x_merge) {
+            const int steps3 = 40;
+            for (int i = 1; i <= steps3; ++i) {
+                float t = (float)i / steps3;
+                float x = x_merge + (x_curve2_start - x_merge) * t;
+                path.emplace_back(x, y_lane3);
+            }
+        }
+
+        // 4) Smooth curve from Lane 3 into Lane 2 (before Lane 3 ends)
+        const float x_curve2_end = x_drop - 20.0f;
+        const int steps4 = 50;
+        for (int i = 1; i <= steps4; ++i) {
+            float t = (float)i / steps4;
+            float x = x_curve2_start + (x_curve2_end - x_curve2_start) * t;
+            float s = 0.5f - 0.5f * std::cos(PI_F * t); // smoothstep
+            float y = y_lane3 + (y_lane2 - y_lane3) * s;
+            path.emplace_back(x, y);
+        }
+
+        // 5) Final straight to OUT_2
+        const int steps5 = 40;
+        const float x_final = p_end.first;
+        for (int i = 1; i <= steps5; ++i) {
+            float t = (float)i / steps5;
+            float x = x_curve2_end + (x_final - x_curve2_end) * t;
+            path.emplace_back(x, y_lane2);
+        }
+
+        return path;
+    }
+
+    if (intent == INTENT_STRAIGHT) { 
         for (int i=0; i<=40; ++i){
             float t=float(i)/40.0f;
             path.emplace_back(

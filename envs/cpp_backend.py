@@ -33,6 +33,11 @@ def _lazy_import():
     if _cpp_mod is None:
         try:
             _cpp_mod = importlib.import_module("SIM_MARL_ENV")
+            # Diagnostic: show which binary is loaded (useful when multiple builds exist)
+            try:
+                print(f"[cpp_backend] Loaded SIM_MARL_ENV from: {_cpp_mod.__file__}")
+            except Exception:
+                pass
         except ModuleNotFoundError:
             _cpp_mod = None
     return _cpp_mod
@@ -66,3 +71,15 @@ def State(*args, **kwargs):
 def Lidar(*args, **kwargs):
     return _require().Lidar(*args, **kwargs)
 
+
+# Expose C++ MCTS search
+def mcts_search(*args, **kwargs):
+    return _require().mcts_search(*args, **kwargs)
+
+
+def mcts_search_lstm(*args, **kwargs):
+    return _require().mcts_search_lstm(*args, **kwargs)
+
+
+def mcts_search_lstm_torchscript(*args, **kwargs):
+    return _require().mcts_search_lstm_torchscript(*args, **kwargs)

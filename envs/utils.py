@@ -1,4 +1,5 @@
 # This file is a local copy of necessary components from the 'Scenario' package
+# to make C_MCTS a self-contained module.
 # === From Scenario/config.py ===
 WIDTH, HEIGHT = 1000, 1000
 SCALE = 12
@@ -62,7 +63,12 @@ ROUTE_MAP_BY_SCENARIO = {
         "right": {3: 12, 6: 3, 9: 6, 12: 9},
         "left": {1: 4, 4: 7, 7: 10, 10: 1},
     },
+    "onrampmerge_3lane": {
+        "straight": {1: 1, 2: 2},
+        "ramp": {"IN_RAMP_1": "OUT_2"},
+    },
 }
+
 
 
 # === From Scenario/agent.py ===

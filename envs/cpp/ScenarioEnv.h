@@ -119,7 +119,7 @@ public:
     // where each state = [x_norm, y_norm, v_norm, heading_norm, intention, alive]
     std::vector<float> get_global_state(int agent_index, int k_nearest = 3) const;
 
-    // Snapshot API for fast rollbacks
+    // Snapshot API for fast MCTS rollbacks
     EnvState get_state() const;
     void set_state(const EnvState& s);
 

@@ -103,9 +103,14 @@ std::array<std::pair<float, float>, 4> Car::corners() const {
     const float cosA = std::cos(state.heading);
     const float sinA = std::sin(state.heading);
 
+    // IMPORTANT: Keep transform consistent with Car::update() which uses:
+    //   x += v*cos(h)
+    //   y -= v*sin(h)
+    // This corresponds to screen coordinates where +y is down, so the rotation
+    // for local->world must flip the sign on the sin terms for y.
     auto world = [&](float lx, float ly) {
-        float wx = state.x + lx * cosA - ly * sinA;
-        float wy = state.y + lx * sinA + ly * cosA;
+        float wx = state.x + lx * cosA + ly * sinA;
+        float wy = state.y - lx * sinA + ly * cosA;
         return std::make_pair(wx, wy);
     };
 

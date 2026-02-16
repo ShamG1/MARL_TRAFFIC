@@ -1,5 +1,5 @@
 #include "ScenarioEnv.h"
-#ifdef SIM_MARL_ENABLE_RENDER
+#ifdef CPP_MCTS_ENABLE_RENDER
 #include "Renderer.h"
 #endif
 #include <algorithm>
@@ -102,10 +102,13 @@ bool ScenarioEnv::load_scenario_bitmaps(const std::string& drivable_png,
         lane_layout = build_lane_layout_t_junction_cpp(num_lanes);
     } else if (scenario_name.find("highway") != std::string::npos) {
         lane_layout = build_lane_layout_highway_cpp(num_lanes);
+    } else if (scenario_name.find("merge") != std::string::npos) {
+        lane_layout = build_lane_layout_merge_cpp(num_lanes);
     } else {
         lane_layout = build_lane_layout_cpp(num_lanes);
     }
     
+    init_traffic_routes();
     return true;
 }
 
@@ -302,8 +305,19 @@ StepResult ScenarioEnv::step(const std::vector<float>& throttles,
                 // 2) 撞墙/驶出路面：同样按“车身四角”判定更接近 Python 的 mask 碰撞效果
                 bool off_road = false;
                 auto on_road = [&](float x, float y) {
-                    if (use_bitmap_scenario) return bitmap_road.at(int(x), int(y)) > 0;
-                    return geom.is_on_road(x, y);
+                    // Bitmap scenarios: use a small neighborhood check to reduce false CRASH_WALL
+                    // due to int-cast quantization near lane boundaries (especially on slanted ramps).
+                    const int xi = int(x);
+                    const int yi = int(y);
+                    for (int dy = -1; dy <= 1; ++dy) {
+                        for (int dx = -1; dx <= 1; ++dx) {
+                            const int xx = xi + dx;
+                            const int yy = yi + dy;
+                            if (xx < 0 || xx >= WIDTH || yy < 0 || yy >= HEIGHT) continue;
+                            if (bitmap_road.at(xx, yy) > 0) return true;
+                        }
+                    }
+                    return false;
                 };
                 
                 for (const auto& p : cars[i].corners()) {

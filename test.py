@@ -11,18 +11,19 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from envs.env import ScenarioEnv, ROUTE_MAP_BY_SCENARIO
 
 # mapping: cross_2lane, cross_3lane, roundabout_2lane, roundabout_3lane
-#          T_2lane, T_3lane, highway_2lane, highway_4lane
+#          T_2lane, T_3lane, highway_2lane, highway_4lane, onrampmerge_3lane
+
 def main():
     config = {
-        'traffic_flow': False,
-        'traffic_density': 3,
+        'traffic_flow': True,
+        'traffic_density': 1,
         'num_agents': 1,
-        'scenario_name': 'highway_4lane',
+        'scenario_name': 'onrampmerge_3lane',
         'render_mode': 'human',
         'max_steps': 2000,
         'respawn_enabled': True,
         'show_lane_ids': False,
-        'show_lidar': False,
+        'show_lidar': True,
     }
 
     env = ScenarioEnv(config)
@@ -34,8 +35,10 @@ def main():
 
     all_routes = []
     for mp in mapping.values():
-        for in_idx, out_idx in mp.items():
-            all_routes.append((f"IN_{in_idx}", f"OUT_{out_idx}"))
+        for in_id, out_id in mp.items():
+            start = in_id if isinstance(in_id, str) else f"IN_{in_id}"
+            end = out_id if isinstance(out_id, str) else f"OUT_{out_id}"
+            all_routes.append((start, end))
 
     def choose_random_route():
         return random.choice(all_routes)

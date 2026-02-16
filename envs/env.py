@@ -74,6 +74,9 @@ def _apply_reward_config(env: Any, reward_cfg: Dict[str, Any]) -> None:
 
 
 def _parse_num_lanes_from_scenario_name(name: str) -> int:
+    # Special case for merge scenario: highway_merge_3lane uses 3 lanes
+    if "highway_merge_3lane" == name:
+        return 3
     # Accept patterns like: cross_2lane, t_junction_3lane_v2, roundabout_4lane
     m = re.findall(r"(?:^|_)(\d+)lane(?:$|_)", str(name))
     if not m:
@@ -120,8 +123,11 @@ class ScenarioEnv:
 
             routes = []
             for mp in mapping.values():
-                for in_idx, out_idx in mp.items():
-                    routes.append((f"IN_{in_idx}", f"OUT_{out_idx}"))
+                for in_id, out_id in mp.items():
+                    # Support both numeric indices and full string IDs
+                    final_in = in_id if isinstance(in_id, str) else f"IN_{in_id}"
+                    final_out = out_id if isinstance(out_id, str) else f"OUT_{out_id}"
+                    routes.append((final_in, final_out))
 
             if not routes:
                 raise RuntimeError(f"No valid routes generated for scenario_name={self.scenario_name!r}")
@@ -178,7 +184,9 @@ class ScenarioEnv:
         traffic_routes = []
         for mp in mapping.values():
             for in_idx, out_idx in mp.items():
-                traffic_routes.append((f"IN_{in_idx}", f"OUT_{out_idx}"))
+                final_in = in_idx if isinstance(in_idx, str) else f"IN_{in_idx}"
+                final_out = out_idx if isinstance(out_idx, str) else f"OUT_{out_idx}"
+                traffic_routes.append((final_in, final_out))
         self.env.configure_routes(traffic_routes)
 
         reward_cfg = config.get("reward_config", None)

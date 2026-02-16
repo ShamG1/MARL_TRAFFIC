@@ -29,6 +29,13 @@
       <br />Highway
     </td>
   </tr>
+  <tr>
+    <td align="center" width="50%">
+      <img src="envs/cpp/assets/onramp_merge.png" alt="Onramp Merge" width="100%" />
+      <br />Onramp Merge
+    </td>
+    <td align="center" width="50%"></td>
+  </tr>
 </table>
 
 ---

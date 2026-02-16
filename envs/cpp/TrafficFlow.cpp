@@ -71,6 +71,32 @@ static inline std::pair<float, float> plan_npc_action_tf(const Car& npc, const s
 void ScenarioEnv::init_traffic_routes() {
     traffic_routes.clear();
 
+    // Merge scenario: allow traffic to also spawn from ramp.
+    // We rely on lane_layout providing an entry point "IN_RAMP_1" and RouteGen providing a valid path.
+    if (scenario_name.find("merge") != std::string::npos) {
+        // Main road lanes (if any)
+        auto it_in_e = lane_layout.in_by_dir.find("E");
+        auto it_out_e = lane_layout.out_by_dir.find("E");
+        if (it_in_e != lane_layout.in_by_dir.end() && it_out_e != lane_layout.out_by_dir.end()) {
+            const auto& in_lanes = it_in_e->second;
+            const auto& out_lanes = it_out_e->second;
+            for (size_t i = 0; i < in_lanes.size() && i < out_lanes.size(); ++i) {
+                traffic_routes.emplace_back(in_lanes[i], out_lanes[i]);
+            }
+        }
+
+        // Ramp -> lane 2 exit (weight = 10 to make it much more frequent)
+        if (lane_layout.points.find("IN_RAMP_1") != lane_layout.points.end()) {
+            for (int k = 0; k < 10; ++k) {
+                traffic_routes.emplace_back("IN_RAMP_1", "OUT_2");
+            }
+        }
+        
+        std::cerr << "[TrafficFlow] Init Merge: " << traffic_routes.size() 
+                  << " routes. Ramp (IN_RAMP_1 -> OUT_2) included." << std::endl;
+        return;
+    }
+
     if (scenario_name.find("highway") != std::string::npos) {
         // Highway: One-way straight-through routes (IN_i -> OUT_i)
         for (const auto& direction : lane_layout.dir_order) {

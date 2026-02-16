@@ -33,7 +33,7 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang"
         set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -march=native")
     endif()
     
-    # 快速数学运算
+    # 快速数学运算（可能影响精度，但对于MCTS通常可接受）
     option(ENABLE_FAST_MATH "Enable -ffast-math for faster floating point operations" ON)
     if(ENABLE_FAST_MATH)
         set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -ffast-math")
@@ -151,7 +151,7 @@ set(IMGUI_SOURCES
     ${IMGUI_DIR}/backends/imgui_impl_opengl2.cpp
 )
 
-set(SOURCES
+set(MCTS_SOURCES
     bindings.cpp
     Car.cpp
     BitmapMask.cpp
@@ -162,6 +162,7 @@ set(SOURCES
     RoadMask.cpp
     LineMask.cpp
     TrafficFlow.cpp
+    mcts_search.cpp
     Renderer.cpp
     ImGuiOverlay.cpp
     stb_image_impl.cpp
@@ -172,10 +173,10 @@ set(SOURCES
 add_definitions(-DCPP_ASSETS_DIR="${CMAKE_CURRENT_SOURCE_DIR}/assets")
 
 if(WIN32)
-    pybind11_add_module(SIM_MARL_ENV ${SOURCES})
+    pybind11_add_module(SIM_MARL_ENV ${MCTS_SOURCES})
 else()
     add_compile_definitions(SIM_MARL_ENABLE_RENDER)
-    pybind11_add_module(SIM_MARL_ENV ${SOURCES})
+    pybind11_add_module(SIM_MARL_ENV ${MCTS_SOURCES})
 endif()
 
 # ============================================================================
@@ -248,7 +249,7 @@ endif()
 # 输出编译配置信息
 # ============================================================================
 
-message(STATUS "=== Build Configuration ===")
+message(STATUS "=== MCTS Build Configuration ===")
 message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 message(STATUS "C++ Compiler: ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
 message(STATUS "Native optimization: ${ENABLE_NATIVE_OPTIMIZATION}")

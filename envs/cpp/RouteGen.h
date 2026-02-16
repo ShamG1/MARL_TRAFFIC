@@ -23,6 +23,7 @@ enum Intent {
 LaneLayout build_lane_layout_cpp(int num_lanes);
 LaneLayout build_lane_layout_t_junction_cpp(int num_lanes);
 LaneLayout build_lane_layout_highway_cpp(int num_lanes);
+LaneLayout build_lane_layout_merge_cpp(int num_lanes);
 LaneLayout build_lane_layout_roundabout_cpp(int num_lanes);
 
 // Determine intent from start/end lane ids

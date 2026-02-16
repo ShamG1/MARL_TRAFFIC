@@ -417,6 +417,30 @@ bindings.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SIM_MARL_ENV.dir/build.make CMakeFiles/SIM_MARL_ENV.dir/bindings.cpp.s
 .PHONY : bindings.cpp.s
 
+mcts_search.o: mcts_search.cpp.o
+.PHONY : mcts_search.o
+
+# target to build an object file
+mcts_search.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SIM_MARL_ENV.dir/build.make CMakeFiles/SIM_MARL_ENV.dir/mcts_search.cpp.o
+.PHONY : mcts_search.cpp.o
+
+mcts_search.i: mcts_search.cpp.i
+.PHONY : mcts_search.i
+
+# target to preprocess a source file
+mcts_search.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SIM_MARL_ENV.dir/build.make CMakeFiles/SIM_MARL_ENV.dir/mcts_search.cpp.i
+.PHONY : mcts_search.cpp.i
+
+mcts_search.s: mcts_search.cpp.s
+.PHONY : mcts_search.s
+
+# target to generate assembly for a file
+mcts_search.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SIM_MARL_ENV.dir/build.make CMakeFiles/SIM_MARL_ENV.dir/mcts_search.cpp.s
+.PHONY : mcts_search.cpp.s
+
 stb_image_impl.o: stb_image_impl.cpp.o
 .PHONY : stb_image_impl.o
 
@@ -630,6 +654,9 @@ help:
 	@echo "... bindings.o"
 	@echo "... bindings.i"
 	@echo "... bindings.s"
+	@echo "... mcts_search.o"
+	@echo "... mcts_search.i"
+	@echo "... mcts_search.s"
 	@echo "... stb_image_impl.o"
 	@echo "... stb_image_impl.i"
 	@echo "... stb_image_impl.s"
