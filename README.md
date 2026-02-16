@@ -149,7 +149,6 @@ config = {
     'traffic_density': 0.5,  # 交通密度
     'render_mode': 'human',
     'max_steps': 2000,
-    'ego_routes': [('IN_6', 'OUT_2')],  # 可选：指定 ego 车辆路线
 }
 ```
 
@@ -231,7 +230,7 @@ r_i^mix(t) = (1 - α) * r_i^ind(t) + α * r̄^ind(t)
 ```python
 config = {
     'traffic_flow': True,
-    'traffic_density': 0.5,  # 范围 [0, 1]，0.5 表示中等密度
+    'traffic_density': 0.5, 
 }
 ```
 
