@@ -362,7 +362,7 @@ Renderer::Renderer() {
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
-    impl->window = glfwCreateWindow(WIDTH*1.5, HEIGHT*1.5, "Scenario", nullptr, nullptr);
+    impl->window = glfwCreateWindow(WIDTH*1.5, HEIGHT*1.5, "DriveSimX", nullptr, nullptr);
     if(!impl->window){
         glfwTerminate();
         return;
