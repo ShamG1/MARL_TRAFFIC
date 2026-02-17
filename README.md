@@ -251,25 +251,40 @@ r_i^mix(t) = (1 - α) * r_i^ind(t) + α * r̄^ind(t)
 
 ---
 
-## 🚗 交通流设置
+## 🚗 交通流设置 (Traffic Flow)
 
-### 交通密度
+环境支持两种交通流模式，通过 `traffic_mode` 参数配置：
 
-`traffic_density` 参数控制 NPC 车辆的生成频率：
+### 1. 随机模式 (`stochastic`) - 默认
+- **行为**：基于 `traffic_density` (到达率) 随机生成 NPC。NPC 到达目的地或发生碰撞后会被移除（`erase`）。
+- **适用场景**：常规强化学习训练，追求高随机性和真实交通分布。
+
+### 2. 恒定模式 (`constant`)
+- **行为**：根据 `traffic_density` 和 `traffic_kmax` 确定固定数量的 NPC 槽位（$K = \text{round}(\text{density} \times \text{kmax})$）。
+- **关键特性**：
+    - **长度恒定**：NPC 死亡后不会被移除，而是标记为 `alive=false` 并传送到屏外，保证 `traffic_cars` 数组长度不变。
+    - **可冻结性**：支持 `env.freeze_traffic(True)`，冻结后死亡槽位不再补齐，确保搜索过程的确定性。
+- **适用场景**：MCTS 规划、确定性状态回滚（Snapshot）、追求稳定交通压力的训练。
+
+### 配置示例
 
 ```python
 config = {
     'traffic_flow': True,
-    'traffic_density': 0.5, 
+    'traffic_mode': 'constant',  # 选项: 'stochastic', 'constant'
+    'traffic_density': 0.5,      # 密度/到达率
+    'traffic_kmax': 20,          # constant模式下的最大NPC数量上限
 }
 ```
 
 ### NPC 车辆行为
 
 NPC 车辆通过 C++ 后端驱动：
-- **横向控制**：基于路径的 PID 航向跟踪。
-- **纵向控制**：IDM (Intelligent Driver Model) 或 ACC 巡航，具备自动避障。
-- **生命周期**：NPC 之间发生碰撞或到达目的地后会自动移除。
+- **横向控制**：基于路径的 Pure Pursuit 增强型航向跟踪。
+- **纵向控制**：具备自动避障的巡航控制。
+- **生命周期**：
+    - `stochastic`：移除并释放内存。
+    - `constant`：重置状态并等待补齐（Refill）。
 
 ---
 

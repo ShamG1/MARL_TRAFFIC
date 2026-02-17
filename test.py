@@ -13,11 +13,21 @@ from core.env import ScenarioEnv, ROUTE_MAP_BY_SCENARIO
 # mapping: cross_2lane, cross_3lane, roundabout_2lane, roundabout_3lane,
 #          T_2lane, T_3lane, highway_2lane, 
 #          highway_4lane, onrampmerge_3lane, bottleneck
-
+# traffic_mode: 'constant' or 'stochastic'
+# traffic_density: 0.0 to 1.0
+# traffic_kmax: 0 to 20
+# num_agents: 1 to 10
+# scenario_name: see mapping above
+# render_mode: 'human' or 'rgb_array'
+# max_steps: 2000
+# respawn_enabled: True or False
+# show_lane_ids: True or False
+# show_lidar: True or False
 def main():
     config = {
         'traffic_flow': True,
         'traffic_density': 5,
+        'traffic_mode': 'stochastic',
         'num_agents': 1,
         'scenario_name': 'roundabout_3lane',
         'render_mode': 'human',
