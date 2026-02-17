@@ -35,19 +35,57 @@
 struct ObjMesh {
     struct Vertex { float x, y, z; };
     struct Face { int v[3]; };
+    struct Material {
+        float r, g, b;
+        std::string name;
+    };
+    
     std::vector<Vertex> vertices;
-    std::vector<Vertex> vert_normals; // Smooth normals per vertex
-    std::vector<Face> faces;
+    std::vector<Vertex> vert_normals; 
+    std::map<std::string, std::vector<Face>> material_groups;
+    std::map<std::string, Material> materials;
+    
     float center_x{0.0f}, center_y{0.0f}, center_z{0.0f};
     float scale{1.0f};
+
+    bool load_mtl(const std::string& path) {
+        std::ifstream f(path);
+        if (!f.is_open()) return false;
+        std::string line, cur_mtl;
+        while (std::getline(f, line)) {
+            std::istringstream s(line);
+            std::string cmd; s >> cmd;
+            if (cmd == "newmtl") {
+                s >> cur_mtl;
+                materials[cur_mtl] = {0.8f, 0.8f, 0.8f, cur_mtl};
+            } else if (cmd == "Kd" && !cur_mtl.empty()) {
+                s >> materials[cur_mtl].r >> materials[cur_mtl].g >> materials[cur_mtl].b;
+            }
+        }
+        return true;
+    }
 
     bool load(const std::string& path) {
         std::ifstream f(path);
         if (!f.is_open()) return false;
-        vertices.clear(); faces.clear(); vert_normals.clear();
+        
+        vertices.clear(); material_groups.clear(); vert_normals.clear(); materials.clear();
+        
+        std::string mtl_lib;
+        std::string cur_mtl = "default";
         std::string line;
         while (std::getline(f, line)) {
-            if (line.substr(0, 2) == "v ") {
+            if (line.substr(0, 7) == "mtllib ") {
+                mtl_lib = line.substr(7);
+                // Try to load mtl from same directory
+                size_t last_slash = path.find_last_of("/\\");
+                std::string dir = (last_slash != std::string::npos) ? path.substr(0, last_slash + 1) : "";
+                load_mtl(dir + mtl_lib);
+            } else if (line.substr(0, 7) == "usemtl ") {
+                cur_mtl = line.substr(7);
+                // Ensure the string is trimmed
+                cur_mtl.erase(cur_mtl.find_last_not_of(" \n\r\t") + 1);
+            } else if (line.substr(0, 2) == "v ") {
                 std::istringstream s(line.substr(2));
                 Vertex v; s >> v.x >> v.y >> v.z;
                 vertices.push_back(v);
@@ -63,7 +101,7 @@ struct ObjMesh {
                     } catch (...) {}
                 }
                 for (size_t i = 1; i + 1 < face_indices.size(); ++i) {
-                    faces.push_back({{face_indices[0], face_indices[i], face_indices[i+1]}});
+                    material_groups[cur_mtl].push_back({{face_indices[0], face_indices[i], face_indices[i+1]}});
                 }
             }
         }
@@ -85,13 +123,15 @@ struct ObjMesh {
 
         // Compute Smooth Vert Normals
         vert_normals.assign(vertices.size(), {0, 0, 0});
-        for (const auto& f : faces) {
-            const auto& v0 = vertices[f.v[0]], v1 = vertices[f.v[1]], v2 = vertices[f.v[2]];
-            float ax = v1.x - v0.x, ay = v1.y - v0.y, az = v1.z - v0.z;
-            float bx = v2.x - v0.x, by = v2.y - v0.y, bz = v2.z - v0.z;
-            float nx = ay * bz - az * by, ny = az * bx - ax * bz, nz = ax * by - ay * bx;
-            for (int i = 0; i < 3; ++i) {
-                vert_normals[f.v[i]].x += nx; vert_normals[f.v[i]].y += ny; vert_normals[f.v[i]].z += nz;
+        for (const auto& pair : material_groups) {
+            for (const auto& f : pair.second) {
+                const auto& v0 = vertices[f.v[0]], v1 = vertices[f.v[1]], v2 = vertices[f.v[2]];
+                float ax = v1.x - v0.x, ay = v1.y - v0.y, az = v1.z - v0.z;
+                float bx = v2.x - v0.x, by = v2.y - v0.y, bz = v2.z - v0.z;
+                float nx = ay * bz - az * by, ny = az * bx - ax * bz, nz = ax * by - ay * bx;
+                for (int i = 0; i < 3; ++i) {
+                    vert_normals[f.v[i]].x += nx; vert_normals[f.v[i]].y += ny; vert_normals[f.v[i]].z += nz;
+                }
             }
         }
         for (auto& n : vert_normals) {
@@ -101,24 +141,63 @@ struct ObjMesh {
         return true;
     }
 
-    void draw() const {
-        glBegin(GL_TRIANGLES);
-        for (const auto& f : faces) {
-            for (int i = 0; i < 3; ++i) {
-                const auto& n = vert_normals[f.v[i]];
-                glNormal3f(n.x, n.y, n.z);
-                const auto& v = vertices[f.v[i]];
-                glVertex3f(v.x - center_x, v.y - center_y, v.z - center_z);
+    void draw(float override_r = -1.0f, float override_g = -1.0f, float override_b = -1.0f) const {
+        for (const auto& pair : material_groups) {
+            const std::string& mtl_name = pair.first;
+            const auto& faces_vec = pair.second;
+
+            // Simple logic: if material name contains "body" or "paint", use override color
+            bool is_body = false;
+            std::string lower_name = mtl_name;
+            std::transform(lower_name.begin(), lower_name.end(), lower_name.begin(), ::tolower);
+            if (lower_name.find("body") != std::string::npos || 
+                lower_name.find("paint") != std::string::npos || 
+                lower_name.find("car_color") != std::string::npos ||
+                lower_name == "blue" ||
+                lower_name == "lightblue" ||
+                lower_name.rfind("material.", 0) == 0) {
+                is_body = true;
             }
+
+            if (is_body && override_r >= 0) {
+                glColor3f(override_r, override_g, override_b);
+            } else if (materials.count(mtl_name)) {
+                const auto& m = materials.at(mtl_name);
+                glColor3f(m.r, m.g, m.b);
+            } else {
+                // Fallback palette when .mtl is missing
+                if (lower_name == "black") {
+                    glColor3f(0.05f, 0.05f, 0.05f);
+                } else if (lower_name == "grey" || lower_name == "gray") {
+                    glColor3f(0.45f, 0.45f, 0.48f);
+                } else if (lower_name == "windows" || lower_name == "window" || lower_name == "glass") {
+                    glColor3f(0.25f, 0.32f, 0.38f);
+                } else if (lower_name == "headlights" || lower_name == "headlight") {
+                    glColor3f(0.95f, 0.95f, 0.85f);
+                } else if (lower_name == "taillights" || lower_name == "taillight") {
+                    glColor3f(0.85f, 0.12f, 0.12f);
+                } else {
+                    glColor3f(0.8f, 0.8f, 0.8f);
+                }
+            }
+
+            glBegin(GL_TRIANGLES);
+            for (const auto& f : faces_vec) {
+                for (int i = 0; i < 3; ++i) {
+                    const auto& n = vert_normals[f.v[i]];
+                    glNormal3f(n.x, n.y, n.z);
+                    const auto& v = vertices[f.v[i]];
+                    glVertex3f((v.x - center_x), (v.y - center_y), (v.z - center_z));
+                }
+            }
+            glEnd();
         }
-        glEnd();
     }
 };
 
 struct Renderer::Impl {
     GLFWwindow* window{nullptr};
-    ObjMesh mesh_ego;
-    ObjMesh mesh_npc;
+    ObjMesh mesh_car;
     bool meshes_loaded{false};
 
 
@@ -268,8 +347,7 @@ Renderer::Renderer() {
 #ifdef _WIN32
     std::replace(assets_dir.begin(), assets_dir.end(), '/', '\\');
 #endif
-    if (impl->mesh_ego.load(assets_dir + "NormalCar1.obj") &&
-        impl->mesh_npc.load(assets_dir + "NormalCar2.obj")) {
+    if (impl->mesh_car.load(assets_dir + "CAR.obj")) {
         impl->meshes_loaded = true;
     } else {
         std::cerr << "[Renderer] Warning: Failed to load car OBJ models from " << assets_dir << std::endl;
@@ -1197,11 +1275,10 @@ void Renderer::draw_cars(const ScenarioEnv& env) const{
             // Rotating -heading (in radians to degrees) + 90 degrees to align +X.
             glRotatef(car.state.heading * 57.29578f + 90.0f, 0, 1, 0);
             
-            const auto& mesh = npc ? impl->mesh_npc : impl->mesh_ego;
+            const auto& mesh = impl->mesh_car;
             glScalef(mesh.scale, mesh.scale, mesh.scale);
             
-            glColor3f(r, g, b);
-            mesh.draw();
+            mesh.draw(r, g, b);
             glPopMatrix();
         } else {
             // Fallback 3D Box if mesh failed to load
