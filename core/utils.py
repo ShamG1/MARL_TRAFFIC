@@ -8,7 +8,7 @@ LANE_WIDTH_PX = int(LANE_WIDTH_M * SCALE)
 
 
 
-OBS_DIM = 135
+OBS_DIM = 145
 
 # Default reward config (can be overridden via config dict)
 DEFAULT_REWARD_CONFIG = {

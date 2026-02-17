@@ -3,8 +3,8 @@
 Rendering is delegated to the C++ OpenGL/GLFW renderer.
 
 Notes:
-- Multi-agent mode: returns obs (N,135), rewards (N,), terminated, truncated, info.
-- traffic_flow mode (single-agent): returns obs (135,), reward scalar, terminated, truncated, info.
+- Multi-agent mode: returns obs (N,145), rewards (N,), terminated, truncated, info.
+- traffic_flow mode (single-agent): returns obs (145,), reward scalar, terminated, truncated, info.
 """
 from __future__ import annotations
 
@@ -186,7 +186,12 @@ class ScenarioEnv:
 
         # traffic flow (single ego + NPC)
         self.traffic_density = float(config.get("traffic_density", 0.5))
+        self.traffic_mode = config.get("traffic_mode", "stochastic")
+        self.traffic_kmax = int(config.get("traffic_kmax", 20))
+
         self.env.configure_traffic(self.traffic_flow, self.traffic_density)
+        self.env.set_traffic_mode(self.traffic_mode, self.traffic_kmax)
+
         traffic_routes = []
         for mp in mapping.values():
             for in_idx, out_idx in mp.items():
@@ -224,6 +229,20 @@ class ScenarioEnv:
         return obs, {}
 
     def _collect_obs(self) -> np.ndarray:
+        # Zero-copy fast path (C++ returns a NumPy view)
+        if hasattr(self.env, "get_observations_numpy"):
+            try:
+                obs = self.env.get_observations_numpy()
+                return np.asarray(obs, dtype=np.float32)
+            except Exception:
+                pass
+
+        # Fallback: flat buffer
+        if hasattr(self.env, "get_observations_flat"):
+            obs_flat = self.env.get_observations_flat()
+            return np.asarray(obs_flat, dtype=np.float32).reshape(-1, 145)
+
+        # Legacy fallback
         obs = self.env.get_observations()
         return np.asarray(obs, dtype=np.float32)
 
@@ -269,6 +288,10 @@ class ScenarioEnv:
         if self.traffic_flow:
             return obs[0], float(rewards[0]) if len(rewards) else 0.0, terminated, truncated, info
         return obs, rewards, terminated, truncated, info
+
+    def freeze_traffic(self, freeze: bool):
+        """Freeze/unfreeze NPC refills (useful for MCTS rollouts)."""
+        self.env.freeze_traffic(freeze)
 
     def render(self, show_lane_ids: bool | None = None, show_lidar: bool | None = None):
         if self.render_mode != "human":

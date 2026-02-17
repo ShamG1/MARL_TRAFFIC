@@ -52,6 +52,20 @@ public:
     bool traffic_flow{false};
     float traffic_density{0.5f};
 
+    enum class TrafficMode : int {
+        STOCHASTIC = 0, // arrival-rate spawn + erase (default)
+        CONSTANT = 1    // fixed-size NPC slots; no erase; optional refill
+    };
+
+    // Traffic behavior mode
+    TrafficMode traffic_mode{TrafficMode::STOCHASTIC};
+
+    // Maps traffic_density to fixed NPC slot count: K = round(traffic_density * traffic_kmax)
+    int traffic_kmax{20};
+
+    // When true in CONSTANT mode, do not refill dead NPC slots (useful for MCTS rollouts)
+    bool traffic_freeze{false};
+
     // State
     LaneLayout lane_layout;
     RoadGeometry geom;
@@ -85,6 +99,12 @@ public:
     // Enable/disable traffic flow and set density (arrival rate)
     void configure_traffic(bool enabled, float density);
 
+    // High-level traffic API: two modes for usability
+    // mode: "stochastic" (default) or "constant"
+    // kmax: maps density to fixed NPC slots K = round(density * kmax) when mode=="constant"
+    void set_traffic_mode(const std::string& mode, int kmax = 20);
+    void freeze_traffic(bool freeze);
+
     // Configure routes for NPCs from Python
     void configure_routes(const std::vector<std::pair<std::string, std::string>>& routes);
 
@@ -112,6 +132,15 @@ public:
                     float dt = DT_DEFAULT);
 
     std::vector<std::vector<float>> get_observations() const;
+
+    // Optimized API: Returns a flat contiguous buffer (num_agents * obs_dim).
+    // Exposed to Python as a NumPy array for fewer allocations/copies.
+    std::vector<float> get_observations_flat() const;
+
+    // Direct access to internal observation buffer for zero-copy
+    const float* get_obs_buffer_data() const { return obs_buffer.data(); }
+    size_t get_obs_buffer_size() const { return obs_buffer.size(); }
+    void update_observations_buffer();
 
     // CTDE: fixed-size centralized state for a given agent (ego + nearest-K egos).
     // Encoding uses ONLY ego agents (no NPCs).
@@ -153,4 +182,7 @@ private:
     bool is_spawn_blocked(float sx, float sy) const;
     bool is_arrived(const Car& car, float tol = 20.0f) const;
     bool is_out_of_screen(const Car& car, float margin = 100.0f) const;
+
+    // Persistent buffer for zero-copy observations
+    mutable std::vector<float> obs_buffer;
 };

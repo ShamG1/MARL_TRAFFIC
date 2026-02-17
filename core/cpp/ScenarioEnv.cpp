@@ -95,6 +95,9 @@ bool ScenarioEnv::load_scenario_bitmaps(const std::string& drivable_png,
     bitmap_lane = std::move(lane);
     use_bitmap_scenario = true;
 
+    // Precompute SDF for fast LiDAR raycasting
+    bitmap_road.compute_sdf();
+
     // Automatically rebuild lane layout for the loaded scenario.
     if (scenario_name.find("roundabout") != std::string::npos) {
         lane_layout = build_lane_layout_roundabout_cpp(num_lanes);
@@ -124,6 +127,21 @@ void ScenarioEnv::configure_traffic(bool enabled, float density) {
     traffic_flow = enabled;
     traffic_density = density;
     if (traffic_density < 0.0f) traffic_density = 0.0f;
+}
+
+void ScenarioEnv::set_traffic_mode(const std::string& mode, int kmax) {
+    if (mode == "constant") {
+        traffic_mode = TrafficMode::CONSTANT;
+    } else {
+        traffic_mode = TrafficMode::STOCHASTIC;
+    }
+
+    if (kmax < 0) kmax = 0;
+    traffic_kmax = kmax;
+}
+
+void ScenarioEnv::freeze_traffic(bool freeze) {
+    traffic_freeze = freeze;
 }
 
 void ScenarioEnv::configure_routes(const std::vector<std::pair<std::string, std::string>>& routes) {
@@ -492,39 +510,42 @@ StepResult ScenarioEnv::step(const std::vector<float>& throttles,
     if (max_steps > 0 && step_count >= max_steps) res.truncated = true;
 
     // lidar update (after potential respawns, so next obs sees respawned state)
-    // Include NPCs as dynamic obstacles when traffic_flow is enabled.
-    std::vector<Car> all_for_lidar;
-    if (traffic_flow) {
-        all_for_lidar.reserve(cars.size() + traffic_cars.size());
-        all_for_lidar.insert(all_for_lidar.end(), cars.begin(), cars.end());
-        all_for_lidar.insert(all_for_lidar.end(), traffic_cars.begin(), traffic_cars.end());
-    }
+    // Avoid merging vectors: pass egos and NPCs as separate lists.
+    static const std::vector<Car> kEmptyCars;
+
+    const std::vector<Car>& cars2 = traffic_flow ? traffic_cars : kEmptyCars;
 
     for (size_t i = 0; i < n; ++i) {
         if (!cars[i].alive) continue;
         if (use_bitmap_scenario) {
-            if (traffic_flow) {
-                lidars[i].update_bitmap(cars[i], all_for_lidar, bitmap_road, WIDTH, HEIGHT);
-            } else {
-                lidars[i].update_bitmap(cars[i], cars, bitmap_road, WIDTH, HEIGHT);
-            }
+            lidars[i].update_bitmap(cars[i], cars, cars2, bitmap_road, WIDTH, HEIGHT);
         } else {
-            if (traffic_flow) {
-                lidars[i].update(cars[i], all_for_lidar, geom, WIDTH, HEIGHT);
-            } else {
-                lidars[i].update(cars[i], cars, geom, WIDTH, HEIGHT);
-            }
+            lidars[i].update(cars[i], cars, cars2, geom, WIDTH, HEIGHT);
         }
     }
 
-    res.obs = get_observations();
+    // Fill observation buffer and slice to res.obs to guarantee 145-dim output.
+    update_observations_buffer();
+    const int kObsDim = 145;
+    res.obs.clear();
+    res.obs.reserve(cars.size());
+    for (size_t i = 0; i < cars.size(); ++i) {
+        const float* row = obs_buffer.data() + i * (size_t)kObsDim;
+        res.obs.emplace_back(row, row + kObsDim);
+    }
     return res;
 }
 
 EnvState ScenarioEnv::get_state() const {
     EnvState s;
-    s.cars = cars;
-    s.traffic_cars = traffic_cars;
+    s.cars.clear();
+    s.cars.reserve(cars.size());
+    for (const auto& c : cars) s.cars.push_back(c.get_dynamic_state());
+
+    s.traffic_cars.clear();
+    s.traffic_cars.reserve(traffic_cars.size());
+    for (const auto& c : traffic_cars) s.traffic_cars.push_back(c.get_dynamic_state());
+
     s.agent_ids = agent_ids;
     s.next_agent_id = next_agent_id;
     s.step_count = step_count;
@@ -532,13 +553,22 @@ EnvState ScenarioEnv::get_state() const {
 }
 
 void ScenarioEnv::set_state(const EnvState& s) {
-    cars = s.cars;
-    traffic_cars = s.traffic_cars;
+    // Only restore dynamic state; paths and intentions are assumed constant within an episode.
+    const size_t n = std::min(cars.size(), s.cars.size());
+    for (size_t i = 0; i < n; ++i) {
+        cars[i].set_dynamic_state(s.cars[i]);
+    }
+
+    const size_t tn = std::min(traffic_cars.size(), s.traffic_cars.size());
+    for (size_t i = 0; i < tn; ++i) {
+        traffic_cars[i].set_dynamic_state(s.traffic_cars[i]);
+    }
+
     agent_ids = s.agent_ids;
     next_agent_id = s.next_agent_id;
     step_count = s.step_count;
 
-    // Rebuild lidars to match car counts
+    // Rebuild lidars to match car counts (counts are assumed unchanged within an episode)
     lidars.clear();
     lidars.resize(cars.size());
     traffic_lidars.clear();
@@ -600,6 +630,175 @@ std::vector<float> ScenarioEnv::get_global_state(int agent_index, int k_nearest)
     }
 
     return out;
+}
+
+void ScenarioEnv::update_observations_buffer() {
+    const int kObsDim = 145;
+    const size_t n = cars.size();
+    if (obs_buffer.size() != n * (size_t)kObsDim) {
+        obs_buffer.assign(n * (size_t)kObsDim, 0.0f);
+    }
+
+    for (size_t i = 0; i < n; ++i) {
+        float* obs = &obs_buffer[i * (size_t)kObsDim];
+        std::fill(obs, obs + kObsDim, 0.0f);
+        if (!cars[i].alive) continue;
+
+        const float x = cars[i].state.x;
+        const float y = cars[i].state.y;
+        const float v = cars[i].state.v;
+        const float heading = cars[i].state.heading;
+
+        obs[0] = x / float(WIDTH);
+        obs[1] = y / float(HEIGHT);
+        obs[2] = v / PHYSICS_MAX_SPEED;
+        obs[3] = heading / PI_F;
+
+        float d_dst = 0.0f;
+        float theta_error = 0.0f;
+        if (!cars[i].path.empty()) {
+            int lookahead = 10;
+            int idx = cars[i].path_index;
+            int target_idx = std::min(idx + lookahead, int(cars[i].path.size()) - 1);
+            float tx = cars[i].path[target_idx].first;
+            float ty = cars[i].path[target_idx].second;
+
+            float dx_dest = tx - x;
+            float dy_dest = ty - y;
+            d_dst = std::sqrt(dx_dest * dx_dest + dy_dest * dy_dest) / float(WIDTH);
+
+            float angle_to_target = std::atan2(-dy_dest, dx_dest);
+            theta_error = wrap_angle_rad(angle_to_target - heading) / PI_F;
+        }
+        obs[4] = d_dst;
+        obs[5] = theta_error;
+
+        // --- Lane/Line features ---
+        const auto corners = cars[i].corners();
+        float off_road_count = 0.0f;
+        float line_hit_count = 0.0f;
+
+        for (const auto& p : corners) {
+            if (!geom.is_on_road(p.first, p.second)) off_road_count += 1.0f;
+            if (line_mask.is_line(int(p.first), int(p.second))) line_hit_count += 1.0f;
+        }
+
+        float cosH = std::cos(heading);
+        float sinH = -std::sin(heading);
+        float nx = -sinH;
+        float ny = cosH;
+
+        auto check_dist = [&](float dx, float dy, int max_steps) {
+            for (int s = 1; s <= max_steps; ++s) {
+                float cx = x + dx * s * 5.0f;
+                float cy = y + dy * s * 5.0f;
+                if (!geom.is_on_road(cx, cy)) return float(s * 5.0f) / 100.0f;
+            }
+            return 1.0f;
+        };
+
+        obs[6] = check_dist(nx, ny, 10);
+        obs[7] = check_dist(-nx, -ny, 10);
+        obs[8] = off_road_count / 4.0f;
+        obs[9] = line_hit_count / 4.0f;
+
+        float signed_cte = 0.0f;
+        float path_heading_err = 0.0f;
+        float in_lane = 0.0f;
+        float lane_id_norm = 0.0f;
+
+        if (!cars[i].path.empty()) {
+            const int idx = std::max(0, std::min(cars[i].path_index, int(cars[i].path.size()) - 1));
+            const int idx2 = std::min(idx + 5, int(cars[i].path.size()) - 1);
+            const float px = cars[i].path[idx].first;
+            const float py = cars[i].path[idx].second;
+            const float px2 = cars[i].path[idx2].first;
+            const float py2 = cars[i].path[idx2].second;
+            const float tx = px2 - px;
+            const float ty = py2 - py;
+            const float tnorm = std::sqrt(tx * tx + ty * ty);
+            if (tnorm > 1e-6f) {
+                const float ux = tx / tnorm;
+                const float uy = ty / tnorm;
+                const float dxp = x - px;
+                const float dyp = y - py;
+                signed_cte = std::max(-1.0f, std::min(1.0f, (ux * dyp - uy * dxp) / 50.0f));
+                path_heading_err = wrap_angle_rad(std::atan2(-uy, ux) - heading) / PI_F;
+            }
+        }
+
+        if (use_bitmap_scenario) {
+            const int li = bitmap_lane.at(int(x), int(y));
+            if (li > 0) { in_lane = 1.0f; lane_id_norm = float(li) / 255.0f; }
+        }
+
+        obs[10] = signed_cte;
+        obs[11] = path_heading_err;
+        obs[12] = in_lane;
+        obs[13] = lane_id_norm;
+
+        struct NeighborRef { float dist; const Car* car; };
+        std::vector<NeighborRef> neigh;
+        neigh.reserve((cars.size() > 0 ? cars.size() - 1 : 0) + (traffic_flow ? traffic_cars.size() : 0));
+
+        for (size_t j = 0; j < cars.size(); ++j) {
+            if (j == i) continue;
+            if (!cars[j].alive) continue;
+            float dx = cars[j].state.x - x;
+            float dy = cars[j].state.y - y;
+            float dist = std::sqrt(dx * dx + dy * dy);
+            neigh.push_back({dist, &cars[j]});
+        }
+
+        if (traffic_flow) {
+            for (const auto& npc : traffic_cars) {
+                if (!npc.alive) continue;
+                float dx = npc.state.x - x;
+                float dy = npc.state.y - y;
+                float dist = std::sqrt(dx * dx + dy * dy);
+                neigh.push_back({dist, &npc});
+            }
+        }
+
+        const size_t take = std::min<size_t>(NEIGHBOR_COUNT, neigh.size());
+        if (take > 0 && neigh.size() > take) {
+            std::nth_element(neigh.begin(), neigh.begin() + take, neigh.end(),
+                             [](const NeighborRef& a, const NeighborRef& b) { return a.dist < b.dist; });
+            neigh.resize(take);
+        }
+        std::sort(neigh.begin(), neigh.end(), [](const NeighborRef& a, const NeighborRef& b) { return a.dist < b.dist; });
+
+        size_t base = 14;
+        for (size_t k = 0; k < take; ++k) {
+            const Car* c = neigh[k].car;
+            float dx = (c->state.x - x) / float(WIDTH);
+            float dy = (c->state.y - y) / float(HEIGHT);
+            float dv = (c->state.v - v) / PHYSICS_MAX_SPEED;
+            float dtheta = wrap_angle_rad(c->state.heading - heading) / PI_F;
+            float rel_x = c->state.x - x;
+            float rel_y = c->state.y - y;
+
+            obs[base + 0] = dx;
+            obs[base + 1] = dy;
+            obs[base + 2] = dv;
+            obs[base + 3] = dtheta;
+            obs[base + 4] = float(c->intention);
+            obs[base + 5] = (rel_x * cosH - rel_y * sinH) / float(WIDTH);
+            obs[base + 6] = (rel_x * sinH + rel_y * cosH) / float(WIDTH);
+            base += 7;
+        }
+
+        const auto lidar_norm = lidars[i].normalized();
+        const size_t lidar_base = 14 + 7 * NEIGHBOR_COUNT;
+        for (size_t k = 0; k < lidar_norm.size() && (lidar_base + k) < (size_t)kObsDim; ++k) {
+            obs[lidar_base + k] = lidar_norm[k];
+        }
+    }
+}
+
+std::vector<float> ScenarioEnv::get_observations_flat() const {
+    const_cast<ScenarioEnv*>(this)->update_observations_buffer();
+    return obs_buffer;
 }
 
 std::vector<std::vector<float>> ScenarioEnv::get_observations() const {
@@ -719,9 +918,14 @@ std::vector<std::vector<float>> ScenarioEnv::get_observations() const {
             }
         }
 
+        const size_t take = std::min<size_t>(NEIGHBOR_COUNT, neigh.size());
+        if (take > 0 && neigh.size() > take) {
+            std::nth_element(neigh.begin(), neigh.begin() + take, neigh.end(),
+                             [](const NeighborRef& a, const NeighborRef& b) { return a.dist < b.dist; });
+            neigh.resize(take);
+        }
         std::sort(neigh.begin(), neigh.end(), [](const NeighborRef& a, const NeighborRef& b) { return a.dist < b.dist; });
 
-        const size_t take = std::min<size_t>(NEIGHBOR_COUNT, neigh.size());
         size_t base = 14; // Shifted from 6 to 14
         for (size_t k = 0; k < take; ++k) {
             const Car* c = neigh[k].car;

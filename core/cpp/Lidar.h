@@ -19,13 +19,14 @@ public:
 
     Lidar();
 
-    // Update for a given car; off-road is treated as obstacle via RoadGeometry
-    void update(const Car& self, const std::vector<Car>& cars, const RoadGeometry& geom,
-                int width = WIDTH, int height = HEIGHT);
+    // Update for a given car; off-road is treated as obstacle via RoadGeometry.
+    // Accepts two car lists (e.g., egos and NPCs) to avoid temporary vector merging.
+    void update(const Car& self, const std::vector<Car>& cars1, const std::vector<Car>& cars2,
+                const RoadGeometry& geom, int width = WIDTH, int height = HEIGHT);
 
     // Update for bitmap scenarios; road mask defines free space (at(x,y)>0 is drivable).
-    void update_bitmap(const Car& self, const std::vector<Car>& cars, const BitmapMask& road_mask,
-                       int width = WIDTH, int height = HEIGHT);
+    void update_bitmap(const Car& self, const std::vector<Car>& cars1, const std::vector<Car>& cars2,
+                       const BitmapMask& road_mask, int width = WIDTH, int height = HEIGHT);
 
     // Normalized readings (dist/max_dist)
     std::vector<float> normalized() const;

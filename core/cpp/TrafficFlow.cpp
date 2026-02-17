@@ -15,13 +15,7 @@ static inline float wrap_angle_rad_tf(float a) {
 // Helper: clamp index
 static inline size_t clamp_idx(size_t i, size_t n) { return (n == 0) ? 0 : (i < n ? i : (n - 1)); }
 
-// --- C++ port (incremental) of Scenario/agent.py::Car.plan_autonomous_action ---
-// 当前版本实现：
-// - 横向：路径 lookahead 的 heading_error * 3.0
-// - 纵向：巡航到 target_speed=PHYSICS_MAX_SPEED*0.6，并做前车跟车制动
-// - 鬼影路径扫描：检测Scenario冲突并分级制动（简化版）
 static inline std::pair<float, float> plan_npc_action_tf(const Car& npc, const std::vector<const Car*>& /*all_vehicles*/) {
-    // --- 1) 严格横向控制：Pure Pursuit 增强版 ---
     float steer_cmd = 0.0f;
     if (npc.path.size() >= 2) {
         const float x = npc.state.x;
@@ -29,7 +23,6 @@ static inline std::pair<float, float> plan_npc_action_tf(const Car& npc, const s
         const float heading = npc.state.heading;
         const float v = std::max(0.1f, npc.state.v);
 
-        // 增加前视距离以提前应对 90 度弯道
         const float Ld = std::max(40.0f, std::min(150.0f, 50.0f + 3.0f * v));
 
         int idx = std::max(0, npc.path_index);
@@ -45,21 +38,16 @@ static inline std::pair<float, float> plan_npc_action_tf(const Car& npc, const s
         const float tx = npc.path[target_idx].first;
         const float ty = npc.path[target_idx].second;
 
-        // 统一使用屏幕坐标系计算误差 (y 轴向下)
         const float dx = tx - x;
         const float dy = ty - y;
         const float angle_to_target = std::atan2(dy, dx);
         
-        // 关键点：Car::update 里的 position 更新是 y -= v*sin(h)，这对应数学坐标系
-        // 我们需要把屏幕坐标系的 angle_to_target 转换回车辆的数学坐标系
         const float target_heading_math = -angle_to_target; 
         const float heading_err = wrap_angle_rad_tf(target_heading_math - heading);
 
-        // 增加增益，使转向更灵敏
         steer_cmd = std::max(-1.0f, std::min(1.0f, heading_err * 8.0f));
     }
 
-    // --- 2) 纵向控制：更稳定的巡航 ---
     const float target_speed = PHYSICS_MAX_SPEED * 0.25f; 
     float acc_throttle = 0.0f;
     if (npc.state.v < target_speed) acc_throttle = 0.4f;
@@ -71,10 +59,7 @@ static inline std::pair<float, float> plan_npc_action_tf(const Car& npc, const s
 void ScenarioEnv::init_traffic_routes() {
     traffic_routes.clear();
 
-    // Merge scenario: allow traffic to also spawn from ramp.
-    // We rely on lane_layout providing an entry point "IN_RAMP_1" and RouteGen providing a valid path.
     if (scenario_name.find("merge") != std::string::npos) {
-        // Main road lanes (if any)
         auto it_in_e = lane_layout.in_by_dir.find("E");
         auto it_out_e = lane_layout.out_by_dir.find("E");
         if (it_in_e != lane_layout.in_by_dir.end() && it_out_e != lane_layout.out_by_dir.end()) {
@@ -85,18 +70,15 @@ void ScenarioEnv::init_traffic_routes() {
             }
         }
 
-        // Ramp -> lane 2 exit (weight = 10 to make it much more frequent)
         if (lane_layout.points.find("IN_RAMP_1") != lane_layout.points.end()) {
             for (int k = 0; k < 10; ++k) {
                 traffic_routes.emplace_back("IN_RAMP_1", "OUT_2");
             }
         }
-        
         return;
     }
 
     if (scenario_name.find("highway") != std::string::npos) {
-        // Highway: One-way straight-through routes (IN_i -> OUT_i)
         for (const auto& direction : lane_layout.dir_order) {
             auto it_in = lane_layout.in_by_dir.find(direction);
             auto it_out = lane_layout.out_by_dir.find(direction);
@@ -105,24 +87,16 @@ void ScenarioEnv::init_traffic_routes() {
             const auto& in_lanes = it_in->second;
             const auto& out_lanes = it_out->second;
 
-            // Log available lanes for debugging
-            std::cout << "[TrafficFlow] Init highway routes for dir=" << direction 
-                      << " in_size=" << in_lanes.size() << " out_size=" << out_lanes.size() << std::endl;
-
             for (size_t i = 0; i < in_lanes.size(); ++i) {
                 if (i < out_lanes.size()) {
                     traffic_routes.emplace_back(in_lanes[i], out_lanes[i]);
-                    std::cout << "[TrafficFlow]   Added route: " << in_lanes[i] << " -> " << out_lanes[i] << std::endl;
                 }
             }
         }
         return;
     }
 
-    // Mirror Scenario/env.py::_init_traffic_routes fallback (straight + left using lane indices)
-    // dir_order in python: ['N','E','S','W']
     const auto &dir_order = lane_layout.dir_order;
-
     const std::unordered_map<std::string, std::string> opposite = {
         {"N", "S"}, {"S", "N"}, {"E", "W"}, {"W", "E"}
     };
@@ -135,7 +109,6 @@ void ScenarioEnv::init_traffic_routes() {
         if (it_in == lane_layout.in_by_dir.end()) continue;
 
         const auto &in_lanes = it_in->second;
-
         auto it_straight_out = lane_layout.out_by_dir.find(opposite.at(direction));
         auto it_left_out = lane_layout.out_by_dir.find(left_turn.at(direction));
         const auto &straight_out_lanes = (it_straight_out != lane_layout.out_by_dir.end()) ? it_straight_out->second : std::vector<std::string>{};
@@ -159,23 +132,14 @@ void ScenarioEnv::init_traffic_routes() {
 }
 
 bool ScenarioEnv::is_spawn_blocked(float sx, float sy) const {
-    // 构造一个临时的探测车，用于精确碰撞检测
     Car probe;
     probe.state.x = sx;
     probe.state.y = sy;
     probe.state.v = 0.0f;
-    probe.state.heading = 0.0f; // 初始探测朝向，后面在 try_spawn 里会根据路径校准
+    probe.state.heading = 0.0f;
 
-    // 检查所有主车
-    for (const auto &c : cars) {
-        if (probe.check_collision(c)) return true;
-    }
-
-    // 检查所有 NPC 车
-    for (const auto &c : traffic_cars) {
-        if (probe.check_collision(c)) return true;
-    }
-
+    for (const auto &c : cars) if (probe.check_collision(c)) return true;
+    for (const auto &c : traffic_cars) if (probe.check_collision(c)) return true;
     return false;
 }
 
@@ -193,34 +157,50 @@ bool ScenarioEnv::is_out_of_screen(const Car &car, float margin) const {
     return false;
 }
 
-void ScenarioEnv::try_spawn_traffic_car() {
-    if (traffic_routes.empty()) return;
+static inline void teleport_offscreen(Car& npc) {
+    npc.alive = false;
+    npc.state.x = -1e6f;
+    npc.state.y = -1e6f;
+    npc.state.v = 0.0f;
+    npc.acc = 0.0f;
+    npc.steering_angle = 0.0f;
+    npc.path_index = 0;
+}
+
+static inline int compute_target_npc_count(float density, int kmax) {
+    if (kmax <= 0) return 0;
+    float d = std::max(0.0f, std::min(1.0f, density));
+    int k = int(std::lround(d * float(kmax)));
+    return std::max(0, std::min(k, kmax));
+}
+
+static bool spawn_traffic_car_into_slot(ScenarioEnv& env, size_t slot) {
+    if (env.traffic_routes.empty()) return false;
 
     static thread_local std::mt19937 rng{std::random_device{}()};
-    std::uniform_int_distribution<size_t> dist(0, traffic_routes.size() - 1);
+    std::uniform_int_distribution<size_t> dist(0, env.traffic_routes.size() - 1);
 
-    const auto &route = traffic_routes[dist(rng)];
-    const auto it = lane_layout.points.find(route.first);
-    if (it == lane_layout.points.end()) return;
+    const auto &route = env.traffic_routes[dist(rng)];
+    const auto it = env.lane_layout.points.find(route.first);
+    if (it == env.lane_layout.points.end()) return false;
 
     float sx = it->second.first;
     float sy = it->second.second;
 
-    // --- Generate path first to know the heading (also needed for forward offset direction) ---
     int intent = INTENT_STRAIGHT;
-    auto it_int = route_intents.find({route.first, route.second});
-    if (it_int != route_intents.end()) intent = it_int->second;
-    else intent = determine_intent(lane_layout, route.first, route.second);
+    auto it_int = env.route_intents.find({route.first, route.second});
+    if (it_int != env.route_intents.end()) intent = it_int->second;
+    else intent = determine_intent(env.lane_layout, route.first, route.second);
 
     std::vector<std::pair<float,float>> path;
-    if (scenario_name.find("roundabout") != std::string::npos) {
-        path = generate_path_roundabout_cpp(lane_layout, num_lanes, intent, route.first, route.second);
-    } else if (scenario_name.find("bottleneck") != std::string::npos) {
-        path = generate_path_bottleneck_cpp(lane_layout, num_lanes, route.first, route.second);
+    if (env.scenario_name.find("roundabout") != std::string::npos) {
+        path = generate_path_roundabout_cpp(env.lane_layout, env.num_lanes, intent, route.first, route.second);
+    } else if (env.scenario_name.find("bottleneck") != std::string::npos) {
+        path = generate_path_bottleneck_cpp(env.lane_layout, env.num_lanes, route.first, route.second);
     } else {
-        path = generate_path_cpp(lane_layout, num_lanes, intent, route.first, route.second);
+        path = generate_path_cpp(env.lane_layout, env.num_lanes, intent, route.first, route.second);
     }
-    if (path.size() < 2) return;
+    if (path.size() < 2) return false;
 
     auto is_blocked_with_heading = [&](float x, float y) {
         float dx = path[1].first - path[0].first;
@@ -233,8 +213,8 @@ void ScenarioEnv::try_spawn_traffic_car() {
         probe.state.v = 0.0f;
         probe.state.heading = h;
 
-        for (const auto &c : cars) if (probe.check_collision(c)) return true;
-        for (const auto &c : traffic_cars) if (probe.check_collision(c)) return true;
+        for (const auto &c : env.cars) if (probe.check_collision(c)) return true;
+        for (const auto &c : env.traffic_cars) if (probe.check_collision(c)) return true;
         return false;
     };
 
@@ -242,22 +222,17 @@ void ScenarioEnv::try_spawn_traffic_car() {
         float dx = path[1].first - path[0].first;
         float dy = path[1].second - path[0].second;
         float len = std::hypot(dx, dy);
-        if (len <= 1e-6f) return;
+        if (len <= 1e-6f) return false;
 
         float ax = sx + (dx / len) * (2.0f * CAR_LENGTH);
         float ay = sy + (dy / len) * (2.0f * CAR_LENGTH);
-        if (is_blocked_with_heading(ax, ay)) return;
+        if (is_blocked_with_heading(ax, ay)) return false;
 
         sx = ax;
         sy = ay;
     }
 
-    float heading = 0.0f;
-    {
-        float dx = path[1].first - path[0].first;
-        float dy = path[1].second - path[0].second;
-        heading = std::atan2(-dy, dx);
-    }
+    float heading = std::atan2(-(path[1].second - path[0].second), path[1].first - path[0].first);
 
     Car npc;
     npc.state.x = sx;
@@ -272,58 +247,107 @@ void ScenarioEnv::try_spawn_traffic_car() {
     npc.prev_dist_to_goal = 0.0f;
     npc.prev_action = {0.0f, 0.0f};
 
-    traffic_cars.push_back(std::move(npc));
-    traffic_lidars.emplace_back();
+    if (slot >= env.traffic_cars.size()) {
+        env.traffic_cars.resize(slot + 1);
+        env.traffic_lidars.resize(slot + 1);
+    }
+    env.traffic_cars[slot] = std::move(npc);
+    return true;
+}
+
+void ScenarioEnv::try_spawn_traffic_car() {
+    if (traffic_routes.empty()) return;
+    size_t new_slot = traffic_cars.size();
+    spawn_traffic_car_into_slot(*this, new_slot);
 }
 
 void ScenarioEnv::update_traffic_flow(float dt) {
     if (!traffic_flow) return;
 
-    // Spawn probability: 1 - exp(-arrival_rate * dt)
-    const float arrival_rate = traffic_density;
-    const float spawn_prob = 1.0f - std::exp(-arrival_rate * dt);
+    if (traffic_mode == TrafficMode::STOCHASTIC) {
+        const float arrival_rate = traffic_density;
+        const float spawn_prob = 1.0f - std::exp(-arrival_rate * dt);
+        static thread_local std::mt19937 rng{std::random_device{}()};
+        std::uniform_real_distribution<float> uni(0.0f, 1.0f);
 
-    static thread_local std::mt19937 rng{std::random_device{}()};
-    std::uniform_real_distribution<float> uni(0.0f, 1.0f);
+        if (uni(rng) < spawn_prob) {
+            try_spawn_traffic_car();
+        }
 
-    if (uni(rng) < spawn_prob) {
-        try_spawn_traffic_car();
+        std::vector<const Car*> all_vehicles;
+        all_vehicles.reserve(traffic_cars.size());
+        for (const auto& c : traffic_cars) all_vehicles.push_back(&c);
+
+        for (auto& npc : traffic_cars) {
+            if (!npc.alive) continue;
+            npc.update_path_index();
+            const auto action = plan_npc_action_tf(npc, all_vehicles);
+            npc.update(action.first, action.second, dt);
+            npc.update_path_index();
+        }
+
+        for (size_t i = 0; i < traffic_cars.size(); ++i) {
+            if (!traffic_cars[i].alive) continue;
+            for (size_t j = i + 1; j < traffic_cars.size(); ++j) {
+                if (!traffic_cars[j].alive) continue;
+                if (traffic_cars[i].check_collision(traffic_cars[j])) {
+                    traffic_cars[i].alive = false;
+                    traffic_cars[j].alive = false;
+                }
+            }
+        }
+
+        for (size_t i = 0; i < traffic_cars.size();) {
+            if (!traffic_cars[i].alive || is_arrived(traffic_cars[i], 20.0f) || is_out_of_screen(traffic_cars[i], 100.0f)) {
+                traffic_cars.erase(traffic_cars.begin() + long(i));
+                traffic_lidars.erase(traffic_lidars.begin() + long(i));
+                continue;
+            }
+            ++i;
+        }
+        return;
     }
 
-    // --- NPC Controller Update ---
-    // NPC planning ignores ego vehicles: only consider NPC traffic cars
+    const int K = compute_target_npc_count(traffic_density, traffic_kmax);
+    if (K <= 0) {
+        traffic_cars.clear();
+        traffic_lidars.clear();
+        return;
+    }
+
+    if ((int)traffic_cars.size() != K) {
+        traffic_cars.resize((size_t)K);
+        traffic_lidars.resize((size_t)K);
+        for (int i = 0; i < K; ++i) teleport_offscreen(traffic_cars[(size_t)i]);
+    }
+
+    if (!traffic_freeze) {
+        for (int i = 0; i < K; ++i) {
+            if (!traffic_cars[(size_t)i].alive) spawn_traffic_car_into_slot(*this, (size_t)i);
+        }
+    }
+
     std::vector<const Car*> all_vehicles;
     all_vehicles.reserve(traffic_cars.size());
-    for (const auto& c : traffic_cars) all_vehicles.push_back(&c);
+    for (const auto& c : traffic_cars) if (c.alive) all_vehicles.push_back(&c);
 
     for (auto& npc : traffic_cars) {
         if (!npc.alive) continue;
-
         npc.update_path_index();
         const auto action = plan_npc_action_tf(npc, all_vehicles);
         npc.update(action.first, action.second, dt);
         npc.update_path_index();
+        if (is_arrived(npc, 20.0f) || is_out_of_screen(npc, 100.0f)) teleport_offscreen(npc);
     }
 
-    // --- NPC-NPC collision: remove both (match Scenario/env.py behavior) ---
     for (size_t i = 0; i < traffic_cars.size(); ++i) {
         if (!traffic_cars[i].alive) continue;
         for (size_t j = i + 1; j < traffic_cars.size(); ++j) {
             if (!traffic_cars[j].alive) continue;
             if (traffic_cars[i].check_collision(traffic_cars[j])) {
-                traffic_cars[i].alive = false;
-                traffic_cars[j].alive = false;
+                teleport_offscreen(traffic_cars[i]);
+                teleport_offscreen(traffic_cars[j]);
             }
         }
-    }
-
-    // Remove arrived / out-of-screen / collided
-    for (size_t i = 0; i < traffic_cars.size();) {
-        if (!traffic_cars[i].alive || is_arrived(traffic_cars[i], 20.0f) || is_out_of_screen(traffic_cars[i], 100.0f)) {
-            traffic_cars.erase(traffic_cars.begin() + long(i));
-            traffic_lidars.erase(traffic_lidars.begin() + long(i));
-            continue;
-        }
-        ++i;
     }
 }

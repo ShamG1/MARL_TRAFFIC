@@ -13,6 +13,17 @@ struct State {
     float heading{0.0f}; // radians
 };
 
+// Lightweight dynamic state for snapshots/MCTS
+struct CarDynamicState {
+    State state;
+    float acc{0.0f};
+    float steering_angle{0.0f};
+    bool alive{true};
+    int path_index{0};
+    float prev_dist_to_goal{0.0f};
+    std::pair<float, float> prev_action{0.0f, 0.0f};
+};
+
 class Car {
 public:
     State state;
@@ -43,4 +54,18 @@ public:
     void update_path_index();
 
     void respawn();
+
+    // Snapshot helpers
+    CarDynamicState get_dynamic_state() const {
+        return {state, acc, steering_angle, alive, path_index, prev_dist_to_goal, prev_action};
+    }
+    void set_dynamic_state(const CarDynamicState& ds) {
+        state = ds.state;
+        acc = ds.acc;
+        steering_angle = ds.steering_angle;
+        alive = ds.alive;
+        path_index = ds.path_index;
+        prev_dist_to_goal = ds.prev_dist_to_goal;
+        prev_action = ds.prev_action;
+    }
 };

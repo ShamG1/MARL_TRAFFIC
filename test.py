@@ -17,9 +17,9 @@ from core.env import ScenarioEnv, ROUTE_MAP_BY_SCENARIO
 def main():
     config = {
         'traffic_flow': True,
-        'traffic_density': 1,
+        'traffic_density': 5,
         'num_agents': 1,
-        'scenario_name': 'bottleneck',
+        'scenario_name': 'roundabout_3lane',
         'render_mode': 'human',
         'max_steps': 2000,
         'respawn_enabled': True,

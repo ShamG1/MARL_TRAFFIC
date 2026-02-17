@@ -1,5 +1,6 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
+#include <pybind11/numpy.h>
 #include "Car.h"
 #include "ScenarioEnv.h"
 #include "Lidar.h"
@@ -74,12 +75,27 @@ PYBIND11_MODULE(DRIVESIMX_ENV, m) {
         .def("set_route_intents", &ScenarioEnv::set_route_intents, py::arg("items"))
         .def("configure", &ScenarioEnv::configure, py::arg("use_team"), py::arg("respawn"), py::arg("max_steps"))
         .def("configure_traffic", &ScenarioEnv::configure_traffic, py::arg("enabled"), py::arg("density"))
+        .def("set_traffic_mode", &ScenarioEnv::set_traffic_mode, py::arg("mode"), py::arg("kmax") = 20)
+        .def("freeze_traffic", &ScenarioEnv::freeze_traffic, py::arg("freeze"))
         .def("configure_routes", &ScenarioEnv::configure_routes, py::arg("routes"))
         .def("reset", &ScenarioEnv::reset)
         .def("add_car_with_route", &ScenarioEnv::add_car_with_route, py::arg("start_id"), py::arg("end_id"))
         .def("load_scenario_bitmaps", &ScenarioEnv::load_scenario_bitmaps, py::arg("drivable_png"), py::arg("yellowline_png"), py::arg("dash_png"), py::arg("lane_id_png"))
         .def("step", &ScenarioEnv::step, py::arg("throttles"), py::arg("steerings"), py::arg("dt") = 1.0/60.0)
         .def("get_observations", &ScenarioEnv::get_observations)
+        .def("get_observations_flat", &ScenarioEnv::get_observations_flat)
+        .def("get_observations_numpy", [](ScenarioEnv& env) {
+            env.update_observations_buffer();
+            const size_t n = env.cars.size();
+            const int obs_dim = 145;
+            auto base = py::cast(&env);
+            return py::array_t<float>(
+                {static_cast<py::ssize_t>(n), static_cast<py::ssize_t>(obs_dim)},
+                {static_cast<py::ssize_t>(obs_dim * sizeof(float)), static_cast<py::ssize_t>(sizeof(float))},
+                env.get_obs_buffer_data(),
+                base
+            );
+        })
         .def("get_global_state", &ScenarioEnv::get_global_state, py::arg("agent_index"), py::arg("k_nearest") = 3)
         .def("get_state", &ScenarioEnv::get_state)
         .def("set_state", &ScenarioEnv::set_state, py::arg("state"))
