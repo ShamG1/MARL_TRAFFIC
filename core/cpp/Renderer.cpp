@@ -1300,11 +1300,11 @@ void Renderer::draw_route(const ScenarioEnv& env) const{
     const float ex = ego.state.x;
     const float ey = ego.state.y;
 
-    // Colors
-    const float ego_ego_r = 0.0f, ego_ego_g = 0.90f, ego_ego_b = 1.0f, ego_ego_a = 0.45f;
-    const float ego_npc_r = 1.0f, ego_npc_g = 0.85f, ego_npc_b = 0.10f, ego_npc_a = 0.30f;
+    // Colors (Dark Red)
+    const float ego_ego_r = 0.55f, ego_ego_g = 0.0f, ego_ego_b = 0.0f, ego_ego_a = 0.60f;
+    const float ego_npc_r = 0.45f, ego_npc_g = 0.0f, ego_npc_b = 0.0f, ego_npc_a = 0.45f;
 
-    glLineWidth(1.5f);
+    glLineWidth(6.0f);
 
     if (impl->view_mode == VIEW_2D) {
         // Ego -> other egos
@@ -1410,9 +1410,9 @@ void Renderer::draw_connections(const ScenarioEnv& env) const {
     const float ex = ego.state.x;
     const float ey = ego.state.y;
 
-    // Colors
-    const float ego_ego_r = 0.0f, ego_ego_g = 0.90f, ego_ego_b = 1.0f, ego_ego_a = 0.45f;
-    const float ego_npc_r = 1.0f, ego_npc_g = 0.85f, ego_npc_b = 0.10f, ego_npc_a = 0.30f;
+    // Colors (Dark Red)
+    const float ego_ego_r = 0.55f, ego_ego_g = 0.0f, ego_ego_b = 0.0f, ego_ego_a = 0.60f;
+    const float ego_npc_r = 0.45f, ego_npc_g = 0.0f, ego_npc_b = 0.0f, ego_npc_a = 0.45f;
 
     glLineWidth(1.5f);
 
