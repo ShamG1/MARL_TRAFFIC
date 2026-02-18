@@ -29,12 +29,10 @@ def main():
         'traffic_density': 2,
         'traffic_mode': 'stochastic',
         'num_agents': 1,
-        'scenario_name': 'T_3lane',
+        'scenario_name': 'roundabout_3lane',
         'render_mode': 'human',
         'max_steps': 2000,
         'respawn_enabled': True,
-        'show_lane_ids': False,
-        'show_lidar': False,
     }
 
     env = ScenarioEnv(config)
@@ -54,7 +52,28 @@ def main():
     def choose_random_route():
         return random.choice(all_routes)
 
-    env.ego_routes = [choose_random_route()]
+    def choose_diverse_routes(num_agents: int):
+        # Prefer unique start points (IN_*) so agents spawn in different lanes/entries when possible
+        routes_by_in = {}
+        for s, e in all_routes:
+            routes_by_in.setdefault(s, []).append((s, e))
+
+        in_ids = list(routes_by_in.keys())
+        random.shuffle(in_ids)
+
+        chosen = []
+        for in_id in in_ids:
+            chosen.append(random.choice(routes_by_in[in_id]))
+            if len(chosen) >= num_agents:
+                break
+
+        # If we still need more (num_agents > unique INs), fill the rest randomly
+        while len(chosen) < num_agents:
+            chosen.append(choose_random_route())
+
+        return chosen
+
+    env.ego_routes = choose_diverse_routes(env.num_agents)
     obs, info = env.reset()
 
     print("=" * 60)
@@ -63,33 +82,33 @@ def main():
     print("Controls:")
     print("  UP/DOWN arrows: Throttle")
     print("  LEFT/RIGHT arrows: Steering")
-    print("  R: Reset environment with a new random route")
-    print("  L: Toggle Lidar visualization")
+    print("  R: Reset environment with new diverse routes")
+    print("  TAB: Cycle controlled agent (control follows view)")
     print("  ESC/Q: Quit")
     print("=" * 60)
 
     total_reward = 0.0
     running = True
-    show_lidar = config.get('show_lidar', False)
     print_obs = False
+    controlled_idx = 0
 
     # GLFW key codes (same as GLFW_KEY_*)
     KEY_UP = 265
     KEY_DOWN = 264
     KEY_LEFT = 263
     KEY_RIGHT = 262
+    KEY_TAB = 258
     KEY_R = 82
-    KEY_L = 76
     KEY_O = 79
     KEY_V = 86
     KEY_Q = 81
     KEY_ESC = 256
 
     # One-time: make sure render window is created before polling keys
-    env.render(show_lane_ids=config.get('show_lane_ids', False), show_lidar=show_lidar)
+    env.render()
 
-    last_toggle_l = 0.0
     last_toggle_o = 0.0
+    last_toggle_tab = 0.0
 
     target_dt = 1.0 / 60.0
     last_t = time.perf_counter()
@@ -134,15 +153,18 @@ def main():
         # Edge-trigger toggles
         now = time.time()
         if env.env.key_pressed(KEY_R):
-            env.ego_routes = [choose_random_route()]
+            env.ego_routes = choose_diverse_routes(env.num_agents)
             obs, info = env.reset()
             total_reward = 0.0
-            print(f"Environment reset! New route: {env.ego_routes[0]}, intention: {ego_intention_label()}")
+            print(f"Environment reset! Routes: {env.ego_routes}, intention: {ego_intention_label()}")
             time.sleep(0.15)
 
-        if env.env.key_pressed(KEY_L) and (now - last_toggle_l) > 0.2:
-            show_lidar = not show_lidar
-            last_toggle_l = now
+
+        if env.env.key_pressed(KEY_TAB) and (now - last_toggle_tab) > 0.2:
+            controlled_idx = (controlled_idx + 1) % env.num_agents
+            last_toggle_tab = now
+            print(f"Controlled agent switched to: {controlled_idx}")
+            time.sleep(0.15)
 
         if env.env.key_pressed(KEY_O) and (now - last_toggle_o) > 0.2:
             print_obs = not print_obs
@@ -171,7 +193,10 @@ def main():
         throttle = 0.3 if env.env.key_pressed(KEY_UP) else -0.5 if env.env.key_pressed(KEY_DOWN) else 0.0
         steer = 1.0 if env.env.key_pressed(KEY_LEFT) else -1.0 if env.env.key_pressed(KEY_RIGHT) else 0.0
 
-        action = np.array([throttle, steer], dtype=np.float32)
+        # Build multi-agent action array: control selected agent via keyboard, others idle
+        action = np.zeros((env.num_agents, 2), dtype=np.float32)
+        action[controlled_idx, 0] = throttle
+        action[controlled_idx, 1] = steer
 
         # Advance simulation time using real elapsed time, but integrate with fixed substeps
         remaining = frame_dt
@@ -184,8 +209,8 @@ def main():
             dt = remaining if remaining < target_dt else target_dt
             remaining -= dt
             obs, r, terminated, truncated, info = env.step(action, dt=dt)
-            reward += float(r)
-        total_reward += float(reward)
+            reward += float(np.sum(r))
+        total_reward += reward
         done = terminated or truncated
 
         if print_obs:
@@ -194,11 +219,11 @@ def main():
 
         if done:
             print(f"Episode ended: {info.get('collisions', {})}, Total Reward: {total_reward:.4f}")
-            env.ego_routes = [choose_random_route()]
+            env.ego_routes = choose_diverse_routes(env.num_agents)
             obs, info = env.reset()
             total_reward = 0.0
 
-        env.render(show_lane_ids=config.get('show_lane_ids', False), show_lidar=show_lidar)
+        env.render()
 
         # No pygame overlay; HUD handled by C++ renderer
 

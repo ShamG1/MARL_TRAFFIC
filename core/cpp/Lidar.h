@@ -12,7 +12,7 @@ public:
     int rays{72};
     float fov_deg{360.0f};
     float max_dist{250.0f};
-    float step_size{4.0f};
+    float step_size{1.0f};
 
     std::vector<float> distances;
     std::vector<float> rel_angles; // radians

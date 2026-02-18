@@ -220,6 +220,14 @@ class ScenarioEnv:
 
     def reset(self):
         self.env.reset()
+
+        # Ensure ego_routes length matches num_agents
+        if not self.ego_routes:
+            raise RuntimeError("ego_routes is empty; cannot reset environment")
+        if len(self.ego_routes) < self.num_agents:
+            # Cycle routes if fewer routes than agents
+            self.ego_routes = [self.ego_routes[i % len(self.ego_routes)] for i in range(self.num_agents)]
+
         for i in range(self.num_agents):
             start_id, end_id = self.ego_routes[i]
             self.env.add_car_with_route(start_id, end_id)

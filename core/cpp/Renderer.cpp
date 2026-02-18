@@ -249,6 +249,8 @@ struct Renderer::Impl {
     // Perception visualization
     int selected_agent_idx{0};
     bool show_connections{false};
+    bool show_lidar{false};
+    bool show_lane_ids{false};
 
     // Bitmap background texture cache
     bool bg_tex_valid{false};
@@ -825,7 +827,25 @@ void Renderer::render(const ScenarioEnv& env, bool show_lane_ids, bool show_lida
     }
     c_was_down = c_is_down;
 
+    // Toggle Lidar via 'L' key
+    static bool l_was_down = false;
+    bool l_is_down = glfwGetKey(impl->window, GLFW_KEY_L) == GLFW_PRESS;
+    if (l_is_down && !l_was_down) {
+        impl->show_lidar = !impl->show_lidar;
+    }
+    l_was_down = l_is_down;
+
+    // Toggle Lane IDs via 'I' key
+    static bool i_was_down = false;
+    bool i_is_down = glfwGetKey(impl->window, GLFW_KEY_I) == GLFW_PRESS;
+    if (i_is_down && !i_was_down) {
+        impl->show_lane_ids = !impl->show_lane_ids;
+    }
+    i_was_down = i_is_down;
+
     bool connections_active = show_connections || impl->show_connections;
+    bool lidar_active = show_lidar || impl->show_lidar;
+    bool lane_ids_active = show_lane_ids || impl->show_lane_ids;
 
     static bool first_render_log = false;
     int win_w, win_h;
@@ -1001,10 +1021,10 @@ void Renderer::render(const ScenarioEnv& env, bool show_lane_ids, bool show_lida
     draw_route(env);
     if(connections_active) draw_connections(env);
     draw_cars(env);
-    if(show_lidar) draw_lidar(env);
+    if(lidar_active) draw_lidar(env);
 
 #ifdef _WIN32
-    if(show_lane_ids){
+    if(lane_ids_active){
         gdi_begin_frame(full_w, full_h);
         draw_lane_ids(env);
         gdi_end_frame();
@@ -1014,7 +1034,7 @@ void Renderer::render(const ScenarioEnv& env, bool show_lane_ids, bool show_lida
         imgui->new_frame();
     }
 
-    if (show_lane_ids) {
+    if (lane_ids_active) {
         draw_lane_ids(env);
     }
 
@@ -1278,112 +1298,9 @@ void Renderer::draw_hud(const ScenarioEnv& env) const {
 
 // ROUTE ---------------------------------------------------
 void Renderer::draw_route(const ScenarioEnv& env) const{
-    if(!impl) return;
-
-    const int n = (int)env.cars.size();
-    if (n <= 0) return;
-
-    int idx = impl->selected_agent_idx;
-    if (idx < 0) idx = 0;
-    if (idx >= n) idx = n - 1;
-
-    const Car& ego = env.cars[(size_t)idx];
-    if (!ego.alive) return;
-
-    float max_dist = 250.0f;
-    if ((size_t)idx < env.lidars.size()) {
-        max_dist = env.lidars[(size_t)idx].max_dist;
-        if (!(max_dist > 1.0f)) max_dist = 250.0f;
-    }
-    const float max_d2 = max_dist * max_dist;
-
-    const float ex = ego.state.x;
-    const float ey = ego.state.y;
-
-    // Colors (Dark Red)
-    const float ego_ego_r = 0.55f, ego_ego_g = 0.0f, ego_ego_b = 0.0f, ego_ego_a = 0.60f;
-    const float ego_npc_r = 0.45f, ego_npc_g = 0.0f, ego_npc_b = 0.0f, ego_npc_a = 0.45f;
-
-    glLineWidth(6.0f);
-
-    if (impl->view_mode == VIEW_2D) {
-        // Ego -> other egos
-        glColor4f(ego_ego_r, ego_ego_g, ego_ego_b, ego_ego_a);
-        glBegin(GL_LINES);
-        for (int j = 0; j < n; ++j) {
-            if (j == idx) continue;
-            const Car& other = env.cars[(size_t)j];
-            if (!other.alive) continue;
-            const float dx = other.state.x - ex;
-            const float dy = other.state.y - ey;
-            if (dx * dx + dy * dy > max_d2) continue;
-            glVertex2f(ndc_x(ex, impl->v_min_x, impl->v_max_x), ndc_y(ey, impl->v_min_y, impl->v_max_y));
-            glVertex2f(ndc_x(other.state.x, impl->v_min_x, impl->v_max_x), ndc_y(other.state.y, impl->v_min_y, impl->v_max_y));
-        }
-        glEnd();
-
-        // Ego -> NPCs
-        if (env.traffic_flow) {
-            glColor4f(ego_npc_r, ego_npc_g, ego_npc_b, ego_npc_a);
-            glBegin(GL_LINES);
-            for (const auto& npc : env.traffic_cars) {
-                if (!npc.alive) continue;
-                const float dx = npc.state.x - ex;
-                const float dy = npc.state.y - ey;
-                if (dx * dx + dy * dy > max_d2) continue;
-                glVertex2f(ndc_x(ex, impl->v_min_x, impl->v_max_x), ndc_y(ey, impl->v_min_y, impl->v_max_y));
-                glVertex2f(ndc_x(npc.state.x, impl->v_min_x, impl->v_max_x), ndc_y(npc.state.y, impl->v_min_y, impl->v_max_y));
-            }
-            glEnd();
-        }
-
-        // Highlight selected ego
-        draw_circle_px(ex, ey, 10.0f, 24, 1.0f, 1.0f, 1.0f, impl->v_min_x, impl->v_max_x, impl->v_min_y, impl->v_max_y);
-    } else {
-        // 3D: draw on ground plane
-        glDisable(GL_LIGHTING);
-
-        glColor4f(ego_ego_r, ego_ego_g, ego_ego_b, ego_ego_a);
-        glBegin(GL_LINES);
-        for (int j = 0; j < n; ++j) {
-            if (j == idx) continue;
-            const Car& other = env.cars[(size_t)j];
-            if (!other.alive) continue;
-            const float dx = other.state.x - ex;
-            const float dy = other.state.y - ey;
-            if (dx * dx + dy * dy > max_d2) continue;
-            glVertex3f(ex, -0.33f, ey);
-            glVertex3f(other.state.x, -0.33f, other.state.y);
-        }
-        glEnd();
-
-        if (env.traffic_flow) {
-            glColor4f(ego_npc_r, ego_npc_g, ego_npc_b, ego_npc_a);
-            glBegin(GL_LINES);
-            for (const auto& npc : env.traffic_cars) {
-                if (!npc.alive) continue;
-                const float dx = npc.state.x - ex;
-                const float dy = npc.state.y - ey;
-                if (dx * dx + dy * dy > max_d2) continue;
-                glVertex3f(ex, -0.33f, ey);
-                glVertex3f(npc.state.x, -0.33f, npc.state.y);
-            }
-            glEnd();
-        }
-
-        // Highlight selected ego (small ring)
-        glColor4f(1.0f, 1.0f, 1.0f, 0.85f);
-        const int seg = 32;
-        const float rad = 6.0f;
-        glBegin(GL_LINE_LOOP);
-        for (int i = 0; i < seg; ++i) {
-            const float a = (float)i / (float)seg * 6.28318530718f;
-            glVertex3f(ex + std::cos(a) * rad, -0.32f, ey + std::sin(a) * rad);
-        }
-        glEnd();
-
-        glEnable(GL_LIGHTING);
-    }
+    (void)env;
+    // Intentionally left empty: route/navigation visualization is not implemented yet.
+    // This function previously drew ego-to-other-agent connection lines, which is now handled by draw_connections().
 }
 
 // CONNECTIONS ---------------------------------------------
@@ -1414,7 +1331,7 @@ void Renderer::draw_connections(const ScenarioEnv& env) const {
     const float ego_ego_r = 0.55f, ego_ego_g = 0.0f, ego_ego_b = 0.0f, ego_ego_a = 0.60f;
     const float ego_npc_r = 0.45f, ego_npc_g = 0.0f, ego_npc_b = 0.0f, ego_npc_a = 0.45f;
 
-    glLineWidth(1.5f);
+    glLineWidth(7.0f); // Increased thickness
 
     if (impl->view_mode == VIEW_2D) {
         // Ego -> other egos
@@ -1446,12 +1363,10 @@ void Renderer::draw_connections(const ScenarioEnv& env) const {
             }
             glEnd();
         }
-
-        // Highlight selected ego
-        draw_circle_px(ex, ey, 10.0f, 24, 1.0f, 1.0f, 1.0f, impl->v_min_x, impl->v_max_x, impl->v_min_y, impl->v_max_y);
     } else {
         // 3D: draw on ground plane
         glDisable(GL_LIGHTING);
+        glLineWidth(2.5f);
 
         glColor4f(ego_ego_r, ego_ego_g, ego_ego_b, ego_ego_a);
         glBegin(GL_LINES);
@@ -1480,23 +1395,9 @@ void Renderer::draw_connections(const ScenarioEnv& env) const {
             }
             glEnd();
         }
-
-        // Highlight selected ego (small ring)
-        glColor4f(1.0f, 1.0f, 1.0f, 0.85f);
-        const int seg = 32;
-        const float rad = 6.0f;
-        glBegin(GL_LINE_LOOP);
-        for (int i = 0; i < seg; ++i) {
-            const float a = (float)i / (float)seg * 6.28318530718f;
-            glVertex3f(ex + std::cos(a) * rad, -0.32f, ey + std::sin(a) * rad);
-        }
-        glEnd();
-
         glEnable(GL_LIGHTING);
     }
 }
-
-// CONNECTIONS ---------------------------------------------
 
 // ROUTE ---------------------------------------------------
 

@@ -1,6 +1,13 @@
 #include "Lidar.h"
 #include <algorithm>
 
+struct CachedCar {
+    float x, y;
+    float cosH, sinH;
+    float hl, hw;
+    float radius_sq;
+};
+
 Lidar::Lidar() {
     distances.assign(rays, max_dist);
     rel_angles.clear();
@@ -13,6 +20,35 @@ Lidar::Lidar() {
     }
 }
 
+// Final fixed version of the analytic intersection
+static float ray_obb_intersect_final(float rox, float roy, float rdx, float rdy,
+                                     const CachedCar& c, float max_dist) {
+    float lox = rox * c.cosH - roy * c.sinH;
+    float loy = rox * c.sinH + roy * c.cosH;
+    float ldx = rdx * c.cosH - rdy * c.sinH;
+    float ldy = rdx * c.sinH + rdy * c.cosH;
+    
+    float t_min = 0.0f;
+    float t_max = max_dist;
+    
+    auto slab = [&](float o, float d, float h) {
+        if (std::abs(d) < 1e-6f) {
+            return std::abs(o) <= h;
+        }
+        float t1 = (-h - o) / d;
+        float t2 = (h - o) / d;
+        if (t1 > t2) std::swap(t1, t2);
+        t_min = std::max(t_min, t1);
+        t_max = std::min(t_max, t2);
+        return t_min <= t_max;
+    };
+
+    if (!slab(lox, ldx, c.hl)) return max_dist;
+    if (!slab(loy, ldy, c.hw)) return max_dist;
+    
+    return (t_min > 0.1f) ? t_min : max_dist;
+}
+
 void Lidar::update(const Car& self, const std::vector<Car>& cars1, const std::vector<Car>& cars2,
                    const RoadGeometry& geom, int width, int height) {
     if ((int)distances.size() != rays) distances.assign(rays, max_dist);
@@ -21,65 +57,52 @@ void Lidar::update(const Car& self, const std::vector<Car>& cars1, const std::ve
     const float cy = self.state.y;
     const float heading = self.state.heading;
 
-    auto check_cars = [&](const std::vector<Car>& car_list, float check_x, float check_y) {
-        for (const auto& c : car_list) {
-                    if (&c == &self) continue;
-            // Additional logical check to skip self even if passed as a copy
-                    if (std::fabs(c.state.x - self.state.x) < 1e-3f &&
-                        std::fabs(c.state.y - self.state.y) < 1e-3f &&
-                        std::fabs(c.state.heading - self.state.heading) < 1e-3f) {
-                        continue;
-                    }
-
-                    const float cosA = std::cos(c.state.heading);
-                    const float sinA = std::sin(c.state.heading);
-                    const float hl = c.length * 0.5f;
-                    const float hw = c.width * 0.5f;
-
-                    const float ex = std::fabs(cosA) * hl + std::fabs(sinA) * hw;
-                    const float ey = std::fabs(sinA) * hl + std::fabs(cosA) * hw;
-
-                    if (float(check_x) >= c.state.x - ex && float(check_x) <= c.state.x + ex &&
-                        float(check_y) >= c.state.y - ey && float(check_y) <= c.state.y + ey) {
-                return true;
-                }
-            }
-        return false;
+    std::vector<CachedCar> cached;
+    cached.reserve(cars1.size() + cars2.size());
+    auto build_cache = [&](const std::vector<Car>& list) {
+        for (const auto& c : list) {
+            if (&c == &self) continue;
+            if (std::abs(c.state.x - cx) < 1e-3f && std::abs(c.state.y - cy) < 1e-3f) continue;
+            float hl = c.length * 0.5f;
+            float hw = c.width * 0.5f;
+            cached.push_back({
+                c.state.x, c.state.y,
+                std::cos(c.state.heading), std::sin(c.state.heading),
+                hl, hw,
+                (hl * hl + hw * hw) * 1.1f // margin
+            });
+        }
     };
+    build_cache(cars1);
+    build_cache(cars2);
 
     for (int i = 0; i < rays; ++i) {
         const float ray_angle = heading + rel_angles[i];
         const float dx = std::cos(ray_angle);
         const float dy = -std::sin(ray_angle);
 
-        bool hit_found = false;
         float final_dist = max_dist;
+        for (const auto& c : cached) {
+            float rox = cx - c.x;
+            float roy = cy - c.y;
+            // Broadphase: ray-to-point distance squared
+            float cross = rox * dy - roy * dx;
+            if (cross * cross > c.radius_sq) continue;
 
-        for (float dist = 0.0f; dist < max_dist; dist += step_size) {
-            float check_xf = cx + dx * dist;
-            float check_yf = cy + dy * dist;
-            int check_x = int(check_xf);
-            int check_y = int(check_yf);
+            float t = ray_obb_intersect_final(rox, roy, dx, dy, c, max_dist);
+            if (t < final_dist) final_dist = t;
+        }
 
-            if (check_x < 0 || check_x >= width || check_y < 0 || check_y >= height) {
-                break;
-            }
-
-            if (dist > 0.0f && !geom.is_on_road(float(check_x), float(check_y))) {
-                hit_found = true;
+        for (float dist = 0.0f; dist < final_dist; dist += step_size) {
+            float xf = cx + dx * dist;
+            float yf = cy + dy * dist;
+            if (xf < 0 || xf >= width || yf < 0 || yf >= height) break;
+            if (dist > 0.0f && !geom.is_on_road(xf, yf)) {
                 final_dist = dist;
                 break;
             }
-
-            if (dist > 0.0f) {
-                if (check_cars(cars1, float(check_x), float(check_y)) || check_cars(cars2, float(check_x), float(check_y))) {
-                    hit_found = true;
-                    final_dist = dist;
-                    break;
-                }
-            }
         }
-        distances[i] = hit_found ? final_dist : max_dist;
+        distances[i] = final_dist;
     }
 }
 
@@ -91,74 +114,56 @@ void Lidar::update_bitmap(const Car& self, const std::vector<Car>& cars1, const 
     const float cy = self.state.y;
     const float heading = self.state.heading;
 
-    // Dynamic obstacle check: cheap radius filter first, then oriented bbox approx.
-    // Uses squared distances to avoid sqrt in the inner loop.
-    constexpr float kCheckRadius = 140.0f;
-    constexpr float kCheckRadius2 = kCheckRadius * kCheckRadius;
-
-    auto check_cars = [&](const std::vector<Car>& car_list, float check_x, float check_y) {
-        for (const auto& c : car_list) {
+    std::vector<CachedCar> cached;
+    cached.reserve(cars1.size() + cars2.size());
+    auto build_cache = [&](const std::vector<Car>& list) {
+        for (const auto& c : list) {
             if (&c == &self) continue;
-            if (std::fabs(c.state.x - self.state.x) < 1e-3f &&
-                std::fabs(c.state.y - self.state.y) < 1e-3f &&
-                std::fabs(c.state.heading - self.state.heading) < 1e-3f) {
-                continue;
-            }
-
-            const float dx0 = c.state.x - check_x;
-            const float dy0 = c.state.y - check_y;
-            if (dx0 * dx0 + dy0 * dy0 > kCheckRadius2) continue;
-
-            const float cosA = std::cos(c.state.heading);
-            const float sinA = std::sin(c.state.heading);
-            const float hl = c.length * 0.5f;
-            const float hw = c.width * 0.5f;
-
-            const float ex = std::fabs(cosA) * hl + std::fabs(sinA) * hw;
-            const float ey = std::fabs(sinA) * hl + std::fabs(cosA) * hw;
-
-            if (check_x >= c.state.x - ex && check_x <= c.state.x + ex &&
-                check_y >= c.state.y - ey && check_y <= c.state.y + ey) {
-                return true;
-            }
+            if (std::abs(c.state.x - cx) < 1e-3f && std::abs(c.state.y - cy) < 1e-3f) continue;
+            float hl = c.length * 0.5f;
+            float hw = c.width * 0.5f;
+            cached.push_back({
+                c.state.x, c.state.y,
+                std::cos(c.state.heading), std::sin(c.state.heading),
+                hl, hw,
+                (hl * hl + hw * hw) * 1.1f
+            });
         }
-        return false;
     };
+    build_cache(cars1);
+    build_cache(cars2);
 
     for (int i = 0; i < rays; ++i) {
         const float ray_angle = heading + rel_angles[i];
         const float dx = std::cos(ray_angle);
         const float dy = -std::sin(ray_angle);
 
-        bool hit_found = false;
         float final_dist = max_dist;
+        for (const auto& c : cached) {
+            float rox = cx - c.x;
+            float roy = cy - c.y;
+            float cross = rox * dy - roy * dx;
+            if (cross * cross > c.radius_sq) continue;
+
+            float t = ray_obb_intersect_final(rox, roy, dx, dy, c, max_dist);
+            if (t < final_dist) final_dist = t;
+        }
 
         float curr_dist = 0.0f;
-        while (curr_dist < max_dist) {
+        while (curr_dist < final_dist) {
             int ix = int(cx + dx * curr_dist);
             int iy = int(cy + dy * curr_dist);
-
             if (ix < 0 || ix >= width || iy < 0 || iy >= height) break;
-
             float static_dist = road_mask.get_dist(ix, iy);
-
             if (curr_dist > 0.0f && static_dist < 1.0f) {
-                hit_found = true;
                 final_dist = curr_dist;
                 break;
             }
-
-            if (curr_dist > 0.0f && (check_cars(cars1, float(ix), float(iy)) || check_cars(cars2, float(ix), float(iy)))) {
-                hit_found = true;
-                final_dist = curr_dist;
-                break;
-            }
-
             float jump = std::max(step_size, static_dist);
             jump = std::min(jump, 12.0f); 
             curr_dist += jump;
         }
-        distances[i] = hit_found ? final_dist : max_dist;
+        distances[i] = final_dist;
     }
 }
 

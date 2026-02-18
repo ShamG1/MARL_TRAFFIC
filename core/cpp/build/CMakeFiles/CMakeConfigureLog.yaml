@@ -1684,8 +1684,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-PcPFxe"
-      binary: "/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-PcPFxe"
+      source: "/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-ipdlpe"
+      binary: "/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-ipdlpe"
     cmakeVariables:
       CMAKE_CUDA_ARCHITECTURES: "52"
       CMAKE_CXX_FLAGS: ""
@@ -1696,13 +1696,13 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-PcPFxe'
+        Change Dir: '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-ipdlpe'
         
-        Run Build Command(s): /home/g/anaconda3/envs/g308/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_90c62/fast
-        /usr/bin/make  -f CMakeFiles/cmTC_90c62.dir/build.make CMakeFiles/cmTC_90c62.dir/build
-        make[1]: Entering directory '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-PcPFxe'
-        Building CXX object CMakeFiles/cmTC_90c62.dir/CMakeCXXCompilerABI.cpp.o
-        /usr/bin/c++   -v -o CMakeFiles/cmTC_90c62.dir/CMakeCXXCompilerABI.cpp.o -c /home/g/anaconda3/envs/g308/share/cmake-4.2/Modules/CMakeCXXCompilerABI.cpp
+        Run Build Command(s): /home/g/anaconda3/envs/g308/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_67f02/fast
+        /usr/bin/make  -f CMakeFiles/cmTC_67f02.dir/build.make CMakeFiles/cmTC_67f02.dir/build
+        make[1]: Entering directory '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-ipdlpe'
+        Building CXX object CMakeFiles/cmTC_67f02.dir/CMakeCXXCompilerABI.cpp.o
+        /usr/bin/c++   -v -o CMakeFiles/cmTC_67f02.dir/CMakeCXXCompilerABI.cpp.o -c /home/g/anaconda3/envs/g308/share/cmake-4.2/Modules/CMakeCXXCompilerABI.cpp
         Using built-in specs.
         COLLECT_GCC=/usr/bin/c++
         OFFLOAD_TARGET_NAMES=nvptx-none:hsa
@@ -1711,8 +1711,8 @@ events:
         Configured with: ../src/configure -v --with-pkgversion='Ubuntu 9.4.0-1ubuntu1~20.04.2' --with-bugurl=file:///usr/share/doc/gcc-9/README.Bugs --enable-languages=c,ada,c++,go,brig,d,fortran,objc,obj-c++,gm2 --prefix=/usr --with-gcc-major-version-only --program-suffix=-9 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none=/build/gcc-9-9QDOt0/gcc-9-9.4.0/debian/tmp-nvptx/usr,hsa --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu
         Thread model: posix
         gcc version 9.4.0 (Ubuntu 9.4.0-1ubuntu1~20.04.2) 
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_90c62.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
-         /usr/lib/gcc/x86_64-linux-gnu/9/cc1plus -quiet -v -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/g/anaconda3/envs/g308/share/cmake-4.2/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_90c62.dir/CMakeCXXCompilerABI.cpp.o -version -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection -o /tmp/cc7UXbmk.s
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_67f02.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+         /usr/lib/gcc/x86_64-linux-gnu/9/cc1plus -quiet -v -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/g/anaconda3/envs/g308/share/cmake-4.2/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_67f02.dir/CMakeCXXCompilerABI.cpp.o -version -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection -o /tmp/ccQuYW2k.s
         GNU C++14 (Ubuntu 9.4.0-1ubuntu1~20.04.2) version 9.4.0 (x86_64-linux-gnu)
         	compiled by GNU C version 9.4.0, GMP version 6.2.0, MPFR version 4.0.2, MPC version 1.1.0, isl version isl-0.22.1-GMP
         
@@ -1736,14 +1736,14 @@ events:
         
         GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
         Compiler executable checksum: 3d1eba838554fa2348dba760e4770469
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_90c62.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
-         as -v --64 -o CMakeFiles/cmTC_90c62.dir/CMakeCXXCompilerABI.cpp.o /tmp/cc7UXbmk.s
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_67f02.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+         as -v --64 -o CMakeFiles/cmTC_67f02.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccQuYW2k.s
         GNU assembler version 2.34 (x86_64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.34
         COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/
         LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../:/lib/:/usr/lib/
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_90c62.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
-        Linking CXX executable cmTC_90c62
-        /home/g/anaconda3/envs/g308/bin/cmake -E cmake_link_script CMakeFiles/cmTC_90c62.dir/link.txt --verbose=1
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_67f02.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+        Linking CXX executable cmTC_67f02
+        /home/g/anaconda3/envs/g308/bin/cmake -E cmake_link_script CMakeFiles/cmTC_67f02.dir/link.txt --verbose=1
         Using built-in specs.
         COLLECT_GCC=/usr/bin/c++
         COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper
@@ -1755,14 +1755,14 @@ events:
         gcc version 9.4.0 (Ubuntu 9.4.0-1ubuntu1~20.04.2) 
         COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/
         LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../:/lib/:/usr/lib/
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_90c62' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
-         /usr/lib/gcc/x86_64-linux-gnu/9/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/9/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper -plugin-opt=-fresolution=/tmp/ccdS0S6M.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_90c62 /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/9/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/9 -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/9/../../.. -v CMakeFiles/cmTC_90c62.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/9/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crtn.o
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_67f02' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+         /usr/lib/gcc/x86_64-linux-gnu/9/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/9/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper -plugin-opt=-fresolution=/tmp/ccqzsYaZ.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_67f02 /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/9/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/9 -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/9/../../.. -v CMakeFiles/cmTC_67f02.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/9/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crtn.o
         collect2 version 9.4.0
-        /usr/bin/ld -plugin /usr/lib/gcc/x86_64-linux-gnu/9/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper -plugin-opt=-fresolution=/tmp/ccdS0S6M.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_90c62 /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/9/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/9 -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/9/../../.. -v CMakeFiles/cmTC_90c62.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/9/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crtn.o
+        /usr/bin/ld -plugin /usr/lib/gcc/x86_64-linux-gnu/9/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper -plugin-opt=-fresolution=/tmp/ccqzsYaZ.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_67f02 /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/9/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/9 -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/9/../../.. -v CMakeFiles/cmTC_67f02.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/9/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crtn.o
         GNU ld (GNU Binutils for Ubuntu) 2.34
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_90c62' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
-        /usr/bin/c++  -v -Wl,-v CMakeFiles/cmTC_90c62.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_90c62
-        make[1]: Leaving directory '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-PcPFxe'
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_67f02' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+        /usr/bin/c++  -v -Wl,-v CMakeFiles/cmTC_67f02.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_67f02
+        make[1]: Leaving directory '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-ipdlpe'
         
       exitCode: 0
   -
@@ -1803,13 +1803,13 @@ events:
       Parsed CXX implicit link information:
         link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
         linker tool regex: [^[ 	]*(->|"|[0-9]+>[ 	-]*Build:[ 	0-9]+ ms[ 	]*)?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
-        ignore line: [Change Dir: '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-PcPFxe']
+        ignore line: [Change Dir: '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-ipdlpe']
         ignore line: []
-        ignore line: [Run Build Command(s): /home/g/anaconda3/envs/g308/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_90c62/fast]
-        ignore line: [/usr/bin/make  -f CMakeFiles/cmTC_90c62.dir/build.make CMakeFiles/cmTC_90c62.dir/build]
-        ignore line: [make[1]: Entering directory '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-PcPFxe']
-        ignore line: [Building CXX object CMakeFiles/cmTC_90c62.dir/CMakeCXXCompilerABI.cpp.o]
-        ignore line: [/usr/bin/c++   -v -o CMakeFiles/cmTC_90c62.dir/CMakeCXXCompilerABI.cpp.o -c /home/g/anaconda3/envs/g308/share/cmake-4.2/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [Run Build Command(s): /home/g/anaconda3/envs/g308/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_67f02/fast]
+        ignore line: [/usr/bin/make  -f CMakeFiles/cmTC_67f02.dir/build.make CMakeFiles/cmTC_67f02.dir/build]
+        ignore line: [make[1]: Entering directory '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-ipdlpe']
+        ignore line: [Building CXX object CMakeFiles/cmTC_67f02.dir/CMakeCXXCompilerABI.cpp.o]
+        ignore line: [/usr/bin/c++   -v -o CMakeFiles/cmTC_67f02.dir/CMakeCXXCompilerABI.cpp.o -c /home/g/anaconda3/envs/g308/share/cmake-4.2/Modules/CMakeCXXCompilerABI.cpp]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=/usr/bin/c++]
         ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none:hsa]
@@ -1818,8 +1818,8 @@ events:
         ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu 9.4.0-1ubuntu1~20.04.2' --with-bugurl=file:///usr/share/doc/gcc-9/README.Bugs --enable-languages=c ada c++ go brig d fortran objc obj-c++ gm2 --prefix=/usr --with-gcc-major-version-only --program-suffix=-9 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32 m64 mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none=/build/gcc-9-9QDOt0/gcc-9-9.4.0/debian/tmp-nvptx/usr hsa --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu]
         ignore line: [Thread model: posix]
         ignore line: [gcc version 9.4.0 (Ubuntu 9.4.0-1ubuntu1~20.04.2) ]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_90c62.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
-        ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/9/cc1plus -quiet -v -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/g/anaconda3/envs/g308/share/cmake-4.2/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_90c62.dir/CMakeCXXCompilerABI.cpp.o -version -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection -o /tmp/cc7UXbmk.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_67f02.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+        ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/9/cc1plus -quiet -v -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/g/anaconda3/envs/g308/share/cmake-4.2/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_67f02.dir/CMakeCXXCompilerABI.cpp.o -version -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection -o /tmp/ccQuYW2k.s]
         ignore line: [GNU C++14 (Ubuntu 9.4.0-1ubuntu1~20.04.2) version 9.4.0 (x86_64-linux-gnu)]
         ignore line: [	compiled by GNU C version 9.4.0  GMP version 6.2.0  MPFR version 4.0.2  MPC version 1.1.0  isl version isl-0.22.1-GMP]
         ignore line: []
@@ -1843,14 +1843,14 @@ events:
         ignore line: []
         ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
         ignore line: [Compiler executable checksum: 3d1eba838554fa2348dba760e4770469]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_90c62.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
-        ignore line: [ as -v --64 -o CMakeFiles/cmTC_90c62.dir/CMakeCXXCompilerABI.cpp.o /tmp/cc7UXbmk.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_67f02.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+        ignore line: [ as -v --64 -o CMakeFiles/cmTC_67f02.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccQuYW2k.s]
         ignore line: [GNU assembler version 2.34 (x86_64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.34]
         ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/]
         ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../:/lib/:/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_90c62.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
-        ignore line: [Linking CXX executable cmTC_90c62]
-        ignore line: [/home/g/anaconda3/envs/g308/bin/cmake -E cmake_link_script CMakeFiles/cmTC_90c62.dir/link.txt --verbose=1]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_67f02.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+        ignore line: [Linking CXX executable cmTC_67f02]
+        ignore line: [/home/g/anaconda3/envs/g308/bin/cmake -E cmake_link_script CMakeFiles/cmTC_67f02.dir/link.txt --verbose=1]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=/usr/bin/c++]
         ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper]
@@ -1862,13 +1862,13 @@ events:
         ignore line: [gcc version 9.4.0 (Ubuntu 9.4.0-1ubuntu1~20.04.2) ]
         ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/]
         ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../:/lib/:/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_90c62' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
-        link line: [ /usr/lib/gcc/x86_64-linux-gnu/9/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/9/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper -plugin-opt=-fresolution=/tmp/ccdS0S6M.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_90c62 /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/9/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/9 -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/9/../../.. -v CMakeFiles/cmTC_90c62.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/9/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crtn.o]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_67f02' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+        link line: [ /usr/lib/gcc/x86_64-linux-gnu/9/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/9/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper -plugin-opt=-fresolution=/tmp/ccqzsYaZ.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_67f02 /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/9/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/9 -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/9/../../.. -v CMakeFiles/cmTC_67f02.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/9/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crtn.o]
           arg [/usr/lib/gcc/x86_64-linux-gnu/9/collect2] ==> ignore
           arg [-plugin] ==> ignore
           arg [/usr/lib/gcc/x86_64-linux-gnu/9/liblto_plugin.so] ==> ignore
           arg [-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper] ==> ignore
-          arg [-plugin-opt=-fresolution=/tmp/ccdS0S6M.res] ==> ignore
+          arg [-plugin-opt=-fresolution=/tmp/ccqzsYaZ.res] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
           arg [-plugin-opt=-pass-through=-lc] ==> ignore
@@ -1886,7 +1886,7 @@ events:
           arg [-znow] ==> ignore
           arg [-zrelro] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_90c62] ==> ignore
+          arg [cmTC_67f02] ==> ignore
           arg [/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/Scrt1.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/Scrt1.o]
           arg [/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crti.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crti.o]
           arg [/usr/lib/gcc/x86_64-linux-gnu/9/crtbeginS.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/9/crtbeginS.o]
@@ -1899,7 +1899,7 @@ events:
           arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
           arg [-L/usr/lib/gcc/x86_64-linux-gnu/9/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/9/../../..]
           arg [-v] ==> ignore
-          arg [CMakeFiles/cmTC_90c62.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+          arg [CMakeFiles/cmTC_67f02.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
           arg [-lstdc++] ==> lib [stdc++]
           arg [-lm] ==> lib [m]
           arg [-lgcc_s] ==> lib [gcc_s]
@@ -1910,7 +1910,7 @@ events:
           arg [/usr/lib/gcc/x86_64-linux-gnu/9/crtendS.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/9/crtendS.o]
           arg [/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crtn.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crtn.o]
         ignore line: [collect2 version 9.4.0]
-        ignore line: [/usr/bin/ld -plugin /usr/lib/gcc/x86_64-linux-gnu/9/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper -plugin-opt=-fresolution=/tmp/ccdS0S6M.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_90c62 /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/9/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/9 -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/9/../../.. -v CMakeFiles/cmTC_90c62.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/9/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crtn.o]
+        ignore line: [/usr/bin/ld -plugin /usr/lib/gcc/x86_64-linux-gnu/9/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper -plugin-opt=-fresolution=/tmp/ccqzsYaZ.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_67f02 /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/9/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/9 -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/9/../../.. -v CMakeFiles/cmTC_67f02.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/9/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crtn.o]
         linker tool for 'CXX': /usr/bin/ld
         collapse obj [/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/Scrt1.o] ==> [/usr/lib/x86_64-linux-gnu/Scrt1.o]
         collapse obj [/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crti.o] ==> [/usr/lib/x86_64-linux-gnu/crti.o]
@@ -1948,8 +1948,8 @@ events:
     checks:
       - "Detecting CUDA compiler ABI info"
     directories:
-      source: "/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-33pMwh"
-      binary: "/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-33pMwh"
+      source: "/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-uZUbpd"
+      binary: "/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-uZUbpd"
     cmakeVariables:
       CMAKE_CUDA_ARCHITECTURES: "52"
       CMAKE_CUDA_FLAGS: ""
@@ -1960,13 +1960,13 @@ events:
       variable: "CMAKE_CUDA_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-33pMwh'
+        Change Dir: '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-uZUbpd'
         
-        Run Build Command(s): /home/g/anaconda3/envs/g308/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_4c07d/fast
-        /usr/bin/make  -f CMakeFiles/cmTC_4c07d.dir/build.make CMakeFiles/cmTC_4c07d.dir/build
-        make[1]: Entering directory '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-33pMwh'
-        Building CUDA object CMakeFiles/cmTC_4c07d.dir/CMakeCUDACompilerABI.cu.o
-        /usr/local/cuda-12.6/bin/nvcc -forward-unknown-to-host-compiler   "--generate-code=arch=compute_52,code=[compute_52,sm_52]"   -Xcompiler=-v -MD -MT CMakeFiles/cmTC_4c07d.dir/CMakeCUDACompilerABI.cu.o -MF CMakeFiles/cmTC_4c07d.dir/CMakeCUDACompilerABI.cu.o.d -x cu -c /home/g/anaconda3/envs/g308/share/cmake-4.2/Modules/CMakeCUDACompilerABI.cu -o CMakeFiles/cmTC_4c07d.dir/CMakeCUDACompilerABI.cu.o
+        Run Build Command(s): /home/g/anaconda3/envs/g308/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_4cffc/fast
+        /usr/bin/make  -f CMakeFiles/cmTC_4cffc.dir/build.make CMakeFiles/cmTC_4cffc.dir/build
+        make[1]: Entering directory '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-uZUbpd'
+        Building CUDA object CMakeFiles/cmTC_4cffc.dir/CMakeCUDACompilerABI.cu.o
+        /usr/local/cuda-12.6/bin/nvcc -forward-unknown-to-host-compiler   "--generate-code=arch=compute_52,code=[compute_52,sm_52]"   -Xcompiler=-v -MD -MT CMakeFiles/cmTC_4cffc.dir/CMakeCUDACompilerABI.cu.o -MF CMakeFiles/cmTC_4cffc.dir/CMakeCUDACompilerABI.cu.o.d -x cu -c /home/g/anaconda3/envs/g308/share/cmake-4.2/Modules/CMakeCUDACompilerABI.cu -o CMakeFiles/cmTC_4cffc.dir/CMakeCUDACompilerABI.cu.o
         Using built-in specs.
         COLLECT_GCC=gcc
         OFFLOAD_TARGET_NAMES=nvptx-none:hsa
@@ -1975,8 +1975,8 @@ events:
         Configured with: ../src/configure -v --with-pkgversion='Ubuntu 9.4.0-1ubuntu1~20.04.2' --with-bugurl=file:///usr/share/doc/gcc-9/README.Bugs --enable-languages=c,ada,c++,go,brig,d,fortran,objc,obj-c++,gm2 --prefix=/usr --with-gcc-major-version-only --program-suffix=-9 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none=/build/gcc-9-9QDOt0/gcc-9-9.4.0/debian/tmp-nvptx/usr,hsa --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu
         Thread model: posix
         gcc version 9.4.0 (Ubuntu 9.4.0-1ubuntu1~20.04.2) 
-        COLLECT_GCC_OPTIONS='-D' '__CUDA_ARCH__=520' '-D' '__CUDA_ARCH_LIST__=520' '-D' '__NV_LEGACY_LAUNCH' '-E' '-D' 'CUDA_DOUBLE_MATH_FUNCTIONS' '-D' '__CUDACC__' '-D' '__NVCC__' '-v' '-I' '/usr/local/cuda-12.6/bin/../targets/x86_64-linux/include' '-D' '__CUDACC_VER_MAJOR__=12' '-D' '__CUDACC_VER_MINOR__=6' '-D' '__CUDACC_VER_BUILD__=20' '-D' '__CUDA_API_VER_MAJOR__=12' '-D' '__CUDA_API_VER_MINOR__=6' '-D' '__NVCC_DIAG_PRAGMA_SUPPORT__=1' '-include' 'cuda_runtime.h' '-m64' '-o' '/tmp/tmpxft_000035e9_00000000-7_CMakeCUDACompilerABI.cpp1.ii' '-mtune=generic' '-march=x86-64'
-         /usr/lib/gcc/x86_64-linux-gnu/9/cc1plus -E -quiet -v -I /usr/local/cuda-12.6/bin/../targets/x86_64-linux/include -imultiarch x86_64-linux-gnu -D_GNU_SOURCE -D __CUDA_ARCH__=520 -D __CUDA_ARCH_LIST__=520 -D __NV_LEGACY_LAUNCH -D CUDA_DOUBLE_MATH_FUNCTIONS -D __CUDACC__ -D __NVCC__ -D __CUDACC_VER_MAJOR__=12 -D __CUDACC_VER_MINOR__=6 -D __CUDACC_VER_BUILD__=20 -D __CUDA_API_VER_MAJOR__=12 -D __CUDA_API_VER_MINOR__=6 -D __NVCC_DIAG_PRAGMA_SUPPORT__=1 -include cuda_runtime.h /home/g/anaconda3/envs/g308/share/cmake-4.2/Modules/CMakeCUDACompilerABI.cu -o /tmp/tmpxft_000035e9_00000000-7_CMakeCUDACompilerABI.cpp1.ii -m64 -mtune=generic -march=x86-64 -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection
+        COLLECT_GCC_OPTIONS='-D' '__CUDA_ARCH__=520' '-D' '__CUDA_ARCH_LIST__=520' '-D' '__NV_LEGACY_LAUNCH' '-E' '-D' 'CUDA_DOUBLE_MATH_FUNCTIONS' '-D' '__CUDACC__' '-D' '__NVCC__' '-v' '-I' '/usr/local/cuda-12.6/bin/../targets/x86_64-linux/include' '-D' '__CUDACC_VER_MAJOR__=12' '-D' '__CUDACC_VER_MINOR__=6' '-D' '__CUDACC_VER_BUILD__=20' '-D' '__CUDA_API_VER_MAJOR__=12' '-D' '__CUDA_API_VER_MINOR__=6' '-D' '__NVCC_DIAG_PRAGMA_SUPPORT__=1' '-include' 'cuda_runtime.h' '-m64' '-o' '/tmp/tmpxft_00004a88_00000000-7_CMakeCUDACompilerABI.cpp1.ii' '-mtune=generic' '-march=x86-64'
+         /usr/lib/gcc/x86_64-linux-gnu/9/cc1plus -E -quiet -v -I /usr/local/cuda-12.6/bin/../targets/x86_64-linux/include -imultiarch x86_64-linux-gnu -D_GNU_SOURCE -D __CUDA_ARCH__=520 -D __CUDA_ARCH_LIST__=520 -D __NV_LEGACY_LAUNCH -D CUDA_DOUBLE_MATH_FUNCTIONS -D __CUDACC__ -D __NVCC__ -D __CUDACC_VER_MAJOR__=12 -D __CUDACC_VER_MINOR__=6 -D __CUDACC_VER_BUILD__=20 -D __CUDA_API_VER_MAJOR__=12 -D __CUDA_API_VER_MINOR__=6 -D __NVCC_DIAG_PRAGMA_SUPPORT__=1 -include cuda_runtime.h /home/g/anaconda3/envs/g308/share/cmake-4.2/Modules/CMakeCUDACompilerABI.cu -o /tmp/tmpxft_00004a88_00000000-7_CMakeCUDACompilerABI.cpp1.ii -m64 -mtune=generic -march=x86-64 -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection
         ignoring duplicate directory "/usr/include/x86_64-linux-gnu/c++/9"
         ignoring nonexistent directory "/usr/local/include/x86_64-linux-gnu"
         ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed"
@@ -1994,7 +1994,7 @@ events:
         End of search list.
         COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/
         LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../:/lib/:/usr/lib/
-        COLLECT_GCC_OPTIONS='-D' '__CUDA_ARCH__=520' '-D' '__CUDA_ARCH_LIST__=520' '-D' '__NV_LEGACY_LAUNCH' '-E' '-D' 'CUDA_DOUBLE_MATH_FUNCTIONS' '-D' '__CUDACC__' '-D' '__NVCC__' '-v' '-I' '/usr/local/cuda-12.6/bin/../targets/x86_64-linux/include' '-D' '__CUDACC_VER_MAJOR__=12' '-D' '__CUDACC_VER_MINOR__=6' '-D' '__CUDACC_VER_BUILD__=20' '-D' '__CUDA_API_VER_MAJOR__=12' '-D' '__CUDA_API_VER_MINOR__=6' '-D' '__NVCC_DIAG_PRAGMA_SUPPORT__=1' '-include' 'cuda_runtime.h' '-m64' '-o' '/tmp/tmpxft_000035e9_00000000-7_CMakeCUDACompilerABI.cpp1.ii' '-mtune=generic' '-march=x86-64'
+        COLLECT_GCC_OPTIONS='-D' '__CUDA_ARCH__=520' '-D' '__CUDA_ARCH_LIST__=520' '-D' '__NV_LEGACY_LAUNCH' '-E' '-D' 'CUDA_DOUBLE_MATH_FUNCTIONS' '-D' '__CUDACC__' '-D' '__NVCC__' '-v' '-I' '/usr/local/cuda-12.6/bin/../targets/x86_64-linux/include' '-D' '__CUDACC_VER_MAJOR__=12' '-D' '__CUDACC_VER_MINOR__=6' '-D' '__CUDACC_VER_BUILD__=20' '-D' '__CUDA_API_VER_MAJOR__=12' '-D' '__CUDA_API_VER_MINOR__=6' '-D' '__NVCC_DIAG_PRAGMA_SUPPORT__=1' '-include' 'cuda_runtime.h' '-m64' '-o' '/tmp/tmpxft_00004a88_00000000-7_CMakeCUDACompilerABI.cpp1.ii' '-mtune=generic' '-march=x86-64'
         Using built-in specs.
         COLLECT_GCC=gcc
         OFFLOAD_TARGET_NAMES=nvptx-none:hsa
@@ -2003,8 +2003,8 @@ events:
         Configured with: ../src/configure -v --with-pkgversion='Ubuntu 9.4.0-1ubuntu1~20.04.2' --with-bugurl=file:///usr/share/doc/gcc-9/README.Bugs --enable-languages=c,ada,c++,go,brig,d,fortran,objc,obj-c++,gm2 --prefix=/usr --with-gcc-major-version-only --program-suffix=-9 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none=/build/gcc-9-9QDOt0/gcc-9-9.4.0/debian/tmp-nvptx/usr,hsa --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu
         Thread model: posix
         gcc version 9.4.0 (Ubuntu 9.4.0-1ubuntu1~20.04.2) 
-        COLLECT_GCC_OPTIONS='-D' '__CUDA_ARCH_LIST__=520' '-D' '__NV_LEGACY_LAUNCH' '-E' '-D' '__CUDACC__' '-D' '__NVCC__' '-v' '-I' '/usr/local/cuda-12.6/bin/../targets/x86_64-linux/include' '-D' '__CUDACC_VER_MAJOR__=12' '-D' '__CUDACC_VER_MINOR__=6' '-D' '__CUDACC_VER_BUILD__=20' '-D' '__CUDA_API_VER_MAJOR__=12' '-D' '__CUDA_API_VER_MINOR__=6' '-D' '__NVCC_DIAG_PRAGMA_SUPPORT__=1' '-include' 'cuda_runtime.h' '-m64' '-o' '/tmp/tmpxft_000035e9_00000000-5_CMakeCUDACompilerABI.cpp4.ii' '-mtune=generic' '-march=x86-64'
-         /usr/lib/gcc/x86_64-linux-gnu/9/cc1plus -E -quiet -v -I /usr/local/cuda-12.6/bin/../targets/x86_64-linux/include -imultiarch x86_64-linux-gnu -D_GNU_SOURCE -D __CUDA_ARCH_LIST__=520 -D __NV_LEGACY_LAUNCH -D __CUDACC__ -D __NVCC__ -D __CUDACC_VER_MAJOR__=12 -D __CUDACC_VER_MINOR__=6 -D __CUDACC_VER_BUILD__=20 -D __CUDA_API_VER_MAJOR__=12 -D __CUDA_API_VER_MINOR__=6 -D __NVCC_DIAG_PRAGMA_SUPPORT__=1 -include cuda_runtime.h /home/g/anaconda3/envs/g308/share/cmake-4.2/Modules/CMakeCUDACompilerABI.cu -o /tmp/tmpxft_000035e9_00000000-5_CMakeCUDACompilerABI.cpp4.ii -m64 -mtune=generic -march=x86-64 -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection
+        COLLECT_GCC_OPTIONS='-D' '__CUDA_ARCH_LIST__=520' '-D' '__NV_LEGACY_LAUNCH' '-E' '-D' '__CUDACC__' '-D' '__NVCC__' '-v' '-I' '/usr/local/cuda-12.6/bin/../targets/x86_64-linux/include' '-D' '__CUDACC_VER_MAJOR__=12' '-D' '__CUDACC_VER_MINOR__=6' '-D' '__CUDACC_VER_BUILD__=20' '-D' '__CUDA_API_VER_MAJOR__=12' '-D' '__CUDA_API_VER_MINOR__=6' '-D' '__NVCC_DIAG_PRAGMA_SUPPORT__=1' '-include' 'cuda_runtime.h' '-m64' '-o' '/tmp/tmpxft_00004a88_00000000-5_CMakeCUDACompilerABI.cpp4.ii' '-mtune=generic' '-march=x86-64'
+         /usr/lib/gcc/x86_64-linux-gnu/9/cc1plus -E -quiet -v -I /usr/local/cuda-12.6/bin/../targets/x86_64-linux/include -imultiarch x86_64-linux-gnu -D_GNU_SOURCE -D __CUDA_ARCH_LIST__=520 -D __NV_LEGACY_LAUNCH -D __CUDACC__ -D __NVCC__ -D __CUDACC_VER_MAJOR__=12 -D __CUDACC_VER_MINOR__=6 -D __CUDACC_VER_BUILD__=20 -D __CUDA_API_VER_MAJOR__=12 -D __CUDA_API_VER_MINOR__=6 -D __NVCC_DIAG_PRAGMA_SUPPORT__=1 -include cuda_runtime.h /home/g/anaconda3/envs/g308/share/cmake-4.2/Modules/CMakeCUDACompilerABI.cu -o /tmp/tmpxft_00004a88_00000000-5_CMakeCUDACompilerABI.cpp4.ii -m64 -mtune=generic -march=x86-64 -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection
         ignoring duplicate directory "/usr/include/x86_64-linux-gnu/c++/9"
         ignoring nonexistent directory "/usr/local/include/x86_64-linux-gnu"
         ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed"
@@ -2022,7 +2022,7 @@ events:
         End of search list.
         COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/
         LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../:/lib/:/usr/lib/
-        COLLECT_GCC_OPTIONS='-D' '__CUDA_ARCH_LIST__=520' '-D' '__NV_LEGACY_LAUNCH' '-E' '-D' '__CUDACC__' '-D' '__NVCC__' '-v' '-I' '/usr/local/cuda-12.6/bin/../targets/x86_64-linux/include' '-D' '__CUDACC_VER_MAJOR__=12' '-D' '__CUDACC_VER_MINOR__=6' '-D' '__CUDACC_VER_BUILD__=20' '-D' '__CUDA_API_VER_MAJOR__=12' '-D' '__CUDA_API_VER_MINOR__=6' '-D' '__NVCC_DIAG_PRAGMA_SUPPORT__=1' '-include' 'cuda_runtime.h' '-m64' '-o' '/tmp/tmpxft_000035e9_00000000-5_CMakeCUDACompilerABI.cpp4.ii' '-mtune=generic' '-march=x86-64'
+        COLLECT_GCC_OPTIONS='-D' '__CUDA_ARCH_LIST__=520' '-D' '__NV_LEGACY_LAUNCH' '-E' '-D' '__CUDACC__' '-D' '__NVCC__' '-v' '-I' '/usr/local/cuda-12.6/bin/../targets/x86_64-linux/include' '-D' '__CUDACC_VER_MAJOR__=12' '-D' '__CUDACC_VER_MINOR__=6' '-D' '__CUDACC_VER_BUILD__=20' '-D' '__CUDA_API_VER_MAJOR__=12' '-D' '__CUDA_API_VER_MINOR__=6' '-D' '__NVCC_DIAG_PRAGMA_SUPPORT__=1' '-include' 'cuda_runtime.h' '-m64' '-o' '/tmp/tmpxft_00004a88_00000000-5_CMakeCUDACompilerABI.cpp4.ii' '-mtune=generic' '-march=x86-64'
         Using built-in specs.
         COLLECT_GCC=gcc
         OFFLOAD_TARGET_NAMES=nvptx-none:hsa
@@ -2031,8 +2031,8 @@ events:
         Configured with: ../src/configure -v --with-pkgversion='Ubuntu 9.4.0-1ubuntu1~20.04.2' --with-bugurl=file:///usr/share/doc/gcc-9/README.Bugs --enable-languages=c,ada,c++,go,brig,d,fortran,objc,obj-c++,gm2 --prefix=/usr --with-gcc-major-version-only --program-suffix=-9 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none=/build/gcc-9-9QDOt0/gcc-9-9.4.0/debian/tmp-nvptx/usr,hsa --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu
         Thread model: posix
         gcc version 9.4.0 (Ubuntu 9.4.0-1ubuntu1~20.04.2) 
-        COLLECT_GCC_OPTIONS='-D' '__CUDA_ARCH__=520' '-D' '__CUDA_ARCH_LIST__=520' '-D' '__NV_LEGACY_LAUNCH' '-c' '-D' 'CUDA_DOUBLE_MATH_FUNCTIONS' '-v' '-Wno-psabi' '-I' '/usr/local/cuda-12.6/bin/../targets/x86_64-linux/include' '-m64' '-o' 'CMakeFiles/cmTC_4c07d.dir/CMakeCUDACompilerABI.cu.o' '-mtune=generic' '-march=x86-64'
-         /usr/lib/gcc/x86_64-linux-gnu/9/cc1plus -quiet -v -I /usr/local/cuda-12.6/bin/../targets/x86_64-linux/include -imultiarch x86_64-linux-gnu -D_GNU_SOURCE -D __CUDA_ARCH__=520 -D __CUDA_ARCH_LIST__=520 -D __NV_LEGACY_LAUNCH -D CUDA_DOUBLE_MATH_FUNCTIONS /tmp/tmpxft_000035e9_00000000-6_CMakeCUDACompilerABI.cudafe1.cpp -quiet -dumpbase tmpxft_000035e9_00000000-6_CMakeCUDACompilerABI.cudafe1.cpp -m64 -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_4c07d.dir/CMakeCUDACompilerABI.cu.o -Wno-psabi -version -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection -o /tmp/ccX3VDFr.s
+        COLLECT_GCC_OPTIONS='-D' '__CUDA_ARCH__=520' '-D' '__CUDA_ARCH_LIST__=520' '-D' '__NV_LEGACY_LAUNCH' '-c' '-D' 'CUDA_DOUBLE_MATH_FUNCTIONS' '-v' '-Wno-psabi' '-I' '/usr/local/cuda-12.6/bin/../targets/x86_64-linux/include' '-m64' '-o' 'CMakeFiles/cmTC_4cffc.dir/CMakeCUDACompilerABI.cu.o' '-mtune=generic' '-march=x86-64'
+         /usr/lib/gcc/x86_64-linux-gnu/9/cc1plus -quiet -v -I /usr/local/cuda-12.6/bin/../targets/x86_64-linux/include -imultiarch x86_64-linux-gnu -D_GNU_SOURCE -D __CUDA_ARCH__=520 -D __CUDA_ARCH_LIST__=520 -D __NV_LEGACY_LAUNCH -D CUDA_DOUBLE_MATH_FUNCTIONS /tmp/tmpxft_00004a88_00000000-6_CMakeCUDACompilerABI.cudafe1.cpp -quiet -dumpbase tmpxft_00004a88_00000000-6_CMakeCUDACompilerABI.cudafe1.cpp -m64 -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_4cffc.dir/CMakeCUDACompilerABI.cu.o -Wno-psabi -version -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection -o /tmp/ccb2DYtj.s
         GNU C++14 (Ubuntu 9.4.0-1ubuntu1~20.04.2) version 9.4.0 (x86_64-linux-gnu)
         	compiled by GNU C version 9.4.0, GMP version 6.2.0, MPFR version 4.0.2, MPC version 1.1.0, isl version isl-0.22.1-GMP
         
@@ -2057,14 +2057,14 @@ events:
         
         GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
         Compiler executable checksum: 3d1eba838554fa2348dba760e4770469
-        COLLECT_GCC_OPTIONS='-D' '__CUDA_ARCH__=520' '-D' '__CUDA_ARCH_LIST__=520' '-D' '__NV_LEGACY_LAUNCH' '-c' '-D' 'CUDA_DOUBLE_MATH_FUNCTIONS' '-v' '-Wno-psabi' '-I' '/usr/local/cuda-12.6/bin/../targets/x86_64-linux/include' '-m64' '-o' 'CMakeFiles/cmTC_4c07d.dir/CMakeCUDACompilerABI.cu.o' '-mtune=generic' '-march=x86-64'
-         as -v -I /usr/local/cuda-12.6/bin/../targets/x86_64-linux/include --64 -o CMakeFiles/cmTC_4c07d.dir/CMakeCUDACompilerABI.cu.o /tmp/ccX3VDFr.s
+        COLLECT_GCC_OPTIONS='-D' '__CUDA_ARCH__=520' '-D' '__CUDA_ARCH_LIST__=520' '-D' '__NV_LEGACY_LAUNCH' '-c' '-D' 'CUDA_DOUBLE_MATH_FUNCTIONS' '-v' '-Wno-psabi' '-I' '/usr/local/cuda-12.6/bin/../targets/x86_64-linux/include' '-m64' '-o' 'CMakeFiles/cmTC_4cffc.dir/CMakeCUDACompilerABI.cu.o' '-mtune=generic' '-march=x86-64'
+         as -v -I /usr/local/cuda-12.6/bin/../targets/x86_64-linux/include --64 -o CMakeFiles/cmTC_4cffc.dir/CMakeCUDACompilerABI.cu.o /tmp/ccb2DYtj.s
         GNU assembler version 2.34 (x86_64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.34
         COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/
         LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../:/lib/:/usr/lib/
-        COLLECT_GCC_OPTIONS='-D' '__CUDA_ARCH__=520' '-D' '__CUDA_ARCH_LIST__=520' '-D' '__NV_LEGACY_LAUNCH' '-c' '-D' 'CUDA_DOUBLE_MATH_FUNCTIONS' '-v' '-Wno-psabi' '-I' '/usr/local/cuda-12.6/bin/../targets/x86_64-linux/include' '-m64' '-o' 'CMakeFiles/cmTC_4c07d.dir/CMakeCUDACompilerABI.cu.o' '-mtune=generic' '-march=x86-64'
-        Linking CUDA executable cmTC_4c07d
-        /home/g/anaconda3/envs/g308/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4c07d.dir/link.txt --verbose=1
+        COLLECT_GCC_OPTIONS='-D' '__CUDA_ARCH__=520' '-D' '__CUDA_ARCH_LIST__=520' '-D' '__NV_LEGACY_LAUNCH' '-c' '-D' 'CUDA_DOUBLE_MATH_FUNCTIONS' '-v' '-Wno-psabi' '-I' '/usr/local/cuda-12.6/bin/../targets/x86_64-linux/include' '-m64' '-o' 'CMakeFiles/cmTC_4cffc.dir/CMakeCUDACompilerABI.cu.o' '-mtune=generic' '-march=x86-64'
+        Linking CUDA executable cmTC_4cffc
+        /home/g/anaconda3/envs/g308/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4cffc.dir/link.txt --verbose=1
         Using built-in specs.
         COLLECT_GCC=/usr/bin/g++
         COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper
@@ -2076,14 +2076,14 @@ events:
         gcc version 9.4.0 (Ubuntu 9.4.0-1ubuntu1~20.04.2) 
         COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/
         LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../:/lib/:/usr/lib/
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_4c07d' '-L/usr/local/cuda-12.6/targets/x86_64-linux/lib/stubs' '-L/usr/local/cuda-12.6/targets/x86_64-linux/lib' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
-         /usr/lib/gcc/x86_64-linux-gnu/9/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/9/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper -plugin-opt=-fresolution=/tmp/ccIiwG1R.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_4c07d /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/9/crtbeginS.o -L/usr/local/cuda-12.6/targets/x86_64-linux/lib/stubs -L/usr/local/cuda-12.6/targets/x86_64-linux/lib -L/usr/lib/gcc/x86_64-linux-gnu/9 -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/9/../../.. -v CMakeFiles/cmTC_4c07d.dir/CMakeCUDACompilerABI.cu.o -lcudadevrt -lcudart_static -lrt -lpthread -ldl -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/9/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crtn.o
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_4cffc' '-L/usr/local/cuda-12.6/targets/x86_64-linux/lib/stubs' '-L/usr/local/cuda-12.6/targets/x86_64-linux/lib' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+         /usr/lib/gcc/x86_64-linux-gnu/9/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/9/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper -plugin-opt=-fresolution=/tmp/ccwn3pPK.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_4cffc /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/9/crtbeginS.o -L/usr/local/cuda-12.6/targets/x86_64-linux/lib/stubs -L/usr/local/cuda-12.6/targets/x86_64-linux/lib -L/usr/lib/gcc/x86_64-linux-gnu/9 -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/9/../../.. -v CMakeFiles/cmTC_4cffc.dir/CMakeCUDACompilerABI.cu.o -lcudadevrt -lcudart_static -lrt -lpthread -ldl -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/9/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crtn.o
         collect2 version 9.4.0
-        /usr/bin/ld -plugin /usr/lib/gcc/x86_64-linux-gnu/9/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper -plugin-opt=-fresolution=/tmp/ccIiwG1R.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_4c07d /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/9/crtbeginS.o -L/usr/local/cuda-12.6/targets/x86_64-linux/lib/stubs -L/usr/local/cuda-12.6/targets/x86_64-linux/lib -L/usr/lib/gcc/x86_64-linux-gnu/9 -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/9/../../.. -v CMakeFiles/cmTC_4c07d.dir/CMakeCUDACompilerABI.cu.o -lcudadevrt -lcudart_static -lrt -lpthread -ldl -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/9/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crtn.o
+        /usr/bin/ld -plugin /usr/lib/gcc/x86_64-linux-gnu/9/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper -plugin-opt=-fresolution=/tmp/ccwn3pPK.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_4cffc /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/9/crtbeginS.o -L/usr/local/cuda-12.6/targets/x86_64-linux/lib/stubs -L/usr/local/cuda-12.6/targets/x86_64-linux/lib -L/usr/lib/gcc/x86_64-linux-gnu/9 -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/9/../../.. -v CMakeFiles/cmTC_4cffc.dir/CMakeCUDACompilerABI.cu.o -lcudadevrt -lcudart_static -lrt -lpthread -ldl -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/9/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crtn.o
         GNU ld (GNU Binutils for Ubuntu) 2.34
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_4c07d' '-L/usr/local/cuda-12.6/targets/x86_64-linux/lib/stubs' '-L/usr/local/cuda-12.6/targets/x86_64-linux/lib' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
-        /usr/bin/g++  -v -Wl,-v CMakeFiles/cmTC_4c07d.dir/CMakeCUDACompilerABI.cu.o -o cmTC_4c07d  -lcudadevrt -lcudart_static -lrt -lpthread -ldl  -L"/usr/local/cuda-12.6/targets/x86_64-linux/lib/stubs" -L"/usr/local/cuda-12.6/targets/x86_64-linux/lib"
-        make[1]: Leaving directory '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-33pMwh'
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_4cffc' '-L/usr/local/cuda-12.6/targets/x86_64-linux/lib/stubs' '-L/usr/local/cuda-12.6/targets/x86_64-linux/lib' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+        /usr/bin/g++  -v -Wl,-v CMakeFiles/cmTC_4cffc.dir/CMakeCUDACompilerABI.cu.o -o cmTC_4cffc  -lcudadevrt -lcudart_static -lrt -lpthread -ldl  -L"/usr/local/cuda-12.6/targets/x86_64-linux/lib/stubs" -L"/usr/local/cuda-12.6/targets/x86_64-linux/lib"
+        make[1]: Leaving directory '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-uZUbpd'
         
       exitCode: 0
   -
@@ -2126,13 +2126,13 @@ events:
       Parsed CUDA implicit link information:
         link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
         linker tool regex: [^[ 	]*(->|"|[0-9]+>[ 	-]*Build:[ 	0-9]+ ms[ 	]*)?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
-        ignore line: [Change Dir: '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-33pMwh']
+        ignore line: [Change Dir: '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-uZUbpd']
         ignore line: []
-        ignore line: [Run Build Command(s): /home/g/anaconda3/envs/g308/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_4c07d/fast]
-        ignore line: [/usr/bin/make  -f CMakeFiles/cmTC_4c07d.dir/build.make CMakeFiles/cmTC_4c07d.dir/build]
-        ignore line: [make[1]: Entering directory '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-33pMwh']
-        ignore line: [Building CUDA object CMakeFiles/cmTC_4c07d.dir/CMakeCUDACompilerABI.cu.o]
-        ignore line: [/usr/local/cuda-12.6/bin/nvcc -forward-unknown-to-host-compiler   "--generate-code=arch=compute_52 code=[compute_52 sm_52]"   -Xcompiler=-v -MD -MT CMakeFiles/cmTC_4c07d.dir/CMakeCUDACompilerABI.cu.o -MF CMakeFiles/cmTC_4c07d.dir/CMakeCUDACompilerABI.cu.o.d -x cu -c /home/g/anaconda3/envs/g308/share/cmake-4.2/Modules/CMakeCUDACompilerABI.cu -o CMakeFiles/cmTC_4c07d.dir/CMakeCUDACompilerABI.cu.o]
+        ignore line: [Run Build Command(s): /home/g/anaconda3/envs/g308/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_4cffc/fast]
+        ignore line: [/usr/bin/make  -f CMakeFiles/cmTC_4cffc.dir/build.make CMakeFiles/cmTC_4cffc.dir/build]
+        ignore line: [make[1]: Entering directory '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-uZUbpd']
+        ignore line: [Building CUDA object CMakeFiles/cmTC_4cffc.dir/CMakeCUDACompilerABI.cu.o]
+        ignore line: [/usr/local/cuda-12.6/bin/nvcc -forward-unknown-to-host-compiler   "--generate-code=arch=compute_52 code=[compute_52 sm_52]"   -Xcompiler=-v -MD -MT CMakeFiles/cmTC_4cffc.dir/CMakeCUDACompilerABI.cu.o -MF CMakeFiles/cmTC_4cffc.dir/CMakeCUDACompilerABI.cu.o.d -x cu -c /home/g/anaconda3/envs/g308/share/cmake-4.2/Modules/CMakeCUDACompilerABI.cu -o CMakeFiles/cmTC_4cffc.dir/CMakeCUDACompilerABI.cu.o]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=gcc]
         ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none:hsa]
@@ -2141,8 +2141,8 @@ events:
         ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu 9.4.0-1ubuntu1~20.04.2' --with-bugurl=file:///usr/share/doc/gcc-9/README.Bugs --enable-languages=c ada c++ go brig d fortran objc obj-c++ gm2 --prefix=/usr --with-gcc-major-version-only --program-suffix=-9 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32 m64 mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none=/build/gcc-9-9QDOt0/gcc-9-9.4.0/debian/tmp-nvptx/usr hsa --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu]
         ignore line: [Thread model: posix]
         ignore line: [gcc version 9.4.0 (Ubuntu 9.4.0-1ubuntu1~20.04.2) ]
-        ignore line: [COLLECT_GCC_OPTIONS='-D' '__CUDA_ARCH__=520' '-D' '__CUDA_ARCH_LIST__=520' '-D' '__NV_LEGACY_LAUNCH' '-E' '-D' 'CUDA_DOUBLE_MATH_FUNCTIONS' '-D' '__CUDACC__' '-D' '__NVCC__' '-v' '-I' '/usr/local/cuda-12.6/bin/../targets/x86_64-linux/include' '-D' '__CUDACC_VER_MAJOR__=12' '-D' '__CUDACC_VER_MINOR__=6' '-D' '__CUDACC_VER_BUILD__=20' '-D' '__CUDA_API_VER_MAJOR__=12' '-D' '__CUDA_API_VER_MINOR__=6' '-D' '__NVCC_DIAG_PRAGMA_SUPPORT__=1' '-include' 'cuda_runtime.h' '-m64' '-o' '/tmp/tmpxft_000035e9_00000000-7_CMakeCUDACompilerABI.cpp1.ii' '-mtune=generic' '-march=x86-64']
-        ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/9/cc1plus -E -quiet -v -I /usr/local/cuda-12.6/bin/../targets/x86_64-linux/include -imultiarch x86_64-linux-gnu -D_GNU_SOURCE -D __CUDA_ARCH__=520 -D __CUDA_ARCH_LIST__=520 -D __NV_LEGACY_LAUNCH -D CUDA_DOUBLE_MATH_FUNCTIONS -D __CUDACC__ -D __NVCC__ -D __CUDACC_VER_MAJOR__=12 -D __CUDACC_VER_MINOR__=6 -D __CUDACC_VER_BUILD__=20 -D __CUDA_API_VER_MAJOR__=12 -D __CUDA_API_VER_MINOR__=6 -D __NVCC_DIAG_PRAGMA_SUPPORT__=1 -include cuda_runtime.h /home/g/anaconda3/envs/g308/share/cmake-4.2/Modules/CMakeCUDACompilerABI.cu -o /tmp/tmpxft_000035e9_00000000-7_CMakeCUDACompilerABI.cpp1.ii -m64 -mtune=generic -march=x86-64 -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection]
+        ignore line: [COLLECT_GCC_OPTIONS='-D' '__CUDA_ARCH__=520' '-D' '__CUDA_ARCH_LIST__=520' '-D' '__NV_LEGACY_LAUNCH' '-E' '-D' 'CUDA_DOUBLE_MATH_FUNCTIONS' '-D' '__CUDACC__' '-D' '__NVCC__' '-v' '-I' '/usr/local/cuda-12.6/bin/../targets/x86_64-linux/include' '-D' '__CUDACC_VER_MAJOR__=12' '-D' '__CUDACC_VER_MINOR__=6' '-D' '__CUDACC_VER_BUILD__=20' '-D' '__CUDA_API_VER_MAJOR__=12' '-D' '__CUDA_API_VER_MINOR__=6' '-D' '__NVCC_DIAG_PRAGMA_SUPPORT__=1' '-include' 'cuda_runtime.h' '-m64' '-o' '/tmp/tmpxft_00004a88_00000000-7_CMakeCUDACompilerABI.cpp1.ii' '-mtune=generic' '-march=x86-64']
+        ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/9/cc1plus -E -quiet -v -I /usr/local/cuda-12.6/bin/../targets/x86_64-linux/include -imultiarch x86_64-linux-gnu -D_GNU_SOURCE -D __CUDA_ARCH__=520 -D __CUDA_ARCH_LIST__=520 -D __NV_LEGACY_LAUNCH -D CUDA_DOUBLE_MATH_FUNCTIONS -D __CUDACC__ -D __NVCC__ -D __CUDACC_VER_MAJOR__=12 -D __CUDACC_VER_MINOR__=6 -D __CUDACC_VER_BUILD__=20 -D __CUDA_API_VER_MAJOR__=12 -D __CUDA_API_VER_MINOR__=6 -D __NVCC_DIAG_PRAGMA_SUPPORT__=1 -include cuda_runtime.h /home/g/anaconda3/envs/g308/share/cmake-4.2/Modules/CMakeCUDACompilerABI.cu -o /tmp/tmpxft_00004a88_00000000-7_CMakeCUDACompilerABI.cpp1.ii -m64 -mtune=generic -march=x86-64 -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection]
         ignore line: [ignoring duplicate directory "/usr/include/x86_64-linux-gnu/c++/9"]
         ignore line: [ignoring nonexistent directory "/usr/local/include/x86_64-linux-gnu"]
         ignore line: [ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed"]
@@ -2160,7 +2160,7 @@ events:
         ignore line: [End of search list.]
         ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/]
         ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../:/lib/:/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-D' '__CUDA_ARCH__=520' '-D' '__CUDA_ARCH_LIST__=520' '-D' '__NV_LEGACY_LAUNCH' '-E' '-D' 'CUDA_DOUBLE_MATH_FUNCTIONS' '-D' '__CUDACC__' '-D' '__NVCC__' '-v' '-I' '/usr/local/cuda-12.6/bin/../targets/x86_64-linux/include' '-D' '__CUDACC_VER_MAJOR__=12' '-D' '__CUDACC_VER_MINOR__=6' '-D' '__CUDACC_VER_BUILD__=20' '-D' '__CUDA_API_VER_MAJOR__=12' '-D' '__CUDA_API_VER_MINOR__=6' '-D' '__NVCC_DIAG_PRAGMA_SUPPORT__=1' '-include' 'cuda_runtime.h' '-m64' '-o' '/tmp/tmpxft_000035e9_00000000-7_CMakeCUDACompilerABI.cpp1.ii' '-mtune=generic' '-march=x86-64']
+        ignore line: [COLLECT_GCC_OPTIONS='-D' '__CUDA_ARCH__=520' '-D' '__CUDA_ARCH_LIST__=520' '-D' '__NV_LEGACY_LAUNCH' '-E' '-D' 'CUDA_DOUBLE_MATH_FUNCTIONS' '-D' '__CUDACC__' '-D' '__NVCC__' '-v' '-I' '/usr/local/cuda-12.6/bin/../targets/x86_64-linux/include' '-D' '__CUDACC_VER_MAJOR__=12' '-D' '__CUDACC_VER_MINOR__=6' '-D' '__CUDACC_VER_BUILD__=20' '-D' '__CUDA_API_VER_MAJOR__=12' '-D' '__CUDA_API_VER_MINOR__=6' '-D' '__NVCC_DIAG_PRAGMA_SUPPORT__=1' '-include' 'cuda_runtime.h' '-m64' '-o' '/tmp/tmpxft_00004a88_00000000-7_CMakeCUDACompilerABI.cpp1.ii' '-mtune=generic' '-march=x86-64']
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=gcc]
         ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none:hsa]
@@ -2169,8 +2169,8 @@ events:
         ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu 9.4.0-1ubuntu1~20.04.2' --with-bugurl=file:///usr/share/doc/gcc-9/README.Bugs --enable-languages=c ada c++ go brig d fortran objc obj-c++ gm2 --prefix=/usr --with-gcc-major-version-only --program-suffix=-9 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32 m64 mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none=/build/gcc-9-9QDOt0/gcc-9-9.4.0/debian/tmp-nvptx/usr hsa --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu]
         ignore line: [Thread model: posix]
         ignore line: [gcc version 9.4.0 (Ubuntu 9.4.0-1ubuntu1~20.04.2) ]
-        ignore line: [COLLECT_GCC_OPTIONS='-D' '__CUDA_ARCH_LIST__=520' '-D' '__NV_LEGACY_LAUNCH' '-E' '-D' '__CUDACC__' '-D' '__NVCC__' '-v' '-I' '/usr/local/cuda-12.6/bin/../targets/x86_64-linux/include' '-D' '__CUDACC_VER_MAJOR__=12' '-D' '__CUDACC_VER_MINOR__=6' '-D' '__CUDACC_VER_BUILD__=20' '-D' '__CUDA_API_VER_MAJOR__=12' '-D' '__CUDA_API_VER_MINOR__=6' '-D' '__NVCC_DIAG_PRAGMA_SUPPORT__=1' '-include' 'cuda_runtime.h' '-m64' '-o' '/tmp/tmpxft_000035e9_00000000-5_CMakeCUDACompilerABI.cpp4.ii' '-mtune=generic' '-march=x86-64']
-        ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/9/cc1plus -E -quiet -v -I /usr/local/cuda-12.6/bin/../targets/x86_64-linux/include -imultiarch x86_64-linux-gnu -D_GNU_SOURCE -D __CUDA_ARCH_LIST__=520 -D __NV_LEGACY_LAUNCH -D __CUDACC__ -D __NVCC__ -D __CUDACC_VER_MAJOR__=12 -D __CUDACC_VER_MINOR__=6 -D __CUDACC_VER_BUILD__=20 -D __CUDA_API_VER_MAJOR__=12 -D __CUDA_API_VER_MINOR__=6 -D __NVCC_DIAG_PRAGMA_SUPPORT__=1 -include cuda_runtime.h /home/g/anaconda3/envs/g308/share/cmake-4.2/Modules/CMakeCUDACompilerABI.cu -o /tmp/tmpxft_000035e9_00000000-5_CMakeCUDACompilerABI.cpp4.ii -m64 -mtune=generic -march=x86-64 -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection]
+        ignore line: [COLLECT_GCC_OPTIONS='-D' '__CUDA_ARCH_LIST__=520' '-D' '__NV_LEGACY_LAUNCH' '-E' '-D' '__CUDACC__' '-D' '__NVCC__' '-v' '-I' '/usr/local/cuda-12.6/bin/../targets/x86_64-linux/include' '-D' '__CUDACC_VER_MAJOR__=12' '-D' '__CUDACC_VER_MINOR__=6' '-D' '__CUDACC_VER_BUILD__=20' '-D' '__CUDA_API_VER_MAJOR__=12' '-D' '__CUDA_API_VER_MINOR__=6' '-D' '__NVCC_DIAG_PRAGMA_SUPPORT__=1' '-include' 'cuda_runtime.h' '-m64' '-o' '/tmp/tmpxft_00004a88_00000000-5_CMakeCUDACompilerABI.cpp4.ii' '-mtune=generic' '-march=x86-64']
+        ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/9/cc1plus -E -quiet -v -I /usr/local/cuda-12.6/bin/../targets/x86_64-linux/include -imultiarch x86_64-linux-gnu -D_GNU_SOURCE -D __CUDA_ARCH_LIST__=520 -D __NV_LEGACY_LAUNCH -D __CUDACC__ -D __NVCC__ -D __CUDACC_VER_MAJOR__=12 -D __CUDACC_VER_MINOR__=6 -D __CUDACC_VER_BUILD__=20 -D __CUDA_API_VER_MAJOR__=12 -D __CUDA_API_VER_MINOR__=6 -D __NVCC_DIAG_PRAGMA_SUPPORT__=1 -include cuda_runtime.h /home/g/anaconda3/envs/g308/share/cmake-4.2/Modules/CMakeCUDACompilerABI.cu -o /tmp/tmpxft_00004a88_00000000-5_CMakeCUDACompilerABI.cpp4.ii -m64 -mtune=generic -march=x86-64 -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection]
         ignore line: [ignoring duplicate directory "/usr/include/x86_64-linux-gnu/c++/9"]
         ignore line: [ignoring nonexistent directory "/usr/local/include/x86_64-linux-gnu"]
         ignore line: [ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed"]
@@ -2188,7 +2188,7 @@ events:
         ignore line: [End of search list.]
         ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/]
         ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../:/lib/:/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-D' '__CUDA_ARCH_LIST__=520' '-D' '__NV_LEGACY_LAUNCH' '-E' '-D' '__CUDACC__' '-D' '__NVCC__' '-v' '-I' '/usr/local/cuda-12.6/bin/../targets/x86_64-linux/include' '-D' '__CUDACC_VER_MAJOR__=12' '-D' '__CUDACC_VER_MINOR__=6' '-D' '__CUDACC_VER_BUILD__=20' '-D' '__CUDA_API_VER_MAJOR__=12' '-D' '__CUDA_API_VER_MINOR__=6' '-D' '__NVCC_DIAG_PRAGMA_SUPPORT__=1' '-include' 'cuda_runtime.h' '-m64' '-o' '/tmp/tmpxft_000035e9_00000000-5_CMakeCUDACompilerABI.cpp4.ii' '-mtune=generic' '-march=x86-64']
+        ignore line: [COLLECT_GCC_OPTIONS='-D' '__CUDA_ARCH_LIST__=520' '-D' '__NV_LEGACY_LAUNCH' '-E' '-D' '__CUDACC__' '-D' '__NVCC__' '-v' '-I' '/usr/local/cuda-12.6/bin/../targets/x86_64-linux/include' '-D' '__CUDACC_VER_MAJOR__=12' '-D' '__CUDACC_VER_MINOR__=6' '-D' '__CUDACC_VER_BUILD__=20' '-D' '__CUDA_API_VER_MAJOR__=12' '-D' '__CUDA_API_VER_MINOR__=6' '-D' '__NVCC_DIAG_PRAGMA_SUPPORT__=1' '-include' 'cuda_runtime.h' '-m64' '-o' '/tmp/tmpxft_00004a88_00000000-5_CMakeCUDACompilerABI.cpp4.ii' '-mtune=generic' '-march=x86-64']
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=gcc]
         ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none:hsa]
@@ -2197,8 +2197,8 @@ events:
         ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu 9.4.0-1ubuntu1~20.04.2' --with-bugurl=file:///usr/share/doc/gcc-9/README.Bugs --enable-languages=c ada c++ go brig d fortran objc obj-c++ gm2 --prefix=/usr --with-gcc-major-version-only --program-suffix=-9 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32 m64 mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none=/build/gcc-9-9QDOt0/gcc-9-9.4.0/debian/tmp-nvptx/usr hsa --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu]
         ignore line: [Thread model: posix]
         ignore line: [gcc version 9.4.0 (Ubuntu 9.4.0-1ubuntu1~20.04.2) ]
-        ignore line: [COLLECT_GCC_OPTIONS='-D' '__CUDA_ARCH__=520' '-D' '__CUDA_ARCH_LIST__=520' '-D' '__NV_LEGACY_LAUNCH' '-c' '-D' 'CUDA_DOUBLE_MATH_FUNCTIONS' '-v' '-Wno-psabi' '-I' '/usr/local/cuda-12.6/bin/../targets/x86_64-linux/include' '-m64' '-o' 'CMakeFiles/cmTC_4c07d.dir/CMakeCUDACompilerABI.cu.o' '-mtune=generic' '-march=x86-64']
-        ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/9/cc1plus -quiet -v -I /usr/local/cuda-12.6/bin/../targets/x86_64-linux/include -imultiarch x86_64-linux-gnu -D_GNU_SOURCE -D __CUDA_ARCH__=520 -D __CUDA_ARCH_LIST__=520 -D __NV_LEGACY_LAUNCH -D CUDA_DOUBLE_MATH_FUNCTIONS /tmp/tmpxft_000035e9_00000000-6_CMakeCUDACompilerABI.cudafe1.cpp -quiet -dumpbase tmpxft_000035e9_00000000-6_CMakeCUDACompilerABI.cudafe1.cpp -m64 -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_4c07d.dir/CMakeCUDACompilerABI.cu.o -Wno-psabi -version -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection -o /tmp/ccX3VDFr.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-D' '__CUDA_ARCH__=520' '-D' '__CUDA_ARCH_LIST__=520' '-D' '__NV_LEGACY_LAUNCH' '-c' '-D' 'CUDA_DOUBLE_MATH_FUNCTIONS' '-v' '-Wno-psabi' '-I' '/usr/local/cuda-12.6/bin/../targets/x86_64-linux/include' '-m64' '-o' 'CMakeFiles/cmTC_4cffc.dir/CMakeCUDACompilerABI.cu.o' '-mtune=generic' '-march=x86-64']
+        ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/9/cc1plus -quiet -v -I /usr/local/cuda-12.6/bin/../targets/x86_64-linux/include -imultiarch x86_64-linux-gnu -D_GNU_SOURCE -D __CUDA_ARCH__=520 -D __CUDA_ARCH_LIST__=520 -D __NV_LEGACY_LAUNCH -D CUDA_DOUBLE_MATH_FUNCTIONS /tmp/tmpxft_00004a88_00000000-6_CMakeCUDACompilerABI.cudafe1.cpp -quiet -dumpbase tmpxft_00004a88_00000000-6_CMakeCUDACompilerABI.cudafe1.cpp -m64 -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_4cffc.dir/CMakeCUDACompilerABI.cu.o -Wno-psabi -version -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection -o /tmp/ccb2DYtj.s]
         ignore line: [GNU C++14 (Ubuntu 9.4.0-1ubuntu1~20.04.2) version 9.4.0 (x86_64-linux-gnu)]
         ignore line: [	compiled by GNU C version 9.4.0  GMP version 6.2.0  MPFR version 4.0.2  MPC version 1.1.0  isl version isl-0.22.1-GMP]
         ignore line: []
@@ -2223,14 +2223,14 @@ events:
         ignore line: []
         ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
         ignore line: [Compiler executable checksum: 3d1eba838554fa2348dba760e4770469]
-        ignore line: [COLLECT_GCC_OPTIONS='-D' '__CUDA_ARCH__=520' '-D' '__CUDA_ARCH_LIST__=520' '-D' '__NV_LEGACY_LAUNCH' '-c' '-D' 'CUDA_DOUBLE_MATH_FUNCTIONS' '-v' '-Wno-psabi' '-I' '/usr/local/cuda-12.6/bin/../targets/x86_64-linux/include' '-m64' '-o' 'CMakeFiles/cmTC_4c07d.dir/CMakeCUDACompilerABI.cu.o' '-mtune=generic' '-march=x86-64']
-        ignore line: [ as -v -I /usr/local/cuda-12.6/bin/../targets/x86_64-linux/include --64 -o CMakeFiles/cmTC_4c07d.dir/CMakeCUDACompilerABI.cu.o /tmp/ccX3VDFr.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-D' '__CUDA_ARCH__=520' '-D' '__CUDA_ARCH_LIST__=520' '-D' '__NV_LEGACY_LAUNCH' '-c' '-D' 'CUDA_DOUBLE_MATH_FUNCTIONS' '-v' '-Wno-psabi' '-I' '/usr/local/cuda-12.6/bin/../targets/x86_64-linux/include' '-m64' '-o' 'CMakeFiles/cmTC_4cffc.dir/CMakeCUDACompilerABI.cu.o' '-mtune=generic' '-march=x86-64']
+        ignore line: [ as -v -I /usr/local/cuda-12.6/bin/../targets/x86_64-linux/include --64 -o CMakeFiles/cmTC_4cffc.dir/CMakeCUDACompilerABI.cu.o /tmp/ccb2DYtj.s]
         ignore line: [GNU assembler version 2.34 (x86_64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.34]
         ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/]
         ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../:/lib/:/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-D' '__CUDA_ARCH__=520' '-D' '__CUDA_ARCH_LIST__=520' '-D' '__NV_LEGACY_LAUNCH' '-c' '-D' 'CUDA_DOUBLE_MATH_FUNCTIONS' '-v' '-Wno-psabi' '-I' '/usr/local/cuda-12.6/bin/../targets/x86_64-linux/include' '-m64' '-o' 'CMakeFiles/cmTC_4c07d.dir/CMakeCUDACompilerABI.cu.o' '-mtune=generic' '-march=x86-64']
-        ignore line: [Linking CUDA executable cmTC_4c07d]
-        ignore line: [/home/g/anaconda3/envs/g308/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4c07d.dir/link.txt --verbose=1]
+        ignore line: [COLLECT_GCC_OPTIONS='-D' '__CUDA_ARCH__=520' '-D' '__CUDA_ARCH_LIST__=520' '-D' '__NV_LEGACY_LAUNCH' '-c' '-D' 'CUDA_DOUBLE_MATH_FUNCTIONS' '-v' '-Wno-psabi' '-I' '/usr/local/cuda-12.6/bin/../targets/x86_64-linux/include' '-m64' '-o' 'CMakeFiles/cmTC_4cffc.dir/CMakeCUDACompilerABI.cu.o' '-mtune=generic' '-march=x86-64']
+        ignore line: [Linking CUDA executable cmTC_4cffc]
+        ignore line: [/home/g/anaconda3/envs/g308/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4cffc.dir/link.txt --verbose=1]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=/usr/bin/g++]
         ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper]
@@ -2242,13 +2242,13 @@ events:
         ignore line: [gcc version 9.4.0 (Ubuntu 9.4.0-1ubuntu1~20.04.2) ]
         ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/]
         ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../:/lib/:/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_4c07d' '-L/usr/local/cuda-12.6/targets/x86_64-linux/lib/stubs' '-L/usr/local/cuda-12.6/targets/x86_64-linux/lib' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
-        link line: [ /usr/lib/gcc/x86_64-linux-gnu/9/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/9/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper -plugin-opt=-fresolution=/tmp/ccIiwG1R.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_4c07d /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/9/crtbeginS.o -L/usr/local/cuda-12.6/targets/x86_64-linux/lib/stubs -L/usr/local/cuda-12.6/targets/x86_64-linux/lib -L/usr/lib/gcc/x86_64-linux-gnu/9 -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/9/../../.. -v CMakeFiles/cmTC_4c07d.dir/CMakeCUDACompilerABI.cu.o -lcudadevrt -lcudart_static -lrt -lpthread -ldl -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/9/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crtn.o]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_4cffc' '-L/usr/local/cuda-12.6/targets/x86_64-linux/lib/stubs' '-L/usr/local/cuda-12.6/targets/x86_64-linux/lib' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+        link line: [ /usr/lib/gcc/x86_64-linux-gnu/9/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/9/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper -plugin-opt=-fresolution=/tmp/ccwn3pPK.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_4cffc /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/9/crtbeginS.o -L/usr/local/cuda-12.6/targets/x86_64-linux/lib/stubs -L/usr/local/cuda-12.6/targets/x86_64-linux/lib -L/usr/lib/gcc/x86_64-linux-gnu/9 -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/9/../../.. -v CMakeFiles/cmTC_4cffc.dir/CMakeCUDACompilerABI.cu.o -lcudadevrt -lcudart_static -lrt -lpthread -ldl -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/9/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crtn.o]
           arg [/usr/lib/gcc/x86_64-linux-gnu/9/collect2] ==> ignore
           arg [-plugin] ==> ignore
           arg [/usr/lib/gcc/x86_64-linux-gnu/9/liblto_plugin.so] ==> ignore
           arg [-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper] ==> ignore
-          arg [-plugin-opt=-fresolution=/tmp/ccIiwG1R.res] ==> ignore
+          arg [-plugin-opt=-fresolution=/tmp/ccwn3pPK.res] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
           arg [-plugin-opt=-pass-through=-lc] ==> ignore
@@ -2266,7 +2266,7 @@ events:
           arg [-znow] ==> ignore
           arg [-zrelro] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_4c07d] ==> ignore
+          arg [cmTC_4cffc] ==> ignore
           arg [/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/Scrt1.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/Scrt1.o]
           arg [/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crti.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crti.o]
           arg [/usr/lib/gcc/x86_64-linux-gnu/9/crtbeginS.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/9/crtbeginS.o]
@@ -2281,7 +2281,7 @@ events:
           arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
           arg [-L/usr/lib/gcc/x86_64-linux-gnu/9/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/9/../../..]
           arg [-v] ==> ignore
-          arg [CMakeFiles/cmTC_4c07d.dir/CMakeCUDACompilerABI.cu.o] ==> ignore
+          arg [CMakeFiles/cmTC_4cffc.dir/CMakeCUDACompilerABI.cu.o] ==> ignore
           arg [-lcudadevrt] ==> lib [cudadevrt]
           arg [-lcudart_static] ==> lib [cudart_static]
           arg [-lrt] ==> lib [rt]
@@ -2297,7 +2297,7 @@ events:
           arg [/usr/lib/gcc/x86_64-linux-gnu/9/crtendS.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/9/crtendS.o]
           arg [/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crtn.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crtn.o]
         ignore line: [collect2 version 9.4.0]
-        ignore line: [/usr/bin/ld -plugin /usr/lib/gcc/x86_64-linux-gnu/9/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper -plugin-opt=-fresolution=/tmp/ccIiwG1R.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_4c07d /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/9/crtbeginS.o -L/usr/local/cuda-12.6/targets/x86_64-linux/lib/stubs -L/usr/local/cuda-12.6/targets/x86_64-linux/lib -L/usr/lib/gcc/x86_64-linux-gnu/9 -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/9/../../.. -v CMakeFiles/cmTC_4c07d.dir/CMakeCUDACompilerABI.cu.o -lcudadevrt -lcudart_static -lrt -lpthread -ldl -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/9/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crtn.o]
+        ignore line: [/usr/bin/ld -plugin /usr/lib/gcc/x86_64-linux-gnu/9/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper -plugin-opt=-fresolution=/tmp/ccwn3pPK.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_4cffc /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/9/crtbeginS.o -L/usr/local/cuda-12.6/targets/x86_64-linux/lib/stubs -L/usr/local/cuda-12.6/targets/x86_64-linux/lib -L/usr/lib/gcc/x86_64-linux-gnu/9 -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/9/../../.. -v CMakeFiles/cmTC_4cffc.dir/CMakeCUDACompilerABI.cu.o -lcudadevrt -lcudart_static -lrt -lpthread -ldl -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/9/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crtn.o]
         linker tool for 'CUDA': /usr/bin/ld
         collapse obj [/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/Scrt1.o] ==> [/usr/lib/x86_64-linux-gnu/Scrt1.o]
         collapse obj [/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crti.o] ==> [/usr/lib/x86_64-linux-gnu/crti.o]
@@ -2462,8 +2462,8 @@ events:
     checks:
       - "Performing Test HAS_FLTO_AUTO"
     directories:
-      source: "/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-gcsyzg"
-      binary: "/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-gcsyzg"
+      source: "/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-NPtcQb"
+      binary: "/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-NPtcQb"
     cmakeVariables:
       CMAKE_CUDA_ARCHITECTURES: "52"
       CMAKE_CXX_FLAGS: ""
@@ -2474,17 +2474,17 @@ events:
       variable: "HAS_FLTO_AUTO"
       cached: true
       stdout: |
-        Change Dir: '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-gcsyzg'
+        Change Dir: '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-NPtcQb'
         
-        Run Build Command(s): /home/g/anaconda3/envs/g308/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_2d5f1/fast
-        /usr/bin/make  -f CMakeFiles/cmTC_2d5f1.dir/build.make CMakeFiles/cmTC_2d5f1.dir/build
-        make[1]: Entering directory '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-gcsyzg'
-        Building CXX object CMakeFiles/cmTC_2d5f1.dir/src.cxx.o
-        /usr/bin/c++ -DHAS_FLTO_AUTO  -std=gnu++17   -flto=auto -fno-fat-lto-objects -o CMakeFiles/cmTC_2d5f1.dir/src.cxx.o -c /home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-gcsyzg/src.cxx
-        Linking CXX executable cmTC_2d5f1
-        /home/g/anaconda3/envs/g308/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2d5f1.dir/link.txt --verbose=1
-        /usr/bin/c++ CMakeFiles/cmTC_2d5f1.dir/src.cxx.o -o cmTC_2d5f1  -flto=auto
-        make[1]: Leaving directory '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-gcsyzg'
+        Run Build Command(s): /home/g/anaconda3/envs/g308/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_f0dca/fast
+        /usr/bin/make  -f CMakeFiles/cmTC_f0dca.dir/build.make CMakeFiles/cmTC_f0dca.dir/build
+        make[1]: Entering directory '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-NPtcQb'
+        Building CXX object CMakeFiles/cmTC_f0dca.dir/src.cxx.o
+        /usr/bin/c++ -DHAS_FLTO_AUTO  -std=gnu++17   -flto=auto -fno-fat-lto-objects -o CMakeFiles/cmTC_f0dca.dir/src.cxx.o -c /home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-NPtcQb/src.cxx
+        Linking CXX executable cmTC_f0dca
+        /home/g/anaconda3/envs/g308/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f0dca.dir/link.txt --verbose=1
+        /usr/bin/c++ CMakeFiles/cmTC_f0dca.dir/src.cxx.o -o cmTC_f0dca  -flto=auto
+        make[1]: Leaving directory '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-NPtcQb'
         
       exitCode: 0
   -
@@ -5897,8 +5897,8 @@ events:
     checks:
       - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
     directories:
-      source: "/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-KWIE8c"
-      binary: "/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-KWIE8c"
+      source: "/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-nHMgRc"
+      binary: "/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-nHMgRc"
     cmakeVariables:
       CMAKE_CUDA_ARCHITECTURES: "52"
       CMAKE_CXX_FLAGS: ""
@@ -5909,25 +5909,25 @@ events:
       variable: "CMAKE_HAVE_LIBC_PTHREAD"
       cached: true
       stdout: |
-        Change Dir: '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-KWIE8c'
+        Change Dir: '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-nHMgRc'
         
-        Run Build Command(s): /home/g/anaconda3/envs/g308/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_1f97d/fast
-        /usr/bin/make  -f CMakeFiles/cmTC_1f97d.dir/build.make CMakeFiles/cmTC_1f97d.dir/build
-        make[1]: 进入目录“/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-KWIE8c”
-        Building CXX object CMakeFiles/cmTC_1f97d.dir/src.cxx.o
-        /usr/bin/c++ -DCMAKE_HAVE_LIBC_PTHREAD  -std=gnu++17 -o CMakeFiles/cmTC_1f97d.dir/src.cxx.o -c /home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-KWIE8c/src.cxx
-        Linking CXX executable cmTC_1f97d
-        /home/g/anaconda3/envs/g308/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1f97d.dir/link.txt --verbose=1
-        /usr/bin/ld: CMakeFiles/cmTC_1f97d.dir/src.cxx.o: in function `main':
+        Run Build Command(s): /home/g/anaconda3/envs/g308/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_35eb1/fast
+        /usr/bin/make  -f CMakeFiles/cmTC_35eb1.dir/build.make CMakeFiles/cmTC_35eb1.dir/build
+        make[1]: 进入目录“/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-nHMgRc”
+        Building CXX object CMakeFiles/cmTC_35eb1.dir/src.cxx.o
+        /usr/bin/c++ -DCMAKE_HAVE_LIBC_PTHREAD  -std=gnu++17 -o CMakeFiles/cmTC_35eb1.dir/src.cxx.o -c /home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-nHMgRc/src.cxx
+        Linking CXX executable cmTC_35eb1
+        /home/g/anaconda3/envs/g308/bin/cmake -E cmake_link_script CMakeFiles/cmTC_35eb1.dir/link.txt --verbose=1
+        /usr/bin/ld: CMakeFiles/cmTC_35eb1.dir/src.cxx.o: in function `main':
         src.cxx:(.text+0x46): undefined reference to `pthread_create'
         /usr/bin/ld: src.cxx:(.text+0x52): undefined reference to `pthread_detach'
         /usr/bin/ld: src.cxx:(.text+0x5e): undefined reference to `pthread_cancel'
         /usr/bin/ld: src.cxx:(.text+0x6f): undefined reference to `pthread_join'
         collect2: error: ld returned 1 exit status
-        /usr/bin/c++ CMakeFiles/cmTC_1f97d.dir/src.cxx.o -o cmTC_1f97d
-        make[1]: *** [CMakeFiles/cmTC_1f97d.dir/build.make:102：cmTC_1f97d] 错误 1
-        make[1]: 离开目录“/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-KWIE8c”
-        make: *** [Makefile:134：cmTC_1f97d/fast] 错误 2
+        /usr/bin/c++ CMakeFiles/cmTC_35eb1.dir/src.cxx.o -o cmTC_35eb1
+        make[1]: *** [CMakeFiles/cmTC_35eb1.dir/build.make:102：cmTC_35eb1] 错误 1
+        make[1]: 离开目录“/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-nHMgRc”
+        make: *** [Makefile:134：cmTC_35eb1/fast] 错误 2
         
       exitCode: 2
   -
@@ -5944,8 +5944,8 @@ events:
     checks:
       - "Looking for pthread_create in pthreads"
     directories:
-      source: "/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-qBjAeg"
-      binary: "/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-qBjAeg"
+      source: "/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-Jv2dCb"
+      binary: "/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-Jv2dCb"
     cmakeVariables:
       CMAKE_CUDA_ARCHITECTURES: "52"
       CMAKE_CXX_FLAGS: ""
@@ -5956,21 +5956,21 @@ events:
       variable: "CMAKE_HAVE_PTHREADS_CREATE"
       cached: true
       stdout: |
-        Change Dir: '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-qBjAeg'
+        Change Dir: '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-Jv2dCb'
         
-        Run Build Command(s): /home/g/anaconda3/envs/g308/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_e0525/fast
-        /usr/bin/make  -f CMakeFiles/cmTC_e0525.dir/build.make CMakeFiles/cmTC_e0525.dir/build
-        make[1]: 进入目录“/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-qBjAeg”
-        Building CXX object CMakeFiles/cmTC_e0525.dir/CheckFunctionExists.cxx.o
-        /usr/bin/c++   -DCHECK_FUNCTION_EXISTS=pthread_create -std=gnu++17 -o CMakeFiles/cmTC_e0525.dir/CheckFunctionExists.cxx.o -c /home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-qBjAeg/CheckFunctionExists.cxx
-        Linking CXX executable cmTC_e0525
-        /home/g/anaconda3/envs/g308/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e0525.dir/link.txt --verbose=1
+        Run Build Command(s): /home/g/anaconda3/envs/g308/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_cce00/fast
+        /usr/bin/make  -f CMakeFiles/cmTC_cce00.dir/build.make CMakeFiles/cmTC_cce00.dir/build
+        make[1]: 进入目录“/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-Jv2dCb”
+        Building CXX object CMakeFiles/cmTC_cce00.dir/CheckFunctionExists.cxx.o
+        /usr/bin/c++   -DCHECK_FUNCTION_EXISTS=pthread_create -std=gnu++17 -o CMakeFiles/cmTC_cce00.dir/CheckFunctionExists.cxx.o -c /home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-Jv2dCb/CheckFunctionExists.cxx
+        Linking CXX executable cmTC_cce00
+        /home/g/anaconda3/envs/g308/bin/cmake -E cmake_link_script CMakeFiles/cmTC_cce00.dir/link.txt --verbose=1
         /usr/bin/ld: 找不到 -lpthreads
         collect2: error: ld returned 1 exit status
-        /usr/bin/c++  -DCHECK_FUNCTION_EXISTS=pthread_create CMakeFiles/cmTC_e0525.dir/CheckFunctionExists.cxx.o -o cmTC_e0525  -lpthreads
-        make[1]: *** [CMakeFiles/cmTC_e0525.dir/build.make:102：cmTC_e0525] 错误 1
-        make[1]: 离开目录“/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-qBjAeg”
-        make: *** [Makefile:134：cmTC_e0525/fast] 错误 2
+        /usr/bin/c++  -DCHECK_FUNCTION_EXISTS=pthread_create CMakeFiles/cmTC_cce00.dir/CheckFunctionExists.cxx.o -o cmTC_cce00  -lpthreads
+        make[1]: *** [CMakeFiles/cmTC_cce00.dir/build.make:102：cmTC_cce00] 错误 1
+        make[1]: 离开目录“/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-Jv2dCb”
+        make: *** [Makefile:134：cmTC_cce00/fast] 错误 2
         
       exitCode: 2
   -
@@ -5987,8 +5987,8 @@ events:
     checks:
       - "Looking for pthread_create in pthread"
     directories:
-      source: "/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-xMqQAd"
-      binary: "/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-xMqQAd"
+      source: "/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-YZ3r79"
+      binary: "/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-YZ3r79"
     cmakeVariables:
       CMAKE_CUDA_ARCHITECTURES: "52"
       CMAKE_CXX_FLAGS: ""
@@ -5999,17 +5999,17 @@ events:
       variable: "CMAKE_HAVE_PTHREAD_CREATE"
       cached: true
       stdout: |
-        Change Dir: '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-xMqQAd'
+        Change Dir: '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-YZ3r79'
         
-        Run Build Command(s): /home/g/anaconda3/envs/g308/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_ca8f1/fast
-        /usr/bin/make  -f CMakeFiles/cmTC_ca8f1.dir/build.make CMakeFiles/cmTC_ca8f1.dir/build
-        make[1]: 进入目录“/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-xMqQAd”
-        Building CXX object CMakeFiles/cmTC_ca8f1.dir/CheckFunctionExists.cxx.o
-        /usr/bin/c++   -DCHECK_FUNCTION_EXISTS=pthread_create -std=gnu++17 -o CMakeFiles/cmTC_ca8f1.dir/CheckFunctionExists.cxx.o -c /home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-xMqQAd/CheckFunctionExists.cxx
-        Linking CXX executable cmTC_ca8f1
-        /home/g/anaconda3/envs/g308/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ca8f1.dir/link.txt --verbose=1
-        /usr/bin/c++  -DCHECK_FUNCTION_EXISTS=pthread_create CMakeFiles/cmTC_ca8f1.dir/CheckFunctionExists.cxx.o -o cmTC_ca8f1  -lpthread
-        make[1]: 离开目录“/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-xMqQAd”
+        Run Build Command(s): /home/g/anaconda3/envs/g308/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_0c31d/fast
+        /usr/bin/make  -f CMakeFiles/cmTC_0c31d.dir/build.make CMakeFiles/cmTC_0c31d.dir/build
+        make[1]: 进入目录“/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-YZ3r79”
+        Building CXX object CMakeFiles/cmTC_0c31d.dir/CheckFunctionExists.cxx.o
+        /usr/bin/c++   -DCHECK_FUNCTION_EXISTS=pthread_create -std=gnu++17 -o CMakeFiles/cmTC_0c31d.dir/CheckFunctionExists.cxx.o -c /home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-YZ3r79/CheckFunctionExists.cxx
+        Linking CXX executable cmTC_0c31d
+        /home/g/anaconda3/envs/g308/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0c31d.dir/link.txt --verbose=1
+        /usr/bin/c++  -DCHECK_FUNCTION_EXISTS=pthread_create CMakeFiles/cmTC_0c31d.dir/CheckFunctionExists.cxx.o -o cmTC_0c31d  -lpthread
+        make[1]: 离开目录“/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeScratch/TryCompile-YZ3r79”
         
       exitCode: 0
   -
@@ -17253,14 +17253,14 @@ events:
       stdout: |
         Change Dir: '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /home/g/anaconda3/envs/g308/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_ec357/fast
-        /usr/bin/make  -f CMakeFiles/cmTC_ec357.dir/build.make CMakeFiles/cmTC_ec357.dir/build
+        Run Build Command(s): /home/g/anaconda3/envs/g308/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_d4367/fast
+        /usr/bin/make  -f CMakeFiles/cmTC_d4367.dir/build.make CMakeFiles/cmTC_d4367.dir/build
         make[1]: 进入目录“/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeTmp”
-        Building CXX object CMakeFiles/cmTC_ec357.dir/detect_cuda_version.cc.o
-        /usr/bin/c++  -I/usr/local/cuda-12.6/include -std=gnu++17 -o CMakeFiles/cmTC_ec357.dir/detect_cuda_version.cc.o -c /home/g/DriveSimX/core/cpp/build/detect_cuda_version.cc
-        Linking CXX executable cmTC_ec357
-        /home/g/anaconda3/envs/g308/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ec357.dir/link.txt --verbose=1
-        /usr/bin/c++ CMakeFiles/cmTC_ec357.dir/detect_cuda_version.cc.o -o cmTC_ec357  -Wl,-rpath,/usr/local/cuda-12.6/lib64 /usr/local/cuda-12.6/lib64/libcudart.so
+        Building CXX object CMakeFiles/cmTC_d4367.dir/detect_cuda_version.cc.o
+        /usr/bin/c++  -I/usr/local/cuda-12.6/include -std=gnu++17 -o CMakeFiles/cmTC_d4367.dir/detect_cuda_version.cc.o -c /home/g/DriveSimX/core/cpp/build/detect_cuda_version.cc
+        Linking CXX executable cmTC_d4367
+        /home/g/anaconda3/envs/g308/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d4367.dir/link.txt --verbose=1
+        /usr/bin/c++ CMakeFiles/cmTC_d4367.dir/detect_cuda_version.cc.o -o cmTC_d4367  -Wl,-rpath,/usr/local/cuda-12.6/lib64 /usr/local/cuda-12.6/lib64/libcudart.so
         make[1]: 离开目录“/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeTmp”
         
       exitCode: 0
@@ -17295,14 +17295,14 @@ events:
       stdout: |
         Change Dir: '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /home/g/anaconda3/envs/g308/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_49470/fast
-        /usr/bin/make  -f CMakeFiles/cmTC_49470.dir/build.make CMakeFiles/cmTC_49470.dir/build
+        Run Build Command(s): /home/g/anaconda3/envs/g308/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_c5836/fast
+        /usr/bin/make  -f CMakeFiles/cmTC_c5836.dir/build.make CMakeFiles/cmTC_c5836.dir/build
         make[1]: 进入目录“/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeTmp”
-        Building CUDA object CMakeFiles/cmTC_49470.dir/detect_cuda_compute_capabilities.cu.o
-        /usr/local/cuda-12.6/bin/nvcc -forward-unknown-to-host-compiler   -std=c++17 "--generate-code=arch=compute_52,code=[compute_52,sm_52]" -MD -MT CMakeFiles/cmTC_49470.dir/detect_cuda_compute_capabilities.cu.o -MF CMakeFiles/cmTC_49470.dir/detect_cuda_compute_capabilities.cu.o.d -x cu -c /home/g/DriveSimX/core/cpp/build/detect_cuda_compute_capabilities.cu -o CMakeFiles/cmTC_49470.dir/detect_cuda_compute_capabilities.cu.o
-        Linking CUDA executable cmTC_49470
-        /home/g/anaconda3/envs/g308/bin/cmake -E cmake_link_script CMakeFiles/cmTC_49470.dir/link.txt --verbose=1
-        /usr/bin/g++ @CMakeFiles/cmTC_49470.dir/objects1.rsp -o cmTC_49470 @CMakeFiles/cmTC_49470.dir/linkLibs.rsp -L"/usr/local/cuda-12.6/targets/x86_64-linux/lib/stubs" -L"/usr/local/cuda-12.6/targets/x86_64-linux/lib"
+        Building CUDA object CMakeFiles/cmTC_c5836.dir/detect_cuda_compute_capabilities.cu.o
+        /usr/local/cuda-12.6/bin/nvcc -forward-unknown-to-host-compiler   -std=c++17 "--generate-code=arch=compute_52,code=[compute_52,sm_52]" -MD -MT CMakeFiles/cmTC_c5836.dir/detect_cuda_compute_capabilities.cu.o -MF CMakeFiles/cmTC_c5836.dir/detect_cuda_compute_capabilities.cu.o.d -x cu -c /home/g/DriveSimX/core/cpp/build/detect_cuda_compute_capabilities.cu -o CMakeFiles/cmTC_c5836.dir/detect_cuda_compute_capabilities.cu.o
+        Linking CUDA executable cmTC_c5836
+        /home/g/anaconda3/envs/g308/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c5836.dir/link.txt --verbose=1
+        /usr/bin/g++ @CMakeFiles/cmTC_c5836.dir/objects1.rsp -o cmTC_c5836 @CMakeFiles/cmTC_c5836.dir/linkLibs.rsp -L"/usr/local/cuda-12.6/targets/x86_64-linux/lib/stubs" -L"/usr/local/cuda-12.6/targets/x86_64-linux/lib"
         make[1]: 离开目录“/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeTmp”
         
       exitCode: 0
@@ -21918,14 +21918,14 @@ events:
       stdout: |
         Change Dir: '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /home/g/anaconda3/envs/g308/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_f4859/fast
-        /usr/bin/make  -f CMakeFiles/cmTC_f4859.dir/build.make CMakeFiles/cmTC_f4859.dir/build
+        Run Build Command(s): /home/g/anaconda3/envs/g308/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_87752/fast
+        /usr/bin/make  -f CMakeFiles/cmTC_87752.dir/build.make CMakeFiles/cmTC_87752.dir/build
         make[1]: 进入目录“/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeTmp”
-        Building CXX object CMakeFiles/cmTC_f4859.dir/detect_cuda_version.cc.o
-        /usr/bin/c++  -I/usr/local/cuda-12.6/include -std=gnu++17 -o CMakeFiles/cmTC_f4859.dir/detect_cuda_version.cc.o -c /home/g/DriveSimX/core/cpp/build/detect_cuda_version.cc
-        Linking CXX executable cmTC_f4859
-        /home/g/anaconda3/envs/g308/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f4859.dir/link.txt --verbose=1
-        /usr/bin/c++ CMakeFiles/cmTC_f4859.dir/detect_cuda_version.cc.o -o cmTC_f4859  -Wl,-rpath,/usr/local/cuda-12.6/lib64 /usr/local/cuda-12.6/lib64/libcudart.so
+        Building CXX object CMakeFiles/cmTC_87752.dir/detect_cuda_version.cc.o
+        /usr/bin/c++  -I/usr/local/cuda-12.6/include -std=gnu++17 -o CMakeFiles/cmTC_87752.dir/detect_cuda_version.cc.o -c /home/g/DriveSimX/core/cpp/build/detect_cuda_version.cc
+        Linking CXX executable cmTC_87752
+        /home/g/anaconda3/envs/g308/bin/cmake -E cmake_link_script CMakeFiles/cmTC_87752.dir/link.txt --verbose=1
+        /usr/bin/c++ CMakeFiles/cmTC_87752.dir/detect_cuda_version.cc.o -o cmTC_87752  -Wl,-rpath,/usr/local/cuda-12.6/lib64 /usr/local/cuda-12.6/lib64/libcudart.so
         make[1]: 离开目录“/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeTmp”
         
       exitCode: 0
@@ -21960,1576 +21960,14 @@ events:
       stdout: |
         Change Dir: '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /home/g/anaconda3/envs/g308/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_63b25/fast
-        /usr/bin/make  -f CMakeFiles/cmTC_63b25.dir/build.make CMakeFiles/cmTC_63b25.dir/build
+        Run Build Command(s): /home/g/anaconda3/envs/g308/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_36c9d/fast
+        /usr/bin/make  -f CMakeFiles/cmTC_36c9d.dir/build.make CMakeFiles/cmTC_36c9d.dir/build
         make[1]: 进入目录“/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeTmp”
-        Building CUDA object CMakeFiles/cmTC_63b25.dir/detect_cuda_compute_capabilities.cu.o
-        /usr/local/cuda-12.6/bin/nvcc -forward-unknown-to-host-compiler   -std=c++17 "--generate-code=arch=compute_52,code=[compute_52,sm_52]" -MD -MT CMakeFiles/cmTC_63b25.dir/detect_cuda_compute_capabilities.cu.o -MF CMakeFiles/cmTC_63b25.dir/detect_cuda_compute_capabilities.cu.o.d -x cu -c /home/g/DriveSimX/core/cpp/build/detect_cuda_compute_capabilities.cu -o CMakeFiles/cmTC_63b25.dir/detect_cuda_compute_capabilities.cu.o
-        Linking CUDA executable cmTC_63b25
-        /home/g/anaconda3/envs/g308/bin/cmake -E cmake_link_script CMakeFiles/cmTC_63b25.dir/link.txt --verbose=1
-        /usr/bin/g++ @CMakeFiles/cmTC_63b25.dir/objects1.rsp -o cmTC_63b25 @CMakeFiles/cmTC_63b25.dir/linkLibs.rsp -L"/usr/local/cuda-12.6/targets/x86_64-linux/lib/stubs" -L"/usr/local/cuda-12.6/targets/x86_64-linux/lib"
-        make[1]: 离开目录“/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeTmp”
-        
-      exitCode: 0
-    runResult:
-      variable: "run_result"
-      cached: true
-      stdout: |
-        8.6 
-      exitCode: 0
-...
-
----
-events:
-  -
-    kind: "find-v1"
-    backtrace:
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:795 (find_path)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/FindCUDA.cmake:11 (include)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:29 (find_package)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:87 (include)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
-      - "CMakeLists.txt:134 (find_package)"
-    mode: "path"
-    variable: "CUDA_TOOLKIT_INCLUDE"
-    description: "Path to a file."
-    settings:
-      SearchFramework: "NEVER"
-      SearchAppBundle: "NEVER"
-      CMAKE_FIND_USE_CMAKE_PATH: true
-      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
-      CMAKE_FIND_USE_INSTALL_PREFIX: true
-    names:
-      - "device_functions.h"
-    candidate_directories:
-      - "/usr/local/cuda-12.6/include/"
-      - "/usr/local/cuda-12.6/"
-    found: "/usr/local/cuda-12.6/include/"
-    search_context:
-      ENV{PATH}:
-        - "/home/g/anaconda3/envs/g308/bin"
-        - "/usr/local/cuda-12.6/bin"
-        - "/home/g/.local/bin"
-        - "/usr/local/cuda-12.6/bin"
-        - "/home/g/anaconda3/condabin"
-        - "/home/g/cursor/usr/bin"
-        - "/home/g/cursor/usr/sbin"
-        - "/home/g/cursor/usr/games"
-        - "/home/g/cursor/bin"
-        - "/home/g/cursor/sbin"
-        - "/home/g/.local/bin"
-        - "/usr/local/sbin"
-        - "/usr/local/bin"
-        - "/usr/sbin"
-        - "/usr/bin"
-        - "/sbin"
-        - "/bin"
-        - "/usr/games"
-        - "/usr/local/games"
-        - "/snap/bin"
-      CMAKE_INSTALL_PREFIX: "/usr/local"
-      CMAKE_SYSTEM_PREFIX_PATH:
-        - "/usr/local"
-        - "/usr"
-        - "/"
-        - "/home/g/anaconda3/envs/g308"
-        - "/usr/local"
-        - "/usr/X11R6"
-        - "/usr/pkg"
-        - "/opt"
-      CMAKE_SYSTEM_INCLUDE_PATH:
-        - "/usr/include/X11"
-  -
-    kind: "find-v1"
-    backtrace:
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:821 (find_library)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:841 (cuda_find_library_local_first_with_path_ext)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:850 (cuda_find_library_local_first)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/FindCUDA.cmake:11 (include)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:29 (find_package)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:87 (include)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
-      - "CMakeLists.txt:134 (find_package)"
-    mode: "library"
-    variable: "CUDA_CUDART_LIBRARY"
-    description: "\"cudart\" library"
-    settings:
-      SearchFramework: "NEVER"
-      SearchAppBundle: "NEVER"
-      CMAKE_FIND_USE_CMAKE_PATH: true
-      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
-      CMAKE_FIND_USE_INSTALL_PREFIX: true
-    names:
-      - "cudart"
-    candidate_directories:
-      - "/usr/local/cuda-12.6/lib/x64/"
-      - "/usr/local/cuda-12.6/lib64/"
-      - "/usr/local/cuda-12.6/libx64/"
-      - "/usr/local/cuda-12.6/lib/Win32/"
-      - "/usr/local/cuda-12.6/lib/"
-      - "/usr/local/cuda-12.6/libWin32/"
-      - "/usr/local/cuda-12.6/"
-    searched_directories:
-      - "/usr/local/cuda-12.6/lib/x64/"
-    found: "/usr/local/cuda-12.6/lib64/libcudart.so"
-    search_context:
-      ENV{PATH}:
-        - "/home/g/anaconda3/envs/g308/bin"
-        - "/usr/local/cuda-12.6/bin"
-        - "/home/g/.local/bin"
-        - "/usr/local/cuda-12.6/bin"
-        - "/home/g/anaconda3/condabin"
-        - "/home/g/cursor/usr/bin"
-        - "/home/g/cursor/usr/sbin"
-        - "/home/g/cursor/usr/games"
-        - "/home/g/cursor/bin"
-        - "/home/g/cursor/sbin"
-        - "/home/g/.local/bin"
-        - "/usr/local/sbin"
-        - "/usr/local/bin"
-        - "/usr/sbin"
-        - "/usr/bin"
-        - "/sbin"
-        - "/bin"
-        - "/usr/games"
-        - "/usr/local/games"
-        - "/snap/bin"
-      CMAKE_INSTALL_PREFIX: "/usr/local"
-      CMAKE_SYSTEM_PREFIX_PATH:
-        - "/usr/local"
-        - "/usr"
-        - "/"
-        - "/home/g/anaconda3/envs/g308"
-        - "/usr/local"
-        - "/usr/X11R6"
-        - "/usr/pkg"
-        - "/opt"
-      CMAKE_SYSTEM_LIBRARY_PATH:
-        - "/usr/lib/X11"
-  -
-    kind: "find-v1"
-    backtrace:
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:821 (find_library)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:841 (cuda_find_library_local_first_with_path_ext)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:852 (cuda_find_library_local_first)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/FindCUDA.cmake:11 (include)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:29 (find_package)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:87 (include)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
-      - "CMakeLists.txt:134 (find_package)"
-    mode: "library"
-    variable: "CUDA_cudart_static_LIBRARY"
-    description: "static CUDA runtime library"
-    settings:
-      SearchFramework: "NEVER"
-      SearchAppBundle: "NEVER"
-      CMAKE_FIND_USE_CMAKE_PATH: true
-      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
-      CMAKE_FIND_USE_INSTALL_PREFIX: true
-    names:
-      - "cudart_static"
-    candidate_directories:
-      - "/usr/local/cuda-12.6/lib/x64/"
-      - "/usr/local/cuda-12.6/lib64/"
-      - "/usr/local/cuda-12.6/libx64/"
-      - "/usr/local/cuda-12.6/lib/Win32/"
-      - "/usr/local/cuda-12.6/lib/"
-      - "/usr/local/cuda-12.6/libWin32/"
-      - "/usr/local/cuda-12.6/"
-    searched_directories:
-      - "/usr/local/cuda-12.6/lib/x64/"
-    found: "/usr/local/cuda-12.6/lib64/libcudart_static.a"
-    search_context:
-      ENV{PATH}:
-        - "/home/g/anaconda3/envs/g308/bin"
-        - "/usr/local/cuda-12.6/bin"
-        - "/home/g/.local/bin"
-        - "/usr/local/cuda-12.6/bin"
-        - "/home/g/anaconda3/condabin"
-        - "/home/g/cursor/usr/bin"
-        - "/home/g/cursor/usr/sbin"
-        - "/home/g/cursor/usr/games"
-        - "/home/g/cursor/bin"
-        - "/home/g/cursor/sbin"
-        - "/home/g/.local/bin"
-        - "/usr/local/sbin"
-        - "/usr/local/bin"
-        - "/usr/sbin"
-        - "/usr/bin"
-        - "/sbin"
-        - "/bin"
-        - "/usr/games"
-        - "/usr/local/games"
-        - "/snap/bin"
-      CMAKE_INSTALL_PREFIX: "/usr/local"
-      CMAKE_SYSTEM_PREFIX_PATH:
-        - "/usr/local"
-        - "/usr"
-        - "/"
-        - "/home/g/anaconda3/envs/g308"
-        - "/usr/local"
-        - "/usr/X11R6"
-        - "/usr/pkg"
-        - "/opt"
-      CMAKE_SYSTEM_LIBRARY_PATH:
-        - "/usr/lib/X11"
-  -
-    kind: "find-v1"
-    backtrace:
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:821 (find_library)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:841 (cuda_find_library_local_first_with_path_ext)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:870 (cuda_find_library_local_first)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/FindCUDA.cmake:11 (include)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:29 (find_package)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:87 (include)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
-      - "CMakeLists.txt:134 (find_package)"
-    mode: "library"
-    variable: "CUDA_cudadevrt_LIBRARY"
-    description: "\"cudadevrt\" library"
-    settings:
-      SearchFramework: "NEVER"
-      SearchAppBundle: "NEVER"
-      CMAKE_FIND_USE_CMAKE_PATH: true
-      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
-      CMAKE_FIND_USE_INSTALL_PREFIX: true
-    names:
-      - "cudadevrt"
-    candidate_directories:
-      - "/usr/local/cuda-12.6/lib/x64/"
-      - "/usr/local/cuda-12.6/lib64/"
-      - "/usr/local/cuda-12.6/libx64/"
-      - "/usr/local/cuda-12.6/lib/Win32/"
-      - "/usr/local/cuda-12.6/lib/"
-      - "/usr/local/cuda-12.6/libWin32/"
-      - "/usr/local/cuda-12.6/"
-    searched_directories:
-      - "/usr/local/cuda-12.6/lib/x64/"
-    found: "/usr/local/cuda-12.6/lib64/libcudadevrt.a"
-    search_context:
-      ENV{PATH}:
-        - "/home/g/anaconda3/envs/g308/bin"
-        - "/usr/local/cuda-12.6/bin"
-        - "/home/g/.local/bin"
-        - "/usr/local/cuda-12.6/bin"
-        - "/home/g/anaconda3/condabin"
-        - "/home/g/cursor/usr/bin"
-        - "/home/g/cursor/usr/sbin"
-        - "/home/g/cursor/usr/games"
-        - "/home/g/cursor/bin"
-        - "/home/g/cursor/sbin"
-        - "/home/g/.local/bin"
-        - "/usr/local/sbin"
-        - "/usr/local/bin"
-        - "/usr/sbin"
-        - "/usr/bin"
-        - "/sbin"
-        - "/bin"
-        - "/usr/games"
-        - "/usr/local/games"
-        - "/snap/bin"
-      CMAKE_INSTALL_PREFIX: "/usr/local"
-      CMAKE_SYSTEM_PREFIX_PATH:
-        - "/usr/local"
-        - "/usr"
-        - "/"
-        - "/home/g/anaconda3/envs/g308"
-        - "/usr/local"
-        - "/usr/X11R6"
-        - "/usr/pkg"
-        - "/opt"
-      CMAKE_SYSTEM_LIBRARY_PATH:
-        - "/usr/lib/X11"
-  -
-    kind: "find-v1"
-    backtrace:
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:821 (find_library)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:907 (cuda_find_library_local_first_with_path_ext)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/FindCUDA.cmake:11 (include)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:29 (find_package)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:87 (include)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
-      - "CMakeLists.txt:134 (find_package)"
-    mode: "library"
-    variable: "CUDA_cupti_LIBRARY"
-    description: "\"cupti\" library"
-    settings:
-      SearchFramework: "NEVER"
-      SearchAppBundle: "NEVER"
-      CMAKE_FIND_USE_CMAKE_PATH: true
-      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
-      CMAKE_FIND_USE_INSTALL_PREFIX: true
-    names:
-      - "cupti"
-    candidate_directories:
-      - "/usr/local/cuda-12.6/extras/CUPTI/lib/x64/"
-      - "/usr/local/cuda-12.6/extras/CUPTI/lib64/"
-      - "/usr/local/cuda-12.6/extras/CUPTI/libx64/"
-      - "/usr/local/cuda-12.6/extras/CUPTI/lib/Win32/"
-      - "/usr/local/cuda-12.6/extras/CUPTI/lib/"
-      - "/usr/local/cuda-12.6/extras/CUPTI/libWin32/"
-      - "/usr/local/cuda-12.6/"
-    searched_directories:
-      - "/usr/local/cuda-12.6/extras/CUPTI/lib/x64/"
-      - "/usr/local/cuda-12.6/extras/CUPTI/lib64/"
-      - "/usr/local/cuda-12.6/extras/CUPTI/libx64/"
-      - "/usr/local/cuda-12.6/extras/CUPTI/lib/Win32/"
-      - "/usr/local/cuda-12.6/extras/CUPTI/lib/"
-      - "/usr/local/cuda-12.6/extras/CUPTI/libWin32/"
-      - "/usr/local/cuda-12.6/"
-    found: false
-    search_context:
-      ENV{PATH}:
-        - "/home/g/anaconda3/envs/g308/bin"
-        - "/usr/local/cuda-12.6/bin"
-        - "/home/g/.local/bin"
-        - "/usr/local/cuda-12.6/bin"
-        - "/home/g/anaconda3/condabin"
-        - "/home/g/cursor/usr/bin"
-        - "/home/g/cursor/usr/sbin"
-        - "/home/g/cursor/usr/games"
-        - "/home/g/cursor/bin"
-        - "/home/g/cursor/sbin"
-        - "/home/g/.local/bin"
-        - "/usr/local/sbin"
-        - "/usr/local/bin"
-        - "/usr/sbin"
-        - "/usr/bin"
-        - "/sbin"
-        - "/bin"
-        - "/usr/games"
-        - "/usr/local/games"
-        - "/snap/bin"
-      CMAKE_INSTALL_PREFIX: "/usr/local"
-      CMAKE_SYSTEM_PREFIX_PATH:
-        - "/usr/local"
-        - "/usr"
-        - "/"
-        - "/home/g/anaconda3/envs/g308"
-        - "/usr/local"
-        - "/usr/X11R6"
-        - "/usr/pkg"
-        - "/opt"
-      CMAKE_SYSTEM_LIBRARY_PATH:
-        - "/usr/lib/X11"
-  -
-    kind: "find-v1"
-    backtrace:
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:821 (find_library)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:841 (cuda_find_library_local_first_with_path_ext)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:937 (cuda_find_library_local_first)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/FindCUDA.cmake:11 (include)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:29 (find_package)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:87 (include)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
-      - "CMakeLists.txt:134 (find_package)"
-    mode: "library"
-    variable: "CUDA_CUDA_LIBRARY"
-    description: "\"cuda\" library (older versions only)."
-    settings:
-      SearchFramework: "NEVER"
-      SearchAppBundle: "NEVER"
-      CMAKE_FIND_USE_CMAKE_PATH: true
-      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
-      CMAKE_FIND_USE_INSTALL_PREFIX: true
-    names:
-      - "cuda"
-    candidate_directories:
-      - "/usr/local/cuda-12.6/lib/x64/"
-      - "/usr/local/cuda-12.6/lib64/"
-      - "/usr/local/cuda-12.6/libx64/"
-      - "/usr/local/cuda-12.6/lib/Win32/"
-      - "/usr/local/cuda-12.6/lib/"
-      - "/usr/local/cuda-12.6/libWin32/"
-      - "/usr/local/cuda-12.6/"
-    searched_directories:
-      - "/usr/local/cuda-12.6/lib/x64/"
-      - "/usr/local/cuda-12.6/lib64/"
-      - "/usr/local/cuda-12.6/libx64/"
-      - "/usr/local/cuda-12.6/lib/Win32/"
-      - "/usr/local/cuda-12.6/lib/"
-      - "/usr/local/cuda-12.6/libWin32/"
-      - "/usr/local/cuda-12.6/"
-    found: false
-    search_context:
-      ENV{PATH}:
-        - "/home/g/anaconda3/envs/g308/bin"
-        - "/usr/local/cuda-12.6/bin"
-        - "/home/g/.local/bin"
-        - "/usr/local/cuda-12.6/bin"
-        - "/home/g/anaconda3/condabin"
-        - "/home/g/cursor/usr/bin"
-        - "/home/g/cursor/usr/sbin"
-        - "/home/g/cursor/usr/games"
-        - "/home/g/cursor/bin"
-        - "/home/g/cursor/sbin"
-        - "/home/g/.local/bin"
-        - "/usr/local/sbin"
-        - "/usr/local/bin"
-        - "/usr/sbin"
-        - "/usr/bin"
-        - "/sbin"
-        - "/bin"
-        - "/usr/games"
-        - "/usr/local/games"
-        - "/snap/bin"
-      CMAKE_INSTALL_PREFIX: "/usr/local"
-      CMAKE_SYSTEM_PREFIX_PATH:
-        - "/usr/local"
-        - "/usr"
-        - "/"
-        - "/home/g/anaconda3/envs/g308"
-        - "/usr/local"
-        - "/usr/X11R6"
-        - "/usr/pkg"
-        - "/opt"
-      CMAKE_SYSTEM_LIBRARY_PATH:
-        - "/usr/lib/X11"
-  -
-    kind: "find-v1"
-    backtrace:
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:832 (find_library)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:841 (cuda_find_library_local_first_with_path_ext)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:937 (cuda_find_library_local_first)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/FindCUDA.cmake:11 (include)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:29 (find_package)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:87 (include)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
-      - "CMakeLists.txt:134 (find_package)"
-    mode: "library"
-    variable: "CUDA_CUDA_LIBRARY"
-    description: "\"cuda\" library (older versions only)."
-    settings:
-      SearchFramework: "NEVER"
-      SearchAppBundle: "NEVER"
-      CMAKE_FIND_USE_CMAKE_PATH: true
-      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
-      CMAKE_FIND_USE_INSTALL_PREFIX: true
-    names:
-      - "cuda"
-    candidate_directories:
-      - "/home/g/anaconda3/envs/g308/bin/"
-      - "/usr/local/cuda-12.6/bin/"
-      - "/home/g/.local/bin/"
-      - "/home/g/anaconda3/condabin/"
-      - "/home/g/cursor/usr/bin/"
-      - "/home/g/cursor/usr/sbin/"
-      - "/home/g/cursor/usr/games/"
-      - "/home/g/cursor/bin/"
-      - "/home/g/cursor/sbin/"
-      - "/usr/local/sbin/"
-      - "/usr/local/bin/"
-      - "/usr/sbin/"
-      - "/usr/bin/"
-      - "/sbin/"
-      - "/bin/"
-      - "/usr/games/"
-      - "/usr/local/games/"
-      - "/snap/bin/"
-      - "/usr/local/lib/x86_64-linux-gnu/"
-      - "/usr/local/lib/"
-      - "/usr/local/"
-      - "/usr/lib/x86_64-linux-gnu/"
-      - "/usr/lib/"
-      - "/usr/"
-      - "/lib/x86_64-linux-gnu/"
-      - "/lib/"
-      - "/home/g/anaconda3/envs/g308/lib/x86_64-linux-gnu/"
-      - "/home/g/anaconda3/envs/g308/lib/"
-      - "/home/g/anaconda3/envs/g308/"
-      - "/usr/X11R6/lib/x86_64-linux-gnu/"
-      - "/usr/X11R6/lib/"
-      - "/usr/X11R6/"
-      - "/usr/pkg/lib/x86_64-linux-gnu/"
-      - "/usr/pkg/lib/"
-      - "/usr/pkg/"
-      - "/opt/lib/x86_64-linux-gnu/"
-      - "/opt/lib/"
-      - "/opt/"
-      - "/usr/lib/X11/"
-      - "/usr/lib/nvidia-current/"
-    searched_directories:
-      - "/home/g/anaconda3/envs/g308/bin/"
-      - "/usr/local/cuda-12.6/bin/"
-      - "/home/g/.local/bin/"
-      - "/home/g/anaconda3/condabin/"
-      - "/home/g/cursor/usr/bin/"
-      - "/home/g/cursor/usr/sbin/"
-      - "/home/g/cursor/usr/games/"
-      - "/home/g/cursor/bin/"
-      - "/home/g/cursor/sbin/"
-      - "/usr/local/sbin/"
-      - "/usr/local/bin/"
-      - "/usr/sbin/"
-      - "/usr/bin/"
-      - "/sbin/"
-      - "/bin/"
-      - "/usr/games/"
-      - "/usr/local/games/"
-      - "/snap/bin/"
-      - "/usr/local/lib/x86_64-linux-gnu/"
-      - "/usr/local/lib/"
-      - "/usr/local/"
-    found: "/usr/lib/x86_64-linux-gnu/libcuda.so"
-    search_context:
-      ENV{PATH}:
-        - "/home/g/anaconda3/envs/g308/bin"
-        - "/usr/local/cuda-12.6/bin"
-        - "/home/g/.local/bin"
-        - "/usr/local/cuda-12.6/bin"
-        - "/home/g/anaconda3/condabin"
-        - "/home/g/cursor/usr/bin"
-        - "/home/g/cursor/usr/sbin"
-        - "/home/g/cursor/usr/games"
-        - "/home/g/cursor/bin"
-        - "/home/g/cursor/sbin"
-        - "/home/g/.local/bin"
-        - "/usr/local/sbin"
-        - "/usr/local/bin"
-        - "/usr/sbin"
-        - "/usr/bin"
-        - "/sbin"
-        - "/bin"
-        - "/usr/games"
-        - "/usr/local/games"
-        - "/snap/bin"
-      CMAKE_INSTALL_PREFIX: "/usr/local"
-      CMAKE_SYSTEM_PREFIX_PATH:
-        - "/usr/local"
-        - "/usr"
-        - "/"
-        - "/home/g/anaconda3/envs/g308"
-        - "/usr/local"
-        - "/usr/X11R6"
-        - "/usr/pkg"
-        - "/opt"
-      CMAKE_SYSTEM_LIBRARY_PATH:
-        - "/usr/lib/X11"
-  -
-    kind: "find-v1"
-    backtrace:
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:821 (find_library)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:841 (cuda_find_library_local_first_with_path_ext)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:947 (cuda_find_library_local_first)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:955 (find_cuda_helper_libs)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/FindCUDA.cmake:11 (include)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:29 (find_package)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:87 (include)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
-      - "CMakeLists.txt:134 (find_package)"
-    mode: "library"
-    variable: "CUDA_cufft_LIBRARY"
-    description: "\"cufft\" library"
-    settings:
-      SearchFramework: "NEVER"
-      SearchAppBundle: "NEVER"
-      CMAKE_FIND_USE_CMAKE_PATH: true
-      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
-      CMAKE_FIND_USE_INSTALL_PREFIX: true
-    names:
-      - "cufft"
-    candidate_directories:
-      - "/usr/local/cuda-12.6/lib/x64/"
-      - "/usr/local/cuda-12.6/lib64/"
-      - "/usr/local/cuda-12.6/libx64/"
-      - "/usr/local/cuda-12.6/lib/Win32/"
-      - "/usr/local/cuda-12.6/lib/"
-      - "/usr/local/cuda-12.6/libWin32/"
-      - "/usr/local/cuda-12.6/"
-    searched_directories:
-      - "/usr/local/cuda-12.6/lib/x64/"
-    found: "/usr/local/cuda-12.6/lib64/libcufft.so"
-    search_context:
-      ENV{PATH}:
-        - "/home/g/anaconda3/envs/g308/bin"
-        - "/usr/local/cuda-12.6/bin"
-        - "/home/g/.local/bin"
-        - "/usr/local/cuda-12.6/bin"
-        - "/home/g/anaconda3/condabin"
-        - "/home/g/cursor/usr/bin"
-        - "/home/g/cursor/usr/sbin"
-        - "/home/g/cursor/usr/games"
-        - "/home/g/cursor/bin"
-        - "/home/g/cursor/sbin"
-        - "/home/g/.local/bin"
-        - "/usr/local/sbin"
-        - "/usr/local/bin"
-        - "/usr/sbin"
-        - "/usr/bin"
-        - "/sbin"
-        - "/bin"
-        - "/usr/games"
-        - "/usr/local/games"
-        - "/snap/bin"
-      CMAKE_INSTALL_PREFIX: "/usr/local"
-      CMAKE_SYSTEM_PREFIX_PATH:
-        - "/usr/local"
-        - "/usr"
-        - "/"
-        - "/home/g/anaconda3/envs/g308"
-        - "/usr/local"
-        - "/usr/X11R6"
-        - "/usr/pkg"
-        - "/opt"
-      CMAKE_SYSTEM_LIBRARY_PATH:
-        - "/usr/lib/X11"
-  -
-    kind: "find-v1"
-    backtrace:
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:821 (find_library)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:841 (cuda_find_library_local_first_with_path_ext)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:947 (cuda_find_library_local_first)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:956 (find_cuda_helper_libs)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/FindCUDA.cmake:11 (include)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:29 (find_package)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:87 (include)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
-      - "CMakeLists.txt:134 (find_package)"
-    mode: "library"
-    variable: "CUDA_cublas_LIBRARY"
-    description: "\"cublas\" library"
-    settings:
-      SearchFramework: "NEVER"
-      SearchAppBundle: "NEVER"
-      CMAKE_FIND_USE_CMAKE_PATH: true
-      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
-      CMAKE_FIND_USE_INSTALL_PREFIX: true
-    names:
-      - "cublas"
-    candidate_directories:
-      - "/usr/local/cuda-12.6/lib/x64/"
-      - "/usr/local/cuda-12.6/lib64/"
-      - "/usr/local/cuda-12.6/libx64/"
-      - "/usr/local/cuda-12.6/lib/Win32/"
-      - "/usr/local/cuda-12.6/lib/"
-      - "/usr/local/cuda-12.6/libWin32/"
-      - "/usr/local/cuda-12.6/"
-    searched_directories:
-      - "/usr/local/cuda-12.6/lib/x64/"
-    found: "/usr/local/cuda-12.6/lib64/libcublas.so"
-    search_context:
-      ENV{PATH}:
-        - "/home/g/anaconda3/envs/g308/bin"
-        - "/usr/local/cuda-12.6/bin"
-        - "/home/g/.local/bin"
-        - "/usr/local/cuda-12.6/bin"
-        - "/home/g/anaconda3/condabin"
-        - "/home/g/cursor/usr/bin"
-        - "/home/g/cursor/usr/sbin"
-        - "/home/g/cursor/usr/games"
-        - "/home/g/cursor/bin"
-        - "/home/g/cursor/sbin"
-        - "/home/g/.local/bin"
-        - "/usr/local/sbin"
-        - "/usr/local/bin"
-        - "/usr/sbin"
-        - "/usr/bin"
-        - "/sbin"
-        - "/bin"
-        - "/usr/games"
-        - "/usr/local/games"
-        - "/snap/bin"
-      CMAKE_INSTALL_PREFIX: "/usr/local"
-      CMAKE_SYSTEM_PREFIX_PATH:
-        - "/usr/local"
-        - "/usr"
-        - "/"
-        - "/home/g/anaconda3/envs/g308"
-        - "/usr/local"
-        - "/usr/X11R6"
-        - "/usr/pkg"
-        - "/opt"
-      CMAKE_SYSTEM_LIBRARY_PATH:
-        - "/usr/lib/X11"
-  -
-    kind: "find-v1"
-    backtrace:
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:821 (find_library)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:841 (cuda_find_library_local_first_with_path_ext)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:947 (cuda_find_library_local_first)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:957 (find_cuda_helper_libs)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/FindCUDA.cmake:11 (include)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:29 (find_package)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:87 (include)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
-      - "CMakeLists.txt:134 (find_package)"
-    mode: "library"
-    variable: "CUDA_cublasLt_LIBRARY"
-    description: "\"cublasLt\" library"
-    settings:
-      SearchFramework: "NEVER"
-      SearchAppBundle: "NEVER"
-      CMAKE_FIND_USE_CMAKE_PATH: true
-      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
-      CMAKE_FIND_USE_INSTALL_PREFIX: true
-    names:
-      - "cublasLt"
-    candidate_directories:
-      - "/usr/local/cuda-12.6/lib/x64/"
-      - "/usr/local/cuda-12.6/lib64/"
-      - "/usr/local/cuda-12.6/libx64/"
-      - "/usr/local/cuda-12.6/lib/Win32/"
-      - "/usr/local/cuda-12.6/lib/"
-      - "/usr/local/cuda-12.6/libWin32/"
-      - "/usr/local/cuda-12.6/"
-    searched_directories:
-      - "/usr/local/cuda-12.6/lib/x64/"
-    found: "/usr/local/cuda-12.6/lib64/libcublasLt.so"
-    search_context:
-      ENV{PATH}:
-        - "/home/g/anaconda3/envs/g308/bin"
-        - "/usr/local/cuda-12.6/bin"
-        - "/home/g/.local/bin"
-        - "/usr/local/cuda-12.6/bin"
-        - "/home/g/anaconda3/condabin"
-        - "/home/g/cursor/usr/bin"
-        - "/home/g/cursor/usr/sbin"
-        - "/home/g/cursor/usr/games"
-        - "/home/g/cursor/bin"
-        - "/home/g/cursor/sbin"
-        - "/home/g/.local/bin"
-        - "/usr/local/sbin"
-        - "/usr/local/bin"
-        - "/usr/sbin"
-        - "/usr/bin"
-        - "/sbin"
-        - "/bin"
-        - "/usr/games"
-        - "/usr/local/games"
-        - "/snap/bin"
-      CMAKE_INSTALL_PREFIX: "/usr/local"
-      CMAKE_SYSTEM_PREFIX_PATH:
-        - "/usr/local"
-        - "/usr"
-        - "/"
-        - "/home/g/anaconda3/envs/g308"
-        - "/usr/local"
-        - "/usr/X11R6"
-        - "/usr/pkg"
-        - "/opt"
-      CMAKE_SYSTEM_LIBRARY_PATH:
-        - "/usr/lib/X11"
-  -
-    kind: "find-v1"
-    backtrace:
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:821 (find_library)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:841 (cuda_find_library_local_first_with_path_ext)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:947 (cuda_find_library_local_first)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:959 (find_cuda_helper_libs)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/FindCUDA.cmake:11 (include)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:29 (find_package)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:87 (include)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
-      - "CMakeLists.txt:134 (find_package)"
-    mode: "library"
-    variable: "CUDA_cusparse_LIBRARY"
-    description: "\"cusparse\" library"
-    settings:
-      SearchFramework: "NEVER"
-      SearchAppBundle: "NEVER"
-      CMAKE_FIND_USE_CMAKE_PATH: true
-      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
-      CMAKE_FIND_USE_INSTALL_PREFIX: true
-    names:
-      - "cusparse"
-    candidate_directories:
-      - "/usr/local/cuda-12.6/lib/x64/"
-      - "/usr/local/cuda-12.6/lib64/"
-      - "/usr/local/cuda-12.6/libx64/"
-      - "/usr/local/cuda-12.6/lib/Win32/"
-      - "/usr/local/cuda-12.6/lib/"
-      - "/usr/local/cuda-12.6/libWin32/"
-      - "/usr/local/cuda-12.6/"
-    searched_directories:
-      - "/usr/local/cuda-12.6/lib/x64/"
-    found: "/usr/local/cuda-12.6/lib64/libcusparse.so"
-    search_context:
-      ENV{PATH}:
-        - "/home/g/anaconda3/envs/g308/bin"
-        - "/usr/local/cuda-12.6/bin"
-        - "/home/g/.local/bin"
-        - "/usr/local/cuda-12.6/bin"
-        - "/home/g/anaconda3/condabin"
-        - "/home/g/cursor/usr/bin"
-        - "/home/g/cursor/usr/sbin"
-        - "/home/g/cursor/usr/games"
-        - "/home/g/cursor/bin"
-        - "/home/g/cursor/sbin"
-        - "/home/g/.local/bin"
-        - "/usr/local/sbin"
-        - "/usr/local/bin"
-        - "/usr/sbin"
-        - "/usr/bin"
-        - "/sbin"
-        - "/bin"
-        - "/usr/games"
-        - "/usr/local/games"
-        - "/snap/bin"
-      CMAKE_INSTALL_PREFIX: "/usr/local"
-      CMAKE_SYSTEM_PREFIX_PATH:
-        - "/usr/local"
-        - "/usr"
-        - "/"
-        - "/home/g/anaconda3/envs/g308"
-        - "/usr/local"
-        - "/usr/X11R6"
-        - "/usr/pkg"
-        - "/opt"
-      CMAKE_SYSTEM_LIBRARY_PATH:
-        - "/usr/lib/X11"
-  -
-    kind: "find-v1"
-    backtrace:
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:821 (find_library)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:841 (cuda_find_library_local_first_with_path_ext)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:947 (cuda_find_library_local_first)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:960 (find_cuda_helper_libs)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/FindCUDA.cmake:11 (include)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:29 (find_package)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:87 (include)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
-      - "CMakeLists.txt:134 (find_package)"
-    mode: "library"
-    variable: "CUDA_curand_LIBRARY"
-    description: "\"curand\" library"
-    settings:
-      SearchFramework: "NEVER"
-      SearchAppBundle: "NEVER"
-      CMAKE_FIND_USE_CMAKE_PATH: true
-      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
-      CMAKE_FIND_USE_INSTALL_PREFIX: true
-    names:
-      - "curand"
-    candidate_directories:
-      - "/usr/local/cuda-12.6/lib/x64/"
-      - "/usr/local/cuda-12.6/lib64/"
-      - "/usr/local/cuda-12.6/libx64/"
-      - "/usr/local/cuda-12.6/lib/Win32/"
-      - "/usr/local/cuda-12.6/lib/"
-      - "/usr/local/cuda-12.6/libWin32/"
-      - "/usr/local/cuda-12.6/"
-    searched_directories:
-      - "/usr/local/cuda-12.6/lib/x64/"
-    found: "/usr/local/cuda-12.6/lib64/libcurand.so"
-    search_context:
-      ENV{PATH}:
-        - "/home/g/anaconda3/envs/g308/bin"
-        - "/usr/local/cuda-12.6/bin"
-        - "/home/g/.local/bin"
-        - "/usr/local/cuda-12.6/bin"
-        - "/home/g/anaconda3/condabin"
-        - "/home/g/cursor/usr/bin"
-        - "/home/g/cursor/usr/sbin"
-        - "/home/g/cursor/usr/games"
-        - "/home/g/cursor/bin"
-        - "/home/g/cursor/sbin"
-        - "/home/g/.local/bin"
-        - "/usr/local/sbin"
-        - "/usr/local/bin"
-        - "/usr/sbin"
-        - "/usr/bin"
-        - "/sbin"
-        - "/bin"
-        - "/usr/games"
-        - "/usr/local/games"
-        - "/snap/bin"
-      CMAKE_INSTALL_PREFIX: "/usr/local"
-      CMAKE_SYSTEM_PREFIX_PATH:
-        - "/usr/local"
-        - "/usr"
-        - "/"
-        - "/home/g/anaconda3/envs/g308"
-        - "/usr/local"
-        - "/usr/X11R6"
-        - "/usr/pkg"
-        - "/opt"
-      CMAKE_SYSTEM_LIBRARY_PATH:
-        - "/usr/lib/X11"
-  -
-    kind: "find-v1"
-    backtrace:
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:821 (find_library)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:841 (cuda_find_library_local_first_with_path_ext)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:947 (cuda_find_library_local_first)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:967 (find_cuda_helper_libs)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/FindCUDA.cmake:11 (include)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:29 (find_package)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:87 (include)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
-      - "CMakeLists.txt:134 (find_package)"
-    mode: "library"
-    variable: "CUDA_nppc_LIBRARY"
-    description: "\"nppc\" library"
-    settings:
-      SearchFramework: "NEVER"
-      SearchAppBundle: "NEVER"
-      CMAKE_FIND_USE_CMAKE_PATH: true
-      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
-      CMAKE_FIND_USE_INSTALL_PREFIX: true
-    names:
-      - "nppc"
-    candidate_directories:
-      - "/usr/local/cuda-12.6/lib/x64/"
-      - "/usr/local/cuda-12.6/lib64/"
-      - "/usr/local/cuda-12.6/libx64/"
-      - "/usr/local/cuda-12.6/lib/Win32/"
-      - "/usr/local/cuda-12.6/lib/"
-      - "/usr/local/cuda-12.6/libWin32/"
-      - "/usr/local/cuda-12.6/"
-    searched_directories:
-      - "/usr/local/cuda-12.6/lib/x64/"
-    found: "/usr/local/cuda-12.6/lib64/libnppc.so"
-    search_context:
-      ENV{PATH}:
-        - "/home/g/anaconda3/envs/g308/bin"
-        - "/usr/local/cuda-12.6/bin"
-        - "/home/g/.local/bin"
-        - "/usr/local/cuda-12.6/bin"
-        - "/home/g/anaconda3/condabin"
-        - "/home/g/cursor/usr/bin"
-        - "/home/g/cursor/usr/sbin"
-        - "/home/g/cursor/usr/games"
-        - "/home/g/cursor/bin"
-        - "/home/g/cursor/sbin"
-        - "/home/g/.local/bin"
-        - "/usr/local/sbin"
-        - "/usr/local/bin"
-        - "/usr/sbin"
-        - "/usr/bin"
-        - "/sbin"
-        - "/bin"
-        - "/usr/games"
-        - "/usr/local/games"
-        - "/snap/bin"
-      CMAKE_INSTALL_PREFIX: "/usr/local"
-      CMAKE_SYSTEM_PREFIX_PATH:
-        - "/usr/local"
-        - "/usr"
-        - "/"
-        - "/home/g/anaconda3/envs/g308"
-        - "/usr/local"
-        - "/usr/X11R6"
-        - "/usr/pkg"
-        - "/opt"
-      CMAKE_SYSTEM_LIBRARY_PATH:
-        - "/usr/lib/X11"
-  -
-    kind: "find-v1"
-    backtrace:
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:821 (find_library)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:841 (cuda_find_library_local_first_with_path_ext)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:947 (cuda_find_library_local_first)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:978 (find_cuda_helper_libs)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/FindCUDA.cmake:11 (include)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:29 (find_package)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:87 (include)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
-      - "CMakeLists.txt:134 (find_package)"
-    mode: "library"
-    variable: "CUDA_npps_LIBRARY"
-    description: "\"npps\" library"
-    settings:
-      SearchFramework: "NEVER"
-      SearchAppBundle: "NEVER"
-      CMAKE_FIND_USE_CMAKE_PATH: true
-      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
-      CMAKE_FIND_USE_INSTALL_PREFIX: true
-    names:
-      - "npps"
-    candidate_directories:
-      - "/usr/local/cuda-12.6/lib/x64/"
-      - "/usr/local/cuda-12.6/lib64/"
-      - "/usr/local/cuda-12.6/libx64/"
-      - "/usr/local/cuda-12.6/lib/Win32/"
-      - "/usr/local/cuda-12.6/lib/"
-      - "/usr/local/cuda-12.6/libWin32/"
-      - "/usr/local/cuda-12.6/"
-    searched_directories:
-      - "/usr/local/cuda-12.6/lib/x64/"
-    found: "/usr/local/cuda-12.6/lib64/libnpps.so"
-    search_context:
-      ENV{PATH}:
-        - "/home/g/anaconda3/envs/g308/bin"
-        - "/usr/local/cuda-12.6/bin"
-        - "/home/g/.local/bin"
-        - "/usr/local/cuda-12.6/bin"
-        - "/home/g/anaconda3/condabin"
-        - "/home/g/cursor/usr/bin"
-        - "/home/g/cursor/usr/sbin"
-        - "/home/g/cursor/usr/games"
-        - "/home/g/cursor/bin"
-        - "/home/g/cursor/sbin"
-        - "/home/g/.local/bin"
-        - "/usr/local/sbin"
-        - "/usr/local/bin"
-        - "/usr/sbin"
-        - "/usr/bin"
-        - "/sbin"
-        - "/bin"
-        - "/usr/games"
-        - "/usr/local/games"
-        - "/snap/bin"
-      CMAKE_INSTALL_PREFIX: "/usr/local"
-      CMAKE_SYSTEM_PREFIX_PATH:
-        - "/usr/local"
-        - "/usr"
-        - "/"
-        - "/home/g/anaconda3/envs/g308"
-        - "/usr/local"
-        - "/usr/X11R6"
-        - "/usr/pkg"
-        - "/opt"
-      CMAKE_SYSTEM_LIBRARY_PATH:
-        - "/usr/lib/X11"
-  -
-    kind: "find-v1"
-    backtrace:
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:821 (find_library)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:841 (cuda_find_library_local_first_with_path_ext)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:947 (cuda_find_library_local_first)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA.cmake:981 (find_cuda_helper_libs)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/FindCUDA.cmake:11 (include)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:29 (find_package)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:87 (include)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
-      - "CMakeLists.txt:134 (find_package)"
-    mode: "library"
-    variable: "CUDA_cusolver_LIBRARY"
-    description: "\"cusolver\" library"
-    settings:
-      SearchFramework: "NEVER"
-      SearchAppBundle: "NEVER"
-      CMAKE_FIND_USE_CMAKE_PATH: true
-      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
-      CMAKE_FIND_USE_INSTALL_PREFIX: true
-    names:
-      - "cusolver"
-    candidate_directories:
-      - "/usr/local/cuda-12.6/lib/x64/"
-      - "/usr/local/cuda-12.6/lib64/"
-      - "/usr/local/cuda-12.6/libx64/"
-      - "/usr/local/cuda-12.6/lib/Win32/"
-      - "/usr/local/cuda-12.6/lib/"
-      - "/usr/local/cuda-12.6/libWin32/"
-      - "/usr/local/cuda-12.6/"
-    searched_directories:
-      - "/usr/local/cuda-12.6/lib/x64/"
-    found: "/usr/local/cuda-12.6/lib64/libcusolver.so"
-    search_context:
-      ENV{PATH}:
-        - "/home/g/anaconda3/envs/g308/bin"
-        - "/usr/local/cuda-12.6/bin"
-        - "/home/g/.local/bin"
-        - "/usr/local/cuda-12.6/bin"
-        - "/home/g/anaconda3/condabin"
-        - "/home/g/cursor/usr/bin"
-        - "/home/g/cursor/usr/sbin"
-        - "/home/g/cursor/usr/games"
-        - "/home/g/cursor/bin"
-        - "/home/g/cursor/sbin"
-        - "/home/g/.local/bin"
-        - "/usr/local/sbin"
-        - "/usr/local/bin"
-        - "/usr/sbin"
-        - "/usr/bin"
-        - "/sbin"
-        - "/bin"
-        - "/usr/games"
-        - "/usr/local/games"
-        - "/snap/bin"
-      CMAKE_INSTALL_PREFIX: "/usr/local"
-      CMAKE_SYSTEM_PREFIX_PATH:
-        - "/usr/local"
-        - "/usr"
-        - "/"
-        - "/home/g/anaconda3/envs/g308"
-        - "/usr/local"
-        - "/usr/X11R6"
-        - "/usr/pkg"
-        - "/opt"
-      CMAKE_SYSTEM_LIBRARY_PATH:
-        - "/usr/lib/X11"
-  -
-    kind: "find-v1"
-    backtrace:
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/FindCUDAToolkit.cmake:869 (find_library)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/FindCUDAToolkit.cmake:1027 (_CUDAToolkit_find_and_add_import_lib)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:59 (find_package)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:87 (include)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
-      - "CMakeLists.txt:134 (find_package)"
-    mode: "library"
-    variable: "CUDA_cupti_LIBRARY"
-    description: "\"cupti\" library"
-    settings:
-      SearchFramework: "NEVER"
-      SearchAppBundle: "NEVER"
-      CMAKE_FIND_USE_CMAKE_PATH: true
-      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
-      CMAKE_FIND_USE_INSTALL_PREFIX: true
-    names:
-      - "cupti"
-    candidate_directories:
-      - "/usr/local/cuda-12.6/lib/x86_64-linux-gnu/nvidia/current/"
-      - "/usr/local/cuda-12.6/lib/x86_64-linux-gnu/lib64/"
-      - "/usr/local/cuda-12.6/lib/x86_64-linux-gnu/lib/x64/"
-      - "/usr/local/cuda-12.6/lib/x86_64-linux-gnu/lib/"
-      - "/usr/local/cuda-12.6/lib/x86_64-linux-gnu/../extras/CUPTI/lib64/"
-      - "/usr/local/cuda-12.6/lib/x86_64-linux-gnu/../extras/CUPTI/lib/"
-      - "/usr/local/cuda-12.6/lib/x86_64-linux-gnu/"
-      - "/usr/local/cuda-12.6/lib/nvidia/current/"
-      - "/usr/local/cuda-12.6/lib/lib64/"
-      - "/usr/local/cuda-12.6/lib/lib/x64/"
-      - "/usr/local/cuda-12.6/lib/lib/"
-      - "/usr/local/cuda-12.6/lib/../extras/CUPTI/lib64/"
-      - "/usr/local/cuda-12.6/lib/../extras/CUPTI/lib/"
-      - "/usr/local/cuda-12.6/lib/"
-      - "/usr/local/cuda-12.6/nvidia/current/"
-      - "/usr/local/cuda-12.6/lib64/"
-      - "/usr/local/cuda-12.6/lib/x64/"
-      - "/usr/local/cuda-12.6/lib/"
-      - "/usr/local/cuda-12.6/../extras/CUPTI/lib64/"
-      - "/usr/local/cuda-12.6/../extras/CUPTI/lib/"
-      - "/usr/local/cuda-12.6/"
-      - "/usr/local/cuda-12.6/lib64/nvidia/current/"
-      - "/usr/local/cuda-12.6/lib64/lib64/"
-      - "/usr/local/cuda-12.6/lib64/lib/x64/"
-      - "/usr/local/cuda-12.6/lib64/lib/"
-      - "/usr/local/cuda-12.6/lib64/../extras/CUPTI/lib64/"
-      - "/usr/local/cuda-12.6/lib64/../extras/CUPTI/lib/"
-      - "/usr/local/cuda-12.6/lib64/"
-      - "/home/g/anaconda3/envs/g308/bin/nvidia/current/"
-      - "/home/g/anaconda3/envs/g308/bin/lib64/"
-      - "/home/g/anaconda3/envs/g308/bin/lib/x64/"
-      - "/home/g/anaconda3/envs/g308/bin/lib/"
-      - "/home/g/anaconda3/envs/g308/bin/../extras/CUPTI/lib64/"
-      - "/home/g/anaconda3/envs/g308/bin/../extras/CUPTI/lib/"
-      - "/home/g/anaconda3/envs/g308/bin/"
-      - "/usr/local/cuda-12.6/bin/nvidia/current/"
-      - "/usr/local/cuda-12.6/bin/lib64/"
-      - "/usr/local/cuda-12.6/bin/lib/x64/"
-      - "/usr/local/cuda-12.6/bin/lib/"
-      - "/usr/local/cuda-12.6/bin/../extras/CUPTI/lib64/"
-      - "/usr/local/cuda-12.6/bin/../extras/CUPTI/lib/"
-      - "/usr/local/cuda-12.6/bin/"
-      - "/home/g/.local/bin/nvidia/current/"
-      - "/home/g/.local/bin/lib64/"
-      - "/home/g/.local/bin/lib/x64/"
-      - "/home/g/.local/bin/lib/"
-      - "/home/g/.local/bin/../extras/CUPTI/lib64/"
-      - "/home/g/.local/bin/../extras/CUPTI/lib/"
-      - "/home/g/.local/bin/"
-      - "/home/g/anaconda3/condabin/nvidia/current/"
-      - "/home/g/anaconda3/condabin/lib64/"
-      - "/home/g/anaconda3/condabin/lib/x64/"
-      - "/home/g/anaconda3/condabin/lib/"
-      - "/home/g/anaconda3/condabin/../extras/CUPTI/lib64/"
-      - "/home/g/anaconda3/condabin/../extras/CUPTI/lib/"
-      - "/home/g/anaconda3/condabin/"
-      - "/home/g/cursor/usr/bin/nvidia/current/"
-      - "/home/g/cursor/usr/bin/lib64/"
-      - "/home/g/cursor/usr/bin/lib/x64/"
-      - "/home/g/cursor/usr/bin/lib/"
-      - "/home/g/cursor/usr/bin/../extras/CUPTI/lib64/"
-      - "/home/g/cursor/usr/bin/../extras/CUPTI/lib/"
-      - "/home/g/cursor/usr/bin/"
-      - "/home/g/cursor/usr/sbin/nvidia/current/"
-      - "/home/g/cursor/usr/sbin/lib64/"
-      - "/home/g/cursor/usr/sbin/lib/x64/"
-      - "/home/g/cursor/usr/sbin/lib/"
-      - "/home/g/cursor/usr/sbin/../extras/CUPTI/lib64/"
-      - "/home/g/cursor/usr/sbin/../extras/CUPTI/lib/"
-      - "/home/g/cursor/usr/sbin/"
-      - "/home/g/cursor/usr/games/nvidia/current/"
-      - "/home/g/cursor/usr/games/lib64/"
-      - "/home/g/cursor/usr/games/lib/x64/"
-      - "/home/g/cursor/usr/games/lib/"
-      - "/home/g/cursor/usr/games/../extras/CUPTI/lib64/"
-      - "/home/g/cursor/usr/games/../extras/CUPTI/lib/"
-      - "/home/g/cursor/usr/games/"
-      - "/home/g/cursor/bin/nvidia/current/"
-      - "/home/g/cursor/bin/lib64/"
-      - "/home/g/cursor/bin/lib/x64/"
-      - "/home/g/cursor/bin/lib/"
-      - "/home/g/cursor/bin/../extras/CUPTI/lib64/"
-      - "/home/g/cursor/bin/../extras/CUPTI/lib/"
-      - "/home/g/cursor/bin/"
-      - "/home/g/cursor/sbin/nvidia/current/"
-      - "/home/g/cursor/sbin/lib64/"
-      - "/home/g/cursor/sbin/lib/x64/"
-      - "/home/g/cursor/sbin/lib/"
-      - "/home/g/cursor/sbin/../extras/CUPTI/lib64/"
-      - "/home/g/cursor/sbin/../extras/CUPTI/lib/"
-      - "/home/g/cursor/sbin/"
-      - "/usr/local/sbin/nvidia/current/"
-      - "/usr/local/sbin/lib64/"
-      - "/usr/local/sbin/lib/x64/"
-      - "/usr/local/sbin/lib/"
-      - "/usr/local/sbin/../extras/CUPTI/lib64/"
-      - "/usr/local/sbin/../extras/CUPTI/lib/"
-      - "/usr/local/sbin/"
-      - "/usr/local/bin/nvidia/current/"
-      - "/usr/local/bin/lib64/"
-      - "/usr/local/bin/lib/x64/"
-      - "/usr/local/bin/lib/"
-      - "/usr/local/bin/../extras/CUPTI/lib64/"
-      - "/usr/local/bin/../extras/CUPTI/lib/"
-      - "/usr/local/bin/"
-      - "/usr/sbin/nvidia/current/"
-      - "/usr/sbin/lib64/"
-      - "/usr/sbin/lib/x64/"
-      - "/usr/sbin/lib/"
-      - "/usr/sbin/../extras/CUPTI/lib64/"
-      - "/usr/sbin/../extras/CUPTI/lib/"
-      - "/usr/sbin/"
-      - "/usr/bin/nvidia/current/"
-      - "/usr/bin/lib64/"
-      - "/usr/bin/lib/x64/"
-      - "/usr/bin/lib/"
-      - "/usr/bin/../extras/CUPTI/lib64/"
-      - "/usr/bin/../extras/CUPTI/lib/"
-      - "/usr/bin/"
-      - "/sbin/nvidia/current/"
-      - "/sbin/lib64/"
-      - "/sbin/lib/x64/"
-      - "/sbin/lib/"
-      - "/sbin/../extras/CUPTI/lib64/"
-      - "/sbin/../extras/CUPTI/lib/"
-      - "/sbin/"
-      - "/bin/nvidia/current/"
-      - "/bin/lib64/"
-      - "/bin/lib/x64/"
-      - "/bin/lib/"
-      - "/bin/../extras/CUPTI/lib64/"
-      - "/bin/../extras/CUPTI/lib/"
-      - "/bin/"
-      - "/usr/games/nvidia/current/"
-      - "/usr/games/lib64/"
-      - "/usr/games/lib/x64/"
-      - "/usr/games/lib/"
-      - "/usr/games/../extras/CUPTI/lib64/"
-      - "/usr/games/../extras/CUPTI/lib/"
-      - "/usr/games/"
-      - "/usr/local/games/nvidia/current/"
-      - "/usr/local/games/lib64/"
-      - "/usr/local/games/lib/x64/"
-      - "/usr/local/games/lib/"
-      - "/usr/local/games/../extras/CUPTI/lib64/"
-      - "/usr/local/games/../extras/CUPTI/lib/"
-      - "/usr/local/games/"
-      - "/snap/bin/nvidia/current/"
-      - "/snap/bin/lib64/"
-      - "/snap/bin/lib/x64/"
-      - "/snap/bin/lib/"
-      - "/snap/bin/../extras/CUPTI/lib64/"
-      - "/snap/bin/../extras/CUPTI/lib/"
-      - "/snap/bin/"
-      - "/usr/local/lib/x86_64-linux-gnu/nvidia/current/"
-      - "/usr/local/lib/x86_64-linux-gnu/lib64/"
-      - "/usr/local/lib/x86_64-linux-gnu/lib/x64/"
-      - "/usr/local/lib/x86_64-linux-gnu/lib/"
-      - "/usr/local/lib/x86_64-linux-gnu/../extras/CUPTI/lib64/"
-      - "/usr/local/lib/x86_64-linux-gnu/../extras/CUPTI/lib/"
-      - "/usr/local/lib/x86_64-linux-gnu/"
-      - "/usr/local/lib/nvidia/current/"
-      - "/usr/local/lib/lib64/"
-      - "/usr/local/lib/lib/x64/"
-      - "/usr/local/lib/lib/"
-      - "/usr/local/lib/../extras/CUPTI/lib64/"
-      - "/usr/local/lib/../extras/CUPTI/lib/"
-      - "/usr/local/lib/"
-      - "/usr/local/nvidia/current/"
-      - "/usr/local/lib64/"
-      - "/usr/local/lib/x64/"
-      - "/usr/local/lib/"
-      - "/usr/local/../extras/CUPTI/lib64/"
-      - "/usr/local/../extras/CUPTI/lib/"
-      - "/usr/local/"
-      - "/usr/lib/x86_64-linux-gnu/nvidia/current/"
-      - "/usr/lib/x86_64-linux-gnu/lib64/"
-      - "/usr/lib/x86_64-linux-gnu/lib/x64/"
-      - "/usr/lib/x86_64-linux-gnu/lib/"
-      - "/usr/lib/x86_64-linux-gnu/../extras/CUPTI/lib64/"
-      - "/usr/lib/x86_64-linux-gnu/../extras/CUPTI/lib/"
-      - "/usr/lib/x86_64-linux-gnu/"
-      - "/usr/lib/nvidia/current/"
-      - "/usr/lib/lib64/"
-      - "/usr/lib/lib/x64/"
-      - "/usr/lib/lib/"
-      - "/usr/lib/../extras/CUPTI/lib64/"
-      - "/usr/lib/../extras/CUPTI/lib/"
-      - "/usr/lib/"
-      - "/usr/nvidia/current/"
-      - "/usr/lib64/"
-      - "/usr/lib/x64/"
-      - "/usr/lib/"
-      - "/usr/../extras/CUPTI/lib64/"
-      - "/usr/../extras/CUPTI/lib/"
-      - "/usr/"
-      - "/lib/x86_64-linux-gnu/nvidia/current/"
-      - "/lib/x86_64-linux-gnu/lib64/"
-      - "/lib/x86_64-linux-gnu/lib/x64/"
-      - "/lib/x86_64-linux-gnu/lib/"
-      - "/lib/x86_64-linux-gnu/../extras/CUPTI/lib64/"
-      - "/lib/x86_64-linux-gnu/../extras/CUPTI/lib/"
-      - "/lib/x86_64-linux-gnu/"
-      - "/lib/nvidia/current/"
-      - "/lib/lib64/"
-      - "/lib/lib/x64/"
-      - "/lib/lib/"
-      - "/lib/../extras/CUPTI/lib64/"
-      - "/lib/../extras/CUPTI/lib/"
-      - "/lib/"
-      - "/home/g/anaconda3/envs/g308/lib/x86_64-linux-gnu/nvidia/current/"
-      - "/home/g/anaconda3/envs/g308/lib/x86_64-linux-gnu/lib64/"
-      - "/home/g/anaconda3/envs/g308/lib/x86_64-linux-gnu/lib/x64/"
-      - "/home/g/anaconda3/envs/g308/lib/x86_64-linux-gnu/lib/"
-      - "/home/g/anaconda3/envs/g308/lib/x86_64-linux-gnu/../extras/CUPTI/lib64/"
-      - "/home/g/anaconda3/envs/g308/lib/x86_64-linux-gnu/../extras/CUPTI/lib/"
-      - "/home/g/anaconda3/envs/g308/lib/x86_64-linux-gnu/"
-      - "/home/g/anaconda3/envs/g308/lib/nvidia/current/"
-      - "/home/g/anaconda3/envs/g308/lib/lib64/"
-      - "/home/g/anaconda3/envs/g308/lib/lib/x64/"
-      - "/home/g/anaconda3/envs/g308/lib/lib/"
-      - "/home/g/anaconda3/envs/g308/lib/../extras/CUPTI/lib64/"
-      - "/home/g/anaconda3/envs/g308/lib/../extras/CUPTI/lib/"
-      - "/home/g/anaconda3/envs/g308/lib/"
-      - "/home/g/anaconda3/envs/g308/nvidia/current/"
-      - "/home/g/anaconda3/envs/g308/lib64/"
-      - "/home/g/anaconda3/envs/g308/lib/x64/"
-      - "/home/g/anaconda3/envs/g308/lib/"
-      - "/home/g/anaconda3/envs/g308/../extras/CUPTI/lib64/"
-      - "/home/g/anaconda3/envs/g308/../extras/CUPTI/lib/"
-      - "/home/g/anaconda3/envs/g308/"
-      - "/usr/X11R6/lib/x86_64-linux-gnu/nvidia/current/"
-      - "/usr/X11R6/lib/x86_64-linux-gnu/lib64/"
-      - "/usr/X11R6/lib/x86_64-linux-gnu/lib/x64/"
-      - "/usr/X11R6/lib/x86_64-linux-gnu/lib/"
-      - "/usr/X11R6/lib/x86_64-linux-gnu/../extras/CUPTI/lib64/"
-      - "/usr/X11R6/lib/x86_64-linux-gnu/../extras/CUPTI/lib/"
-      - "/usr/X11R6/lib/x86_64-linux-gnu/"
-      - "/usr/X11R6/lib/nvidia/current/"
-      - "/usr/X11R6/lib/lib64/"
-      - "/usr/X11R6/lib/lib/x64/"
-      - "/usr/X11R6/lib/lib/"
-      - "/usr/X11R6/lib/../extras/CUPTI/lib64/"
-      - "/usr/X11R6/lib/../extras/CUPTI/lib/"
-      - "/usr/X11R6/lib/"
-      - "/usr/X11R6/nvidia/current/"
-      - "/usr/X11R6/lib64/"
-      - "/usr/X11R6/lib/x64/"
-      - "/usr/X11R6/lib/"
-      - "/usr/X11R6/../extras/CUPTI/lib64/"
-      - "/usr/X11R6/../extras/CUPTI/lib/"
-      - "/usr/X11R6/"
-      - "/usr/pkg/lib/x86_64-linux-gnu/nvidia/current/"
-      - "/usr/pkg/lib/x86_64-linux-gnu/lib64/"
-      - "/usr/pkg/lib/x86_64-linux-gnu/lib/x64/"
-      - "/usr/pkg/lib/x86_64-linux-gnu/lib/"
-      - "/usr/pkg/lib/x86_64-linux-gnu/../extras/CUPTI/lib64/"
-      - "/usr/pkg/lib/x86_64-linux-gnu/../extras/CUPTI/lib/"
-      - "/usr/pkg/lib/x86_64-linux-gnu/"
-      - "/usr/pkg/lib/nvidia/current/"
-      - "/usr/pkg/lib/lib64/"
-      - "/usr/pkg/lib/lib/x64/"
-      - "/usr/pkg/lib/lib/"
-      - "/usr/pkg/lib/../extras/CUPTI/lib64/"
-      - "/usr/pkg/lib/../extras/CUPTI/lib/"
-      - "/usr/pkg/lib/"
-      - "/usr/pkg/nvidia/current/"
-      - "/usr/pkg/lib64/"
-      - "/usr/pkg/lib/x64/"
-      - "/usr/pkg/lib/"
-      - "/usr/pkg/../extras/CUPTI/lib64/"
-      - "/usr/pkg/../extras/CUPTI/lib/"
-      - "/usr/pkg/"
-      - "/opt/lib/x86_64-linux-gnu/nvidia/current/"
-      - "/opt/lib/x86_64-linux-gnu/lib64/"
-      - "/opt/lib/x86_64-linux-gnu/lib/x64/"
-      - "/opt/lib/x86_64-linux-gnu/lib/"
-      - "/opt/lib/x86_64-linux-gnu/../extras/CUPTI/lib64/"
-      - "/opt/lib/x86_64-linux-gnu/../extras/CUPTI/lib/"
-      - "/opt/lib/x86_64-linux-gnu/"
-      - "/opt/lib/nvidia/current/"
-      - "/opt/lib/lib64/"
-      - "/opt/lib/lib/x64/"
-      - "/opt/lib/lib/"
-      - "/opt/lib/../extras/CUPTI/lib64/"
-      - "/opt/lib/../extras/CUPTI/lib/"
-      - "/opt/lib/"
-      - "/opt/nvidia/current/"
-      - "/opt/lib64/"
-      - "/opt/lib/x64/"
-      - "/opt/lib/"
-      - "/opt/../extras/CUPTI/lib64/"
-      - "/opt/../extras/CUPTI/lib/"
-      - "/opt/"
-      - "/usr/lib/X11/nvidia/current/"
-      - "/usr/lib/X11/lib64/"
-      - "/usr/lib/X11/lib/x64/"
-      - "/usr/lib/X11/lib/"
-      - "/usr/lib/X11/../extras/CUPTI/lib64/"
-      - "/usr/lib/X11/../extras/CUPTI/lib/"
-      - "/usr/lib/X11/"
-    searched_directories:
-      - "/usr/local/cuda-12.6/lib/x86_64-linux-gnu/nvidia/current/"
-      - "/usr/local/cuda-12.6/lib/x86_64-linux-gnu/lib64/"
-      - "/usr/local/cuda-12.6/lib/x86_64-linux-gnu/lib/x64/"
-      - "/usr/local/cuda-12.6/lib/x86_64-linux-gnu/lib/"
-      - "/usr/local/cuda-12.6/lib/x86_64-linux-gnu/../extras/CUPTI/lib64/"
-      - "/usr/local/cuda-12.6/lib/x86_64-linux-gnu/../extras/CUPTI/lib/"
-      - "/usr/local/cuda-12.6/lib/x86_64-linux-gnu/"
-      - "/usr/local/cuda-12.6/lib/nvidia/current/"
-      - "/usr/local/cuda-12.6/lib/lib64/"
-      - "/usr/local/cuda-12.6/lib/lib/x64/"
-      - "/usr/local/cuda-12.6/lib/lib/"
-      - "/usr/local/cuda-12.6/lib/../extras/CUPTI/lib64/"
-      - "/usr/local/cuda-12.6/lib/../extras/CUPTI/lib/"
-      - "/usr/local/cuda-12.6/lib/"
-      - "/usr/local/cuda-12.6/nvidia/current/"
-    found: "/usr/local/cuda-12.6/lib64/libcupti.so"
-    search_context:
-      package_stack:
-        -
-          package_paths:
-            - "/usr/local/cuda-12.6"
-      ENV{PATH}:
-        - "/home/g/anaconda3/envs/g308/bin"
-        - "/usr/local/cuda-12.6/bin"
-        - "/home/g/.local/bin"
-        - "/usr/local/cuda-12.6/bin"
-        - "/home/g/anaconda3/condabin"
-        - "/home/g/cursor/usr/bin"
-        - "/home/g/cursor/usr/sbin"
-        - "/home/g/cursor/usr/games"
-        - "/home/g/cursor/bin"
-        - "/home/g/cursor/sbin"
-        - "/home/g/.local/bin"
-        - "/usr/local/sbin"
-        - "/usr/local/bin"
-        - "/usr/sbin"
-        - "/usr/bin"
-        - "/sbin"
-        - "/bin"
-        - "/usr/games"
-        - "/usr/local/games"
-        - "/snap/bin"
-      CMAKE_INSTALL_PREFIX: "/usr/local"
-      CMAKE_SYSTEM_PREFIX_PATH:
-        - "/usr/local"
-        - "/usr"
-        - "/"
-        - "/home/g/anaconda3/envs/g308"
-        - "/usr/local"
-        - "/usr/X11R6"
-        - "/usr/pkg"
-        - "/opt"
-      CMAKE_SYSTEM_LIBRARY_PATH:
-        - "/usr/lib/X11"
-  -
-    kind: "try_run-v1"
-    backtrace:
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:103 (try_run)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:87 (include)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
-      - "CMakeLists.txt:134 (find_package)"
-    directories:
-      source: "/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeTmp"
-      binary: "/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeTmp"
-    cmakeVariables:
-      CMAKE_CUDA_ARCHITECTURES: "52"
-      CMAKE_CXX_FLAGS: ""
-      CMAKE_CXX_FLAGS_DEBUG: "-g"
-      CMAKE_EXE_LINKER_FLAGS: ""
-      CMAKE_MODULE_PATH: "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2;/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/public/../Modules_CUDA_fix"
-    buildResult:
-      variable: "compile_result"
-      cached: true
-      stdout: |
-        Change Dir: '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeTmp'
-        
-        Run Build Command(s): /home/g/anaconda3/envs/g308/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_d696b/fast
-        /usr/bin/make  -f CMakeFiles/cmTC_d696b.dir/build.make CMakeFiles/cmTC_d696b.dir/build
-        make[1]: 进入目录“/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeTmp”
-        Building CXX object CMakeFiles/cmTC_d696b.dir/detect_cuda_version.cc.o
-        /usr/bin/c++  -I/usr/local/cuda-12.6/include -std=gnu++17 -o CMakeFiles/cmTC_d696b.dir/detect_cuda_version.cc.o -c /home/g/DriveSimX/core/cpp/build/detect_cuda_version.cc
-        Linking CXX executable cmTC_d696b
-        /home/g/anaconda3/envs/g308/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d696b.dir/link.txt --verbose=1
-        /usr/bin/c++ CMakeFiles/cmTC_d696b.dir/detect_cuda_version.cc.o -o cmTC_d696b  -Wl,-rpath,/usr/local/cuda-12.6/lib64 /usr/local/cuda-12.6/lib64/libcudart.so
-        make[1]: 离开目录“/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeTmp”
-        
-      exitCode: 0
-    runResult:
-      variable: "run_result"
-      cached: true
-      stdout: |
-        12.6
-      exitCode: 0
-  -
-    kind: "try_run-v1"
-    backtrace:
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA/select_compute_arch.cmake:113 (try_run)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA/select_compute_arch.cmake:173 (CUDA_DETECT_INSTALLED_GPUS)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/public/utils.cmake:401 (cuda_select_nvcc_arch_flags)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:342 (torch_cuda_get_nvcc_gencode_flag)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:87 (include)"
-      - "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
-      - "CMakeLists.txt:134 (find_package)"
-    directories:
-      source: "/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeTmp"
-      binary: "/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeTmp"
-    cmakeVariables:
-      CMAKE_CUDA_ARCHITECTURES: "52"
-      CMAKE_CUDA_FLAGS: ""
-      CMAKE_CUDA_FLAGS_DEBUG: "-g"
-      CMAKE_EXE_LINKER_FLAGS: ""
-      CMAKE_MODULE_PATH: "/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2;/home/g/anaconda3/envs/g308/lib/python3.8/site-packages/torch/share/cmake/Caffe2/public/../Modules_CUDA_fix"
-    buildResult:
-      variable: "compile_result"
-      cached: true
-      stdout: |
-        Change Dir: '/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeTmp'
-        
-        Run Build Command(s): /home/g/anaconda3/envs/g308/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_ac234/fast
-        /usr/bin/make  -f CMakeFiles/cmTC_ac234.dir/build.make CMakeFiles/cmTC_ac234.dir/build
-        make[1]: 进入目录“/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeTmp”
-        Building CUDA object CMakeFiles/cmTC_ac234.dir/detect_cuda_compute_capabilities.cu.o
-        /usr/local/cuda-12.6/bin/nvcc -forward-unknown-to-host-compiler   -std=c++17 "--generate-code=arch=compute_52,code=[compute_52,sm_52]" -MD -MT CMakeFiles/cmTC_ac234.dir/detect_cuda_compute_capabilities.cu.o -MF CMakeFiles/cmTC_ac234.dir/detect_cuda_compute_capabilities.cu.o.d -x cu -c /home/g/DriveSimX/core/cpp/build/detect_cuda_compute_capabilities.cu -o CMakeFiles/cmTC_ac234.dir/detect_cuda_compute_capabilities.cu.o
-        Linking CUDA executable cmTC_ac234
-        /home/g/anaconda3/envs/g308/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ac234.dir/link.txt --verbose=1
-        /usr/bin/g++ @CMakeFiles/cmTC_ac234.dir/objects1.rsp -o cmTC_ac234 @CMakeFiles/cmTC_ac234.dir/linkLibs.rsp -L"/usr/local/cuda-12.6/targets/x86_64-linux/lib/stubs" -L"/usr/local/cuda-12.6/targets/x86_64-linux/lib"
+        Building CUDA object CMakeFiles/cmTC_36c9d.dir/detect_cuda_compute_capabilities.cu.o
+        /usr/local/cuda-12.6/bin/nvcc -forward-unknown-to-host-compiler   -std=c++17 "--generate-code=arch=compute_52,code=[compute_52,sm_52]" -MD -MT CMakeFiles/cmTC_36c9d.dir/detect_cuda_compute_capabilities.cu.o -MF CMakeFiles/cmTC_36c9d.dir/detect_cuda_compute_capabilities.cu.o.d -x cu -c /home/g/DriveSimX/core/cpp/build/detect_cuda_compute_capabilities.cu -o CMakeFiles/cmTC_36c9d.dir/detect_cuda_compute_capabilities.cu.o
+        Linking CUDA executable cmTC_36c9d
+        /home/g/anaconda3/envs/g308/bin/cmake -E cmake_link_script CMakeFiles/cmTC_36c9d.dir/link.txt --verbose=1
+        /usr/bin/g++ @CMakeFiles/cmTC_36c9d.dir/objects1.rsp -o cmTC_36c9d @CMakeFiles/cmTC_36c9d.dir/linkLibs.rsp -L"/usr/local/cuda-12.6/targets/x86_64-linux/lib/stubs" -L"/usr/local/cuda-12.6/targets/x86_64-linux/lib"
         make[1]: 离开目录“/home/g/DriveSimX/core/cpp/build/CMakeFiles/CMakeTmp”
         
       exitCode: 0
