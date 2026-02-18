@@ -222,6 +222,11 @@ struct Renderer::Impl {
     float follow_pitch{0.5f};
     float follow_dist{120.0f};
 
+    // Camera smoothing state
+    float cam_x{0.0f}, cam_y{0.0f}, cam_z{0.0f};
+    float target_cam_x{0.0f}, target_cam_y{0.0f}, target_cam_z{0.0f};
+    bool cam_init{false};
+
 #ifdef _WIN32
     HWND hwnd{nullptr};
     HDC hdc{nullptr};
@@ -359,6 +364,11 @@ Renderer::Renderer() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_ANY_PROFILE);
     glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
+
+    // Visual quality: enable multisampling (MSAA) and request an sRGB-capable framebuffer.
+    glfwWindowHint(GLFW_SAMPLES, 4);
+    glfwWindowHint(GLFW_SRGB_CAPABLE, GLFW_TRUE);
+
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
@@ -773,6 +783,15 @@ void Renderer::render(const ScenarioEnv& env, bool show_lane_ids, bool show_lida
     int full_h = HEIGHT;
     glfwGetFramebufferSize(impl->window, &full_w, &full_h);
 
+    // View mode switching via 'V' key
+    static bool v_was_down = false;
+    bool v_is_down = glfwGetKey(impl->window, GLFW_KEY_V) == GLFW_PRESS;
+    if (v_is_down && !v_was_down) {
+        impl->view_mode = (impl->view_mode + 1) % 3;
+        impl->cam_init = false; // Reset smoothing on switch
+    }
+    v_was_down = v_is_down;
+
     static bool first_render_log = false;
     int win_w, win_h;
     glfwGetWindowSize(impl->window, &win_w, &win_h);
@@ -805,9 +824,23 @@ void Renderer::render(const ScenarioEnv& env, bool show_lane_ids, bool show_lida
         glLoadIdentity();
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
-        glDisable(GL_DEPTH_TEST);
+
+        // Reset GL state that may have been enabled by 3D modes.
+        // (Fixes issues like missing 2D overlays after switching 3D->2D.)
+        glDisable(GL_CULL_FACE);
         glDisable(GL_LIGHTING);
+        glDisable(GL_DEPTH_TEST);
+        glDisable(GL_FRAMEBUFFER_SRGB);
+        glDisable(GL_MULTISAMPLE);
+
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     } else {
+        // Keep color consistent with 2D: do not enable FRAMEBUFFER_SRGB here.
+        // (Our bitmap background colors are authored in linear-ish space already.)
+        glEnable(GL_MULTISAMPLE);
+        glDisable(GL_FRAMEBUFFER_SRGB);
+
         glEnable(GL_DEPTH_TEST);
         glEnable(GL_CULL_FACE);
         glCullFace(GL_BACK);
@@ -818,19 +851,25 @@ void Renderer::render(const ScenarioEnv& env, bool show_lane_ids, bool show_lida
         glEnable(GL_COLOR_MATERIAL);
         glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
 
-        // Bright / cartoony lighting
-        float light_pos[] = { 0.3f, 1.0f, 0.2f, 0.0f }; // directional
+        // Balanced lighting for 3D modes (consistent with 2D colors)
+        float light_pos[] = { 0.5f, 1.0f, 0.3f, 0.0f }; // directional
         glLightfv(GL_LIGHT0, GL_POSITION, light_pos);
-        float light_amb[] = { 0.55f, 0.55f, 0.60f, 1.0f };
+        
+        // Muted ambient to avoid "washed out" look
+        float light_amb[] = { 0.35f, 0.35f, 0.38f, 1.0f };
         glLightfv(GL_LIGHT0, GL_AMBIENT, light_amb);
-        float light_diff[] = { 0.95f, 0.95f, 0.95f, 1.0f };
+        
+        // Solid diffuse for base color
+        float light_diff[] = { 0.75f, 0.75f, 0.75f, 1.0f };
         glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diff);
-        float light_spec[] = { 0.25f, 0.25f, 0.25f, 1.0f };
+        
+        // Very low specular to remove shiny white highlights
+        float light_spec[] = { 0.05f, 0.05f, 0.05f, 1.0f };
         glLightfv(GL_LIGHT0, GL_SPECULAR, light_spec);
 
-        float mat_spec[] = { 0.20f, 0.20f, 0.20f, 1.0f };
+        float mat_spec[] = { 0.02f, 0.02f, 0.02f, 1.0f };
         glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, mat_spec);
-        glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 24.0f);
+        glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 4.0f);
 
         glMatrixMode(GL_PROJECTION);
         setup_perspective(45.0f, 1.0f, 1.0f, 5000.0f);
@@ -891,10 +930,25 @@ void Renderer::render(const ScenarioEnv& env, bool show_lane_ids, bool show_lida
             float cp = std::cos(impl->follow_pitch);
             float sp = std::sin(impl->follow_pitch);
 
-            float ex = ego.state.x - impl->follow_dist * cp * cy;
-            float ey = 8.0f + impl->follow_dist * sp;
-            float ez = ego.state.y + impl->follow_dist * cp * sy;
-            setup_lookat(ex, ey, ez, ego.state.x, 3.0f, ego.state.y, 0, 1, 0);
+            // Desired camera pose (spring-arm)
+            impl->target_cam_x = ego.state.x - impl->follow_dist * cp * cy;
+            impl->target_cam_y = 8.0f + impl->follow_dist * sp;
+            impl->target_cam_z = ego.state.y + impl->follow_dist * cp * sy;
+
+            // Smooth camera (time-constant tuned for ~60Hz)
+            if (!impl->cam_init) {
+                impl->cam_x = impl->target_cam_x;
+                impl->cam_y = impl->target_cam_y;
+                impl->cam_z = impl->target_cam_z;
+                impl->cam_init = true;
+            } else {
+                const float k = 0.12f; // smaller = smoother
+                impl->cam_x += (impl->target_cam_x - impl->cam_x) * k;
+                impl->cam_y += (impl->target_cam_y - impl->cam_y) * k;
+                impl->cam_z += (impl->target_cam_z - impl->cam_z) * k;
+            }
+
+            setup_lookat(impl->cam_x, impl->cam_y, impl->cam_z, ego.state.x, 3.0f, ego.state.y, 0, 1, 0);
         } else {
             // Fallback
             setup_lookat(WIDTH / 2.0f, 600.0f, HEIGHT / 2.0f + 300.0f,
@@ -1129,25 +1183,58 @@ void Renderer::draw_lane_ids(const ScenarioEnv& env) const {
 void Renderer::draw_hud(const ScenarioEnv& env) const {
     if (!imgui || !impl || !impl->window) return;
 
-    int full_w = WIDTH;
-    int full_h = HEIGHT;
-    glfwGetFramebufferSize(impl->window, &full_w, &full_h);
+    // Use ImGui for a professional HUD overlay
+    ImGui::SetNextWindowPos(ImVec2(10, 10), ImGuiCond_Always);
+    ImGui::SetNextWindowBgAlpha(0.35f); // Semi-transparent background
+    
+    ImGui::Begin("Simulation HUD", nullptr, 
+        ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_AlwaysAutoResize | 
+        ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav);
 
-    char buf[256];
-    std::snprintf(buf, sizeof(buf), "STEP: %d | AGENTS: %d", env.step_count, (int)env.cars.size());
-    imgui->add_text(10.0f, 10.0f, buf, 0xFFFFFFFFu);
+    // Header with primary stats
+    ImGui::TextColored(ImVec4(0.0f, 0.9f, 1.0f, 1.0f), "STEP: %d", env.step_count);
+    ImGui::SameLine();
+    ImGui::Text(" | AGENTS: %d", (int)env.cars.size());
+    
+    if (env.traffic_flow) {
+        ImGui::SameLine();
+        ImGui::Text(" | TRAFFIC: %d", (int)env.traffic_cars.size());
+    }
 
-    // Display status for the first agent to diagnose "stuck" issue
+    ImGui::Separator();
+
+    // FPS Counter (derived from internal state if available, or just render frequency)
+    static float last_time = 0.0f;
+    float current_time = (float)glfwGetTime();
+    float dt = current_time - last_time;
+    last_time = current_time;
+    static float avg_fps = 60.0f;
+    if (dt > 0) avg_fps = avg_fps * 0.9f + (1.0f / dt) * 0.1f;
+    ImGui::Text("RENDER FPS: %.1f", avg_fps);
+
+    // Detailed Ego Status (Agent 0)
     if (!env.cars.empty()) {
         const auto& ego = env.cars[0];
-        // We need to know the status from StepResult, but ScenarioEnv doesn't store it per car.
-        // For debugging, we re-check off-road/line here or rely on 'alive' flag.
-        std::string status = ego.alive ? "ALIVE" : "DEAD";
+        ImVec4 status_col = ego.alive ? ImVec4(0.2f, 1.0f, 0.2f, 1.0f) : ImVec4(1.0f, 0.2f, 0.2f, 1.0f);
         
-        std::snprintf(buf, sizeof(buf), "EGO 0: %s | POS: (%.1f, %.1f) | V: %.2f", 
-                     status.c_str(), ego.state.x, ego.state.y, ego.state.v);
-        imgui->add_text(10.0f, 35.0f, buf, ego.alive ? 0xFF00FF00u : 0xFF0000FFu);
+        ImGui::Text("EGO STATUS: ");
+        ImGui::SameLine();
+        ImGui::TextColored(status_col, "%s", ego.alive ? "ACTIVE" : "COLLIDED");
+
+        float speed_ms = (ego.state.v * FPS) / SCALE;
+        ImGui::Text("SPEED: %.2f m/s", speed_ms);
+        
+        // Progress / Pos
+        ImGui::Text("POS: (%.1f, %.1f)", ego.state.x, ego.state.y);
     }
+
+    // View Mode Toggle Hint
+    ImGui::Separator();
+    const char* view_names[] = {"2D TOP", "3D FOLLOW", "3D ORBIT"};
+    ImGui::Text("VIEW: [%s]", view_names[std::clamp(impl->view_mode, 0, 2)]);
+    ImGui::TextDisabled("(Press V to switch)");
+
+    ImGui::End();
 }
 
 #endif // _WIN32
