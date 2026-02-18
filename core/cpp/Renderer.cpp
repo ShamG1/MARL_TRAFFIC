@@ -1523,12 +1523,22 @@ void Renderer::draw_lidar(const ScenarioEnv& env) const{
     // Match Scenario/sensor.py: draw only hit rays
     const bool draw_all = false;
 
-    for(size_t i=0;i<env.cars.size() && i<env.lidars.size();++i){
-        if(!env.cars[i].alive) continue;
-        const auto &lid=env.lidars[i];
-        const auto &car=env.cars[i];
-        float cx=car.state.x; float cy=car.state.y; float heading=car.state.heading;
-        for(size_t k=0;k<lid.distances.size();++k){
+    // Only visualize lidar for the currently selected (TAB) agent.
+    const int n = (int)env.cars.size();
+    if (n <= 0) return;
+
+    int idx = impl ? impl->selected_agent_idx : 0;
+    if (idx < 0) idx = 0;
+    if (idx >= n) idx = n - 1;
+
+    if ((size_t)idx >= env.lidars.size()) return;
+    if (!env.cars[(size_t)idx].alive) return;
+
+    const auto &lid = env.lidars[(size_t)idx];
+    const auto &car = env.cars[(size_t)idx];
+    float cx = car.state.x; float cy = car.state.y; float heading = car.state.heading;
+
+    for(size_t k=0;k<lid.distances.size();++k){
             float dist=lid.distances[k];
             const bool hit = dist < lid.max_dist - 0.1f;
             if(!draw_all && !hit) continue;
@@ -1545,4 +1555,3 @@ void Renderer::draw_lidar(const ScenarioEnv& env) const{
             }
         }
     }
-}
