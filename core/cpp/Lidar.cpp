@@ -91,6 +91,11 @@ void Lidar::update_bitmap(const Car& self, const std::vector<Car>& cars1, const 
     const float cy = self.state.y;
     const float heading = self.state.heading;
 
+    // Dynamic obstacle check: cheap radius filter first, then oriented bbox approx.
+    // Uses squared distances to avoid sqrt in the inner loop.
+    constexpr float kCheckRadius = 140.0f;
+    constexpr float kCheckRadius2 = kCheckRadius * kCheckRadius;
+
     auto check_cars = [&](const std::vector<Car>& car_list, float check_x, float check_y) {
         for (const auto& c : car_list) {
             if (&c == &self) continue;
@@ -100,6 +105,10 @@ void Lidar::update_bitmap(const Car& self, const std::vector<Car>& cars1, const 
                 continue;
             }
 
+            const float dx0 = c.state.x - check_x;
+            const float dy0 = c.state.y - check_y;
+            if (dx0 * dx0 + dy0 * dy0 > kCheckRadius2) continue;
+
             const float cosA = std::cos(c.state.heading);
             const float sinA = std::sin(c.state.heading);
             const float hl = c.length * 0.5f;
@@ -108,8 +117,8 @@ void Lidar::update_bitmap(const Car& self, const std::vector<Car>& cars1, const 
             const float ex = std::fabs(cosA) * hl + std::fabs(sinA) * hw;
             const float ey = std::fabs(sinA) * hl + std::fabs(cosA) * hw;
 
-            if (float(check_x) >= c.state.x - ex && float(check_x) <= c.state.x + ex &&
-                float(check_y) >= c.state.y - ey && float(check_y) <= c.state.y + ey) {
+            if (check_x >= c.state.x - ex && check_x <= c.state.x + ex &&
+                check_y >= c.state.y - ey && check_y <= c.state.y + ey) {
                 return true;
             }
         }

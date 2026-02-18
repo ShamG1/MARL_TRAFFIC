@@ -82,6 +82,23 @@ PYBIND11_MODULE(DRIVESIMX_ENV, m) {
         .def("add_car_with_route", &ScenarioEnv::add_car_with_route, py::arg("start_id"), py::arg("end_id"))
         .def("load_scenario_bitmaps", &ScenarioEnv::load_scenario_bitmaps, py::arg("drivable_png"), py::arg("yellowline_png"), py::arg("dash_png"), py::arg("lane_id_png"))
         .def("step", &ScenarioEnv::step, py::arg("throttles"), py::arg("steerings"), py::arg("dt") = 1.0/60.0)
+        .def("step_numpy", [](ScenarioEnv& env, py::array_t<float, py::array::c_style | py::array::forcecast> actions, float dt) {
+            // actions: (N,2) float32/float64 accepted (forcecast)
+            const auto buf = actions.request();
+            if (buf.ndim != 2 || buf.shape[1] != 2) {
+                throw std::runtime_error("step_numpy expects actions shape (N,2)");
+            }
+            const size_t n = static_cast<size_t>(buf.shape[0]);
+            auto a = actions.unchecked<2>();
+
+            std::vector<float> throttles; throttles.resize(n);
+            std::vector<float> steerings; steerings.resize(n);
+            for (size_t i = 0; i < n; ++i) {
+                throttles[i] = a(i, 0);
+                steerings[i] = a(i, 1);
+            }
+            return env.step(throttles, steerings, dt);
+        }, py::arg("actions"), py::arg("dt") = 1.0/60.0)
         .def("get_observations", &ScenarioEnv::get_observations)
         .def("get_observations_flat", &ScenarioEnv::get_observations_flat)
         .def("get_observations_numpy", [](ScenarioEnv& env) {
@@ -99,7 +116,7 @@ PYBIND11_MODULE(DRIVESIMX_ENV, m) {
         .def("get_global_state", &ScenarioEnv::get_global_state, py::arg("agent_index"), py::arg("k_nearest") = 3)
         .def("get_state", &ScenarioEnv::get_state)
         .def("set_state", &ScenarioEnv::set_state, py::arg("state"))
-        .def("render", &ScenarioEnv::render, py::arg("show_lane_ids") = false, py::arg("show_lidar") = false)
+        .def("render", &ScenarioEnv::render, py::arg("show_lane_ids") = false, py::arg("show_lidar") = false, py::arg("show_connections") = false)
         .def("set_view_mode", &ScenarioEnv::set_view_mode, py::arg("mode"))
         .def("get_view_mode", &ScenarioEnv::get_view_mode)
         .def("window_should_close", &ScenarioEnv::window_should_close)

@@ -737,7 +737,7 @@ void ScenarioEnv::update_observations_buffer() {
         obs[12] = in_lane;
         obs[13] = lane_id_norm;
 
-        struct NeighborRef { float dist; const Car* car; };
+        struct NeighborRef { float d2; const Car* car; };
         std::vector<NeighborRef> neigh;
         neigh.reserve((cars.size() > 0 ? cars.size() - 1 : 0) + (traffic_flow ? traffic_cars.size() : 0));
 
@@ -746,8 +746,8 @@ void ScenarioEnv::update_observations_buffer() {
             if (!cars[j].alive) continue;
             float dx = cars[j].state.x - x;
             float dy = cars[j].state.y - y;
-            float dist = std::sqrt(dx * dx + dy * dy);
-            neigh.push_back({dist, &cars[j]});
+            float d2 = dx * dx + dy * dy;
+            neigh.push_back({d2, &cars[j]});
         }
 
         if (traffic_flow) {
@@ -755,18 +755,18 @@ void ScenarioEnv::update_observations_buffer() {
                 if (!npc.alive) continue;
                 float dx = npc.state.x - x;
                 float dy = npc.state.y - y;
-                float dist = std::sqrt(dx * dx + dy * dy);
-                neigh.push_back({dist, &npc});
+                float d2 = dx * dx + dy * dy;
+                neigh.push_back({d2, &npc});
             }
         }
 
         const size_t take = std::min<size_t>(NEIGHBOR_COUNT, neigh.size());
         if (take > 0 && neigh.size() > take) {
             std::nth_element(neigh.begin(), neigh.begin() + take, neigh.end(),
-                             [](const NeighborRef& a, const NeighborRef& b) { return a.dist < b.dist; });
+                             [](const NeighborRef& a, const NeighborRef& b) { return a.d2 < b.d2; });
             neigh.resize(take);
         }
-        std::sort(neigh.begin(), neigh.end(), [](const NeighborRef& a, const NeighborRef& b) { return a.dist < b.dist; });
+        std::sort(neigh.begin(), neigh.end(), [](const NeighborRef& a, const NeighborRef& b) { return a.d2 < b.d2; });
 
         size_t base = 14;
         for (size_t k = 0; k < take; ++k) {

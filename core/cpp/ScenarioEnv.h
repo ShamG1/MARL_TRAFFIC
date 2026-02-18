@@ -153,7 +153,7 @@ public:
     void set_state(const EnvState& s);
 
 #ifdef DRIVESIMX_ENABLE_RENDER
-    void render(bool show_lane_ids = false, bool show_lidar = false);
+    void render(bool show_lane_ids = false, bool show_lidar = false, bool show_connections = false);
     void set_view_mode(int mode);
     int get_view_mode() const;
 
@@ -163,7 +163,7 @@ public:
     bool key_pressed(int glfw_key) const;
 #else
     // Headless build stubs
-    void render(bool show_lane_ids = false, bool show_lidar = false);
+    void render(bool show_lane_ids = false, bool show_lidar = false, bool show_connections = false);
     bool window_should_close() const;
     void poll_events() const;
     bool key_pressed(int glfw_key) const;

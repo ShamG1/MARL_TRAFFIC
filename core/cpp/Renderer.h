@@ -33,7 +33,8 @@ public:
     // Render entire scene based on env state
     void render(const ScenarioEnv& env,
                 bool show_lane_ids = false,
-                bool show_lidar = false);
+                bool show_lidar = false,
+                bool show_connections = false);
 
     // Input / window state (GLFW)
     bool window_should_close() const;
@@ -50,6 +51,7 @@ private:
     void draw_lane_ids(const ScenarioEnv& env) const;
     void draw_hud(const ScenarioEnv& env) const;
     void draw_route(const ScenarioEnv& env) const;
+    void draw_connections(const ScenarioEnv& env) const;
     void update_view_box(const ScenarioEnv& env);
 
 #ifdef _WIN32

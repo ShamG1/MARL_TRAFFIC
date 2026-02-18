@@ -265,7 +265,11 @@ class ScenarioEnv:
                 else:
                     raise ValueError(f"Expected actions shape (N,2) for multi-agent, got {actions.shape}")
 
-        res = self.env.step(actions[:, 0].tolist(), actions[:, 1].tolist(), float(dt))
+        # Use optimized numpy step if available
+        if hasattr(self.env, "step_numpy"):
+            res = self.env.step_numpy(actions, float(dt))
+        else:
+            res = self.env.step(actions[:, 0].tolist(), actions[:, 1].tolist(), float(dt))
 
         if self.traffic_flow:
             try:
@@ -273,7 +277,10 @@ class ScenarioEnv:
             except Exception:
                 self.traffic_cars = []
 
-        obs = np.asarray(res.obs, dtype=np.float32)
+        # Optimization: res.obs from C++ is often a copy. 
+        # We prefer using the zero-copy observations buffer which is already updated in step().
+        obs = self._collect_obs()
+
         rewards = np.asarray(res.rewards, dtype=np.float32)
         terminated = bool(res.terminated)
         truncated = bool(res.truncated)
@@ -299,14 +306,21 @@ class ScenarioEnv:
         """Freeze/unfreeze NPC refills (useful for MCTS rollouts)."""
         self.env.freeze_traffic(freeze)
 
-    def render(self, show_lane_ids: bool | None = None, show_lidar: bool | None = None):
+    def render(
+        self,
+        show_lane_ids: bool | None = None,
+        show_lidar: bool | None = None,
+        show_connections: bool | None = None,
+    ):
         if self.render_mode != "human":
             return
         if show_lane_ids is None:
             show_lane_ids = self.show_lane_ids
         if show_lidar is None:
             show_lidar = self.show_lidar
-        self.env.render(bool(show_lane_ids), bool(show_lidar))
+        if show_connections is None:
+            show_connections = bool(getattr(self, "show_connections", False))
+        self.env.render(bool(show_lane_ids), bool(show_lidar), bool(show_connections))
 
     def close(self):
         # C++ side owns the GLFW window; nothing to close here.
