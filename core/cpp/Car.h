@@ -50,6 +50,16 @@ public:
     bool check_collision(const Car &other) const;
     std::array<std::pair<float,float>,4> corners() const;
 
+    // Cached values for performance (updated when pose changes)
+    float cached_cosH{1.0f};
+    float cached_sinH{0.0f};
+
+    // Cached corners (updated on demand)
+    mutable std::array<std::pair<float, float>, 4> cached_corners{};
+    mutable bool corners_dirty{true};
+
+    void refresh_pose_cache();
+
     void set_path(std::vector<std::pair<float,float>> p);
     void update_path_index();
 
@@ -67,5 +77,9 @@ public:
         path_index = ds.path_index;
         prev_dist_to_goal = ds.prev_dist_to_goal;
         prev_action = ds.prev_action;
+
+        // Pose cache must be consistent after snapshots/teleports
+        refresh_pose_cache();
+        corners_dirty = true;
     }
 };

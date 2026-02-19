@@ -6,6 +6,12 @@
 
 static constexpr float PI_F = 3.14159265358979323846f;
 
+void Car::refresh_pose_cache() {
+    cached_cosH = std::cos(state.heading);
+    cached_sinH = std::sin(state.heading);
+    corners_dirty = true;
+}
+
 void Car::update(float throttle, float steer_input, float dt) {
     // Match Scenario.agent.Car.update
     // 1) map inputs
@@ -34,9 +40,12 @@ void Car::update(float throttle, float steer_input, float dt) {
     if (state.heading < 0) state.heading += 2.0f * PI_F;
     state.heading -= PI_F;
 
+    // Refresh cached trig after heading update
+    refresh_pose_cache();
+
     // 3) position update (NO dt in python)
-    state.x += state.v * std::cos(state.heading);
-    state.y -= state.v * std::sin(state.heading);
+    state.x += state.v * cached_cosH;
+    state.y -= state.v * cached_sinH;
 }
 
 void Car::set_path(std::vector<std::pair<float, float>> p) {
@@ -94,14 +103,18 @@ void Car::respawn() {
     prev_action = {0.0f, 0.0f};
     acc = 0.0f;
     steering_angle = 0.0f;
+
+    refresh_pose_cache();
 }
 
 std::array<std::pair<float, float>, 4> Car::corners() const {
+    if (!corners_dirty) return cached_corners;
+
     const float hx = width * 0.5f;
     const float hy = length * 0.5f;
 
-    const float cosA = std::cos(state.heading);
-    const float sinA = std::sin(state.heading);
+    const float cosA = cached_cosH;
+    const float sinA = cached_sinH;
 
     // IMPORTANT: Keep transform consistent with Car::update() which uses:
     //   x += v*cos(h)
@@ -114,10 +127,12 @@ std::array<std::pair<float, float>, 4> Car::corners() const {
         return std::make_pair(wx, wy);
     };
 
-    return { world( hy,  hx),
+    cached_corners = { world( hy,  hx),
              world( hy, -hx),
              world(-hy, -hx),
              world(-hy,  hx) };
+    corners_dirty = false;
+    return cached_corners;
 }
 
 static std::pair<float,float> project(const std::array<std::pair<float,float>,4>& pts,
@@ -136,13 +151,13 @@ bool Car::check_collision(const Car &other) const {
     const auto c1 = corners();
     const auto c2 = other.corners();
 
-    const float ax1 =  std::cos(state.heading);
-    const float ay1 =  std::sin(state.heading);
+    const float ax1 =  cached_cosH;
+    const float ay1 =  cached_sinH;
     const float ax2 = -ay1;
     const float ay2 =  ax1;
 
-    const float bx1 =  std::cos(other.state.heading);
-    const float by1 =  std::sin(other.state.heading);
+    const float bx1 =  other.cached_cosH;
+    const float by1 =  other.cached_sinH;
     const float bx2 = -by1;
     const float by2 =  bx1;
 

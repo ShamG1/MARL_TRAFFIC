@@ -8,8 +8,6 @@
 #include <vector>
 #include <unordered_map>
 #include <cstdint>
-#include <unordered_map>
-#include <cstdint>
 
 static constexpr float PI_F = 3.14159265358979323846f;
 
@@ -510,13 +508,13 @@ StepResult ScenarioEnv::step(const std::vector<float>& throttles,
                 const size_t j = (size_t)e.index;
                 if (j <= i) continue;
                 if (j >= n) continue;
-                if (!cars[j].alive || res.done[j]) continue;
-                if (cars[i].check_collision(cars[j])) {
-                    res.done[i] = 1;
-                    res.done[j] = 1;
-                    res.status[i] = "CRASH_CAR";
-                    res.status[j] = "CRASH_CAR";
-                }
+            if (!cars[j].alive || res.done[j]) continue;
+            if (cars[i].check_collision(cars[j])) {
+                res.done[i] = 1;
+                res.done[j] = 1;
+                res.status[i] = "CRASH_CAR";
+                res.status[j] = "CRASH_CAR";
+            }
             } else if (traffic_flow) {
                 const size_t tj = (size_t)e.index;
                 if (tj >= traffic_cars.size()) continue;
@@ -867,10 +865,10 @@ void ScenarioEnv::update_observations_buffer() {
             base += 7;
         }
 
-        const auto lidar_norm = lidars[i].normalized();
         const size_t lidar_base = 14 + 7 * NEIGHBOR_COUNT;
-        for (size_t k = 0; k < lidar_norm.size() && (lidar_base + k) < (size_t)kObsDim; ++k) {
-            obs[lidar_base + k] = lidar_norm[k];
+        const int write_len = std::min<int>((int)lidars[i].distances.size(), (int)kObsDim - (int)lidar_base);
+        if (write_len > 0) {
+            lidars[i].normalized_into(obs + lidar_base, write_len);
         }
     }
 }
@@ -1022,10 +1020,10 @@ std::vector<std::vector<float>> ScenarioEnv::get_observations() const {
             base += 5;
         }
 
-        const auto lidar_norm = lidars[i].normalized();
         const size_t lidar_base = 14 + 5 * NEIGHBOR_COUNT; // Shifted from 6 to 14
-        for (size_t k = 0; k < lidar_norm.size() && (lidar_base + k) < obs.size(); ++k) {
-            obs[lidar_base + k] = lidar_norm[k];
+        const int write_len = std::min<int>((int)lidars[i].distances.size(), (int)obs.size() - (int)lidar_base);
+        if (write_len > 0) {
+            lidars[i].normalized_into(obs.data() + lidar_base, write_len);
         }
 
         out.push_back(std::move(obs));
