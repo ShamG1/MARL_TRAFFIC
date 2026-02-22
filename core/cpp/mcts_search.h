@@ -328,6 +328,131 @@ std::pair<std::vector<float>, py::dict> mcts_search_lstm_torchscript(
     unsigned int seed
 );
 
+// Compact AlphaZero stats output to avoid heavy py::dict/edges construction.
+// Returns a tuple:
+//  (action_out: np.ndarray(2,), actions: np.ndarray(K,2), visits: np.ndarray(K,),
+//   root_v: float, root_n: int, h_next: np.ndarray(H,), c_next: np.ndarray(H,))
+// Compact AlphaZero stats output to avoid heavy py::dict/edges construction.
+// Returns a tuple:
+//  (action_arr: np.ndarray(2,), actions: np.ndarray(K,2), visits: np.ndarray(K,),
+//   root_v: float, root_n: int, h_next: np.ndarray(H,), c_next: np.ndarray(H,))
+py::tuple mcts_search_lstm_torchscript_compact(
+    ScenarioEnv& env,
+    const EnvState& root_state,
+    const std::vector<float>& root_obs_seq,
+    int seq_len,
+    int obs_dim,
+    const std::string& model_path,
+    const std::vector<float>& root_h,
+    const std::vector<float>& root_c,
+    int lstm_hidden_dim,
+    int agent_index,
+    int num_simulations,
+    int num_action_samples,
+    int rollout_depth,
+    float c_puct,
+    float temperature,
+    float gamma,
+    float dirichlet_alpha,
+    float dirichlet_eps,
+    unsigned int seed
+);
+
+std::pair<std::vector<float>, py::dict> mcts_search_tcn_torchscript_seq(
+    ScenarioEnv& env,
+    const EnvState& root_state,
+    const std::vector<float>& root_obs_seq,
+    int seq_len,
+    int obs_dim,
+    const std::string& model_path,
+    int agent_index,
+    int num_simulations,
+    int num_action_samples,
+    int rollout_depth,
+    float c_puct,
+    float temperature,
+    float gamma,
+    float dirichlet_alpha,
+    float dirichlet_eps,
+    unsigned int seed
+);
+
+void mcts_search_tcn_torchscript_seq_to_shm(
+    ScenarioEnv& env,
+    const EnvState& root_state,
+    const std::vector<float>& root_obs_seq,
+    int seq_len,
+    int obs_dim,
+    const std::string& model_path,
+    int lstm_hidden_dim,
+    int agent_index,
+    int num_simulations,
+    int num_action_samples,
+    int rollout_depth,
+    float c_puct,
+    float temperature,
+    float gamma,
+    float dirichlet_alpha,
+    float dirichlet_eps,
+    unsigned int seed,
+    size_t action_ptr_addr,
+    size_t stats_ptr_addr
+);
+
+/**
+ * mcts_search_to_shm: Executes MCTS and writes actions/stats directly to a raw float buffer.
+ * This bypasses Python's multiprocessing.Queue and pybind11 overhead.
+ * stats_ptr layout: [root_v, root_n, actions_k(K*2), visits_k(K)]
+ */
+void mcts_search_to_shm(
+    ScenarioEnv& env,
+    const EnvState& root_state,
+    const std::vector<float>& root_obs_seq,
+    int seq_len,
+    int obs_dim,
+    const std::string& model_path,
+    const std::vector<float>& root_h,
+    const std::vector<float>& root_c,
+    int lstm_hidden_dim,
+    int agent_index,
+    int num_simulations,
+    int num_action_samples,
+    int rollout_depth,
+    float c_puct,
+    float temperature,
+    float gamma,
+    float dirichlet_alpha,
+    float dirichlet_eps,
+    unsigned int seed,
+    size_t action_ptr_addr,
+    size_t stats_ptr_addr
+);
+
+// TCN/sequence variant of SHM fast path.
+// Writes actions/stats directly to SHM using the same Scheme A layout as LSTM.
+// For TCN, h_next/c_next are written as zeros.
+void mcts_search_seq_to_shm(
+    ScenarioEnv& env,
+    const EnvState& root_state,
+    const std::vector<float>& root_obs_seq, // flattened (T*obs_dim)
+    int seq_len,
+    int obs_dim,
+    const py::function& infer_fn,
+    int lstm_hidden_dim,
+    int agent_index,
+    int num_simulations,
+    int num_action_samples,
+    int rollout_depth,
+    float c_puct,
+    float temperature,
+    float gamma,
+    float dirichlet_alpha,
+    float dirichlet_eps,
+    unsigned int seed,
+    size_t action_ptr_addr,
+    size_t stats_ptr_addr
+);
+
 std::pair<std::vector<float>, py::dict> mcts_search_seq(
     ScenarioEnv& env,
     const EnvState& root_state,

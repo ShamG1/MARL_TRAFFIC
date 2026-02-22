@@ -60,6 +60,9 @@ void Lidar::update_from_cache(const Car& self, const std::vector<CachedCar>& obs
     const float sinH = self.cached_sinH;
 
     for (int i = 0; i < rays; ++i) {
+        // Rotate ray direction from car-local frame into world frame.
+        // Renderer uses y-down convention for 2D: world_y = car_y + dist * sin(heading + rel_angle)
+        // To match this, our ray dy should be -sin(heading + rel_angle).
         const float dx = cosH * rel_cos[i] - sinH * rel_sin[i];
         const float dy = -(sinH * rel_cos[i] + cosH * rel_sin[i]);
 
@@ -100,6 +103,9 @@ void Lidar::update_bitmap_from_cache(const Car& self, const std::vector<CachedCa
     const float sinH = self.cached_sinH;
 
     for (int i = 0; i < rays; ++i) {
+        // Rotate ray direction from car-local frame into world frame.
+        // Renderer uses y-down convention for 2D: ey = cy - dist * sin(heading + rel_angle)
+        // To match visualization & collision checks in y-down coordinates, dy must be -sin(...).
         const float dx = cosH * rel_cos[i] - sinH * rel_sin[i];
         const float dy = -(sinH * rel_cos[i] + cosH * rel_sin[i]);
 

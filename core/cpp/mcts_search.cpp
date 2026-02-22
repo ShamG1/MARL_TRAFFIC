@@ -390,9 +390,36 @@ static inline std::vector<float> shift_append_obs_seq(
     if ((int)obs_seq_flat.size() != seq_len * obs_dim) {
         throw std::runtime_error("obs_seq_flat size mismatch");
     }
-    if ((int)obs_new.size() != obs_dim) {
-        throw std::runtime_error("obs_new size mismatch");
+
+    std::vector<float> obs_to_append = obs_new;
+
+    // PATH B: Handle delta features if obs_dim is doubled (e.g. 290 vs 145)
+    // We assume the environment returns raw observations.
+    if (obs_dim > 0 && (int)obs_new.size() * 2 == obs_dim) {
+        // Extract previous raw observation from the end of the current flat sequence
+        // obs_seq_flat layout: [f0_raw, f1_raw, ..., f(T-1)_raw] or [f0_concat, f1_concat, ...]
+        // If it's already concat, the last 145 elements of the last frame are the raw obs.
+        int raw_dim = (int)obs_new.size();
+        std::vector<float> prev_raw(raw_dim, 0.0f);
+        
+        // The last frame starts at (seq_len - 1) * obs_dim
+        // In the last frame, the first raw_dim elements are the raw observation.
+        size_t last_frame_offset = (size_t)(seq_len - 1) * (size_t)obs_dim;
+        for (int i = 0; i < raw_dim; ++i) {
+            prev_raw[i] = obs_seq_flat[last_frame_offset + i];
+        }
+
+        obs_to_append.resize(obs_dim);
+        for (int i = 0; i < raw_dim; ++i) {
+            obs_to_append[i] = obs_new[i];
+            obs_to_append[raw_dim + i] = obs_new[i] - prev_raw[i];
+        }
     }
+
+    if ((int)obs_to_append.size() != obs_dim) {
+        throw std::runtime_error("obs_new size mismatch: expected " + std::to_string(obs_dim) + " but got " + std::to_string(obs_to_append.size()));
+    }
+
     std::vector<float> out((size_t)seq_len * (size_t)obs_dim);
     const size_t stride = (size_t)obs_dim;
     for (int t = 0; t < seq_len - 1; ++t) {
@@ -404,7 +431,7 @@ static inline std::vector<float> shift_append_obs_seq(
     }
     std::memcpy(
         out.data() + (size_t)(seq_len - 1) * stride,
-        obs_new.data(),
+        obs_to_append.data(),
         sizeof(float) * stride
     );
     return out;
@@ -1069,9 +1096,284 @@ std::pair<std::vector<float>, py::dict> mcts_search_seq(
         action_out[1] = rootn.edges[best_i].action[1];
     }
 
+    // stats dict (needs to be declared before filling root stats below)
     py::dict stats;
     stats["num_simulations"] = num_simulations;
+
+    if (!rootn.edges.empty()) {
+        py::list edge_stats;
+        float root_v = rootn.V;
+        int root_n_total = rootn.total_N;
+
+        for (size_t i = 0; i < rootn.edges.size(); ++i) {
+            const auto& e = rootn.edges[i];
+            py::dict e_info;
+            e_info["action"] = py::make_tuple(e.action[0], e.action[1]);
+            e_info["n"] = e.N;
+            e_info["w"] = e.W;
+            e_info["q"] = (e.N > 0) ? (e.W / (float)e.N) : 0.0f;
+            e_info["prior"] = e.prior;
+            edge_stats.append(e_info);
+        }
+        stats["root_v"] = root_v;
+        stats["root_n"] = root_n_total;
+        stats["edges"] = edge_stats;
+    }
+
     return {action_out, stats};
+}
+
+// ============================================================================
+// Scheme A: Compact and SHM stats output implementation
+// ============================================================================
+
+py::tuple mcts_search_lstm_torchscript_compact(
+    ScenarioEnv& env,
+    const EnvState& root_state,
+    const std::vector<float>& root_obs_seq,
+    int seq_len,
+    int obs_dim,
+    const std::string& model_path,
+    const std::vector<float>& root_h,
+    const std::vector<float>& root_c,
+    int lstm_hidden_dim,
+    int agent_index,
+    int num_simulations,
+    int num_action_samples,
+    int rollout_depth,
+    float c_puct,
+    float temperature,
+    float gamma,
+    float dirichlet_alpha,
+    float dirichlet_eps,
+    unsigned int seed
+) {
+    auto res = mcts_search_lstm_torchscript(
+        env, root_state, root_obs_seq, seq_len, obs_dim, model_path,
+        root_h, root_c, lstm_hidden_dim, agent_index, num_simulations,
+        num_action_samples, rollout_depth, c_puct, temperature, gamma,
+        dirichlet_alpha, dirichlet_eps, seed
+    );
+
+    const std::vector<float>& action_out = res.first;
+    const py::dict& stats = res.second;
+
+    float root_v = 0.0f;
+    int root_n = 0;
+    if (stats.contains("root_v")) root_v = py::cast<float>(stats["root_v"]);
+    if (stats.contains("root_n")) root_n = py::cast<int>(stats["root_n"]);
+
+    py::array_t<float> action_arr({2});
+    {
+        auto a = action_arr.mutable_unchecked<1>();
+        a(0) = action_out.size() > 0 ? action_out[0] : 0.0f;
+        a(1) = action_out.size() > 1 ? action_out[1] : 0.0f;
+    }
+
+    const int K = num_action_samples;
+    py::array_t<float> actions_arr({K, 2});
+    py::array_t<int> visits_arr({K});
+    {
+        auto aa = actions_arr.mutable_unchecked<2>();
+        auto vv = visits_arr.mutable_unchecked<1>();
+        for (int i = 0; i < K; ++i) {
+            aa(i, 0) = 0.0f; aa(i, 1) = 0.0f; vv(i) = 0;
+        }
+
+        if (stats.contains("edges")) {
+            py::list edges = py::cast<py::list>(stats["edges"]);
+            const int n = std::min((int)edges.size(), K);
+            for (int i = 0; i < n; ++i) {
+                py::dict e = py::cast<py::dict>(edges[i]);
+                py::tuple act = py::cast<py::tuple>(e["action"]);
+                aa(i, 0) = py::cast<float>(act[0]);
+                aa(i, 1) = py::cast<float>(act[1]);
+                vv(i) = py::cast<int>(e["n"]);
+            }
+        }
+    }
+
+    py::array_t<float> h_next_arr({lstm_hidden_dim});
+    py::array_t<float> c_next_arr({lstm_hidden_dim});
+    {
+        auto h = h_next_arr.mutable_unchecked<1>();
+        auto c = c_next_arr.mutable_unchecked<1>();
+        for (int i = 0; i < lstm_hidden_dim; ++i) { h(i) = 0.0f; c(i) = 0.0f; }
+        if (stats.contains("h_next")) {
+            py::array h_in = py::array::ensure(stats["h_next"]);
+            if (h_in && h_in.ndim() == 1) {
+                auto hi = h_in.unchecked<float, 1>();
+                const int n = std::min((int)hi.shape(0), lstm_hidden_dim);
+                for (int i = 0; i < n; ++i) h(i) = hi(i);
+            }
+        }
+        if (stats.contains("c_next")) {
+            py::array c_in = py::array::ensure(stats["c_next"]);
+            if (c_in && c_in.ndim() == 1) {
+                auto ci = c_in.unchecked<float, 1>();
+                const int n = std::min((int)ci.shape(0), lstm_hidden_dim);
+                for (int i = 0; i < n; ++i) c(i) = ci(i);
+            }
+        }
+    }
+
+    return py::make_tuple(action_arr, actions_arr, visits_arr, root_v, root_n, h_next_arr, c_next_arr);
+}
+
+void mcts_search_to_shm(
+    ScenarioEnv& env,
+    const EnvState& root_state,
+    const std::vector<float>& root_obs_seq,
+    int seq_len,
+    int obs_dim,
+    const std::string& model_path,
+    const std::vector<float>& root_h,
+    const std::vector<float>& root_c,
+    int lstm_hidden_dim,
+    int agent_index,
+    int num_simulations,
+    int num_action_samples,
+    int rollout_depth,
+    float c_puct,
+    float temperature,
+    float gamma,
+    float dirichlet_alpha,
+    float dirichlet_eps,
+    unsigned int seed,
+    size_t action_ptr_addr,
+    size_t stats_ptr_addr
+) {
+    float* action_ptr = reinterpret_cast<float*>(action_ptr_addr);
+    float* stats_ptr = reinterpret_cast<float*>(stats_ptr_addr);
+
+    auto res = mcts_search_lstm_torchscript(
+        env, root_state, root_obs_seq, seq_len, obs_dim, model_path,
+        root_h, root_c, lstm_hidden_dim, agent_index, num_simulations,
+        num_action_samples, rollout_depth, c_puct, temperature, gamma,
+        dirichlet_alpha, dirichlet_eps, seed
+    );
+
+    if (action_ptr) {
+        action_ptr[0] = res.first.size() > 0 ? res.first[0] : 0.0f;
+        action_ptr[1] = res.first.size() > 1 ? res.first[1] : 0.0f;
+    }
+
+    if (stats_ptr) {
+        const py::dict& stats = res.second;
+        stats_ptr[0] = stats.contains("root_v") ? py::cast<float>(stats["root_v"]) : 0.0f;
+        stats_ptr[1] = stats.contains("root_n") ? (float)py::cast<int>(stats["root_n"]) : 0.0f;
+
+        // Use the lstm_hidden_dim passed from Python instead of hardcoded 128
+        const int H = lstm_hidden_dim;
+        std::memset(stats_ptr + 2, 0, sizeof(float) * 2 * H);
+        
+        if (stats.contains("h_next")) {
+            py::array h_in = py::array::ensure(stats["h_next"]);
+            if (h_in && h_in.ndim() == 1) {
+                auto hi = h_in.unchecked<float, 1>();
+                int n_h = std::min((int)hi.shape(0), H);
+                for (int i = 0; i < n_h; ++i) stats_ptr[2 + i] = hi(i);
+            }
+        }
+        if (stats.contains("c_next")) {
+            py::array c_in = py::array::ensure(stats["c_next"]);
+            if (c_in && c_in.ndim() == 1) {
+                auto ci = c_in.unchecked<float, 1>();
+                int n_c = std::min((int)ci.shape(0), H);
+                for (int i = 0; i < n_c; ++i) stats_ptr[2 + H + i] = ci(i);
+            }
+        }
+
+        if (stats.contains("edges")) {
+            py::list edges = py::cast<py::list>(stats["edges"]);
+            const int n = std::min((int)edges.size(), num_action_samples);
+            int actions_offset = 2 + 2 * H;
+            int visits_offset = 2 + 2 * H + num_action_samples * 2;
+            
+            for (int i = 0; i < n; ++i) {
+                py::dict e = py::cast<py::dict>(edges[i]);
+                py::tuple act = py::cast<py::tuple>(e["action"]);
+                stats_ptr[actions_offset + i*2] = py::cast<float>(act[0]);
+                stats_ptr[actions_offset + i*2 + 1] = py::cast<float>(act[1]);
+                stats_ptr[visits_offset + i] = (float)py::cast<int>(e["n"]);
+            }
+            for (int i = n; i < num_action_samples; ++i) {
+                stats_ptr[actions_offset + i*2] = 0.0f;
+                stats_ptr[actions_offset + i*2 + 1] = 0.0f;
+                stats_ptr[visits_offset + i] = 0.0f;
+            }
+        }
+    }
+}
+
+
+void mcts_search_seq_to_shm(
+    ScenarioEnv& env,
+    const EnvState& root_state,
+    const std::vector<float>& root_obs_seq,
+    int seq_len,
+    int obs_dim,
+    const py::function& infer_fn,
+    int lstm_hidden_dim,
+    int agent_index,
+    int num_simulations,
+    int num_action_samples,
+    int rollout_depth,
+    float c_puct,
+    float temperature,
+    float gamma,
+    float dirichlet_alpha,
+    float dirichlet_eps,
+    unsigned int seed,
+    size_t action_ptr_addr,
+    size_t stats_ptr_addr
+) {
+    float* action_ptr = reinterpret_cast<float*>(action_ptr_addr);
+    float* stats_ptr = reinterpret_cast<float*>(stats_ptr_addr);
+
+    auto res = mcts_search_seq(
+        env, root_state, root_obs_seq, seq_len, obs_dim,
+        infer_fn, agent_index, num_simulations, num_action_samples,
+        rollout_depth, c_puct, temperature, gamma,
+        dirichlet_alpha, dirichlet_eps, seed
+    );
+
+    if (action_ptr) {
+        action_ptr[0] = res.first.size() > 0 ? res.first[0] : 0.0f;
+        action_ptr[1] = res.first.size() > 1 ? res.first[1] : 0.0f;
+    }
+
+    if (stats_ptr) {
+        const py::dict& stats = res.second;
+        stats_ptr[0] = stats.contains("root_v") ? py::cast<float>(stats["root_v"]) : 0.0f;
+        stats_ptr[1] = stats.contains("root_n") ? (float)py::cast<int>(stats["root_n"]) : 0.0f;
+
+        // Scheme A layout (matches train.py SHM buffer):
+        // [root_v, root_n, h_next(H), c_next(H), actions_k(K*2), visits_k(K)]
+        // For TCN there is no hidden state; we still reserve H slots to keep layout identical.
+        const int H = lstm_hidden_dim;
+        std::memset(stats_ptr + 2, 0, sizeof(float) * 2 * (size_t)H); // TCN has no hidden state
+
+        const int actions_offset = 2 + 2 * H;
+        const int visits_offset = actions_offset + num_action_samples * 2;
+
+        // Clear actions/visits region
+        std::memset(stats_ptr + actions_offset, 0,
+                    sizeof(float) * (size_t)(num_action_samples * 2 + num_action_samples));
+
+        if (stats.contains("edges")) {
+            py::list edges = py::cast<py::list>(stats["edges"]);
+            const int n = std::min((int)edges.size(), num_action_samples);
+
+            for (int i = 0; i < n; ++i) {
+                py::dict e = py::cast<py::dict>(edges[i]);
+                py::tuple act = py::cast<py::tuple>(e["action"]);
+                stats_ptr[actions_offset + i * 2] = py::cast<float>(act[0]);
+                stats_ptr[actions_offset + i * 2 + 1] = py::cast<float>(act[1]);
+                stats_ptr[visits_offset + i] = (float)py::cast<int>(e["n"]);
+            }
+        }
+    }
 }
 
 // ============================================================================
@@ -1254,6 +1556,293 @@ std::pair<std::vector<float>, py::dict> mcts_search(
     py::dict stats;
     stats["num_simulations"] = num_simulations;
     return {action_out, stats};
+}
+
+// ============================================================================
+// TCN TorchScript MCTS Search (sequence version)
+// ============================================================================
+
+std::pair<std::vector<float>, py::dict> mcts_search_tcn_torchscript_seq(
+    ScenarioEnv& env,
+    const EnvState& root_state,
+    const std::vector<float>& root_obs_seq,
+    int seq_len,
+    int obs_dim,
+    const std::string& model_path,
+    int agent_index,
+    int num_simulations,
+    int num_action_samples,
+    int rollout_depth,
+    float c_puct,
+    float temperature,
+    float gamma,
+    float dirichlet_alpha,
+    float dirichlet_eps,
+    unsigned int seed
+) {
+    TSProfile prof;
+    double t_total0 = now_ms();
+    std::mt19937 rng(seed ? seed : std::random_device{}());
+
+    if (!std::filesystem::exists(model_path)) {
+        throw std::runtime_error("TorchScript model file not found: " + model_path);
+    }
+
+    torch::Device device(torch::kCPU);
+    torch::jit::Module& module = get_cached_model(model_path, device);
+
+    std::vector<Node> nodes;
+    nodes.reserve((size_t)num_simulations + 1);
+
+    Node root;
+    root.state = root_state;
+    root.obs_seq_flat = root_obs_seq;
+    nodes.push_back(std::move(root));
+
+    // For TCN, we use dummy hidden states for infer_policy_value
+    const int H = 128; // Standard hidden dim used for layout consistency
+    auto opts = torch::TensorOptions().dtype(torch::kFloat32).device(device);
+    torch::Tensor h_zero = torch::zeros({1, 1, H}, opts);
+    torch::Tensor c_zero = torch::zeros({1, 1, H}, opts);
+
+    auto expand_node_ts = [&](Node& node, bool add_dirichlet) {
+        auto t_obs = make_obs_seq_tensor(node.obs_seq_flat, seq_len, obs_dim, device);
+        
+        double t0_pv = now_ms();
+        auto out_iv = module.run_method("infer_policy_value", t_obs, h_zero, c_zero);
+        prof.ms_infer_pv += (now_ms() - t0_pv);
+        prof.calls_infer_pv += 1;
+
+        auto out_tup = out_iv.toTuple();
+        if (!out_tup || out_tup->elements().size() < 3) {
+            throw std::runtime_error("infer_policy_value must return (mean,std,value)");
+        }
+
+        std::array<float, 2> mean0, std0;
+        float value0 = 0.0f;
+        parse_policy_value_tensors(
+            out_tup->elements()[0].toTensor(),
+            out_tup->elements()[1].toTensor(),
+            out_tup->elements()[2].toTensor(),
+            mean0, std0, value0
+        );
+        node.V = value0;
+
+        std::vector<std::array<float, 2>> sampled;
+        sampled.reserve((size_t)num_action_samples);
+        std::vector<float> logps;
+        logps.reserve((size_t)num_action_samples);
+
+        for (int k = 0; k < num_action_samples; ++k) {
+            float a0 = mean0[0] + std0[0] * randn(rng);
+            float a1 = mean0[1] + std0[1] * randn(rng);
+            a0 = clampf(a0, -1.0f, 1.0f);
+            a1 = clampf(a1, -1.0f, 1.0f);
+            sampled.push_back({a0, a1});
+            float lp = gaussian_log_prob(a0, mean0[0], std0[0]) + gaussian_log_prob(a1, mean0[1], std0[1]);
+            logps.push_back(lp);
+        }
+
+        softmax_inplace(logps);
+
+        if (add_dirichlet && dirichlet_eps > 0.0f && dirichlet_alpha > 0.0f) {
+            std::gamma_distribution<float> gd(dirichlet_alpha, 1.0f);
+            std::vector<float> noise((size_t)num_action_samples, 0.0f);
+            float s = 0.0f;
+            for (int i = 0; i < num_action_samples; ++i) { noise[(size_t)i] = gd(rng); s += noise[(size_t)i]; }
+            if (s > 0.0f) {
+                for (auto& x : noise) x /= s;
+                for (int i = 0; i < num_action_samples; ++i) {
+                    logps[(size_t)i] = (1.0f - dirichlet_eps) * logps[(size_t)i] + dirichlet_eps * noise[(size_t)i];
+                }
+            }
+        }
+
+        node.edges.clear();
+        node.edges.reserve((size_t)num_action_samples);
+        for (int k = 0; k < num_action_samples; ++k) {
+            ChildEdge e;
+            e.action = sampled[(size_t)k];
+            e.prior = logps[(size_t)k];
+            node.edges.push_back(std::move(e));
+        }
+    };
+
+    expand_node_ts(nodes[0], true);
+
+    for (int sim = 0; sim < num_simulations; ++sim) {
+        std::vector<std::pair<int,int>> path;
+        int cur = 0;
+
+        while (true) {
+            Node& n = nodes[(size_t)cur];
+            if (n.edges.empty()) break;
+
+            float best = -1e9f;
+            int best_idx = 0;
+            for (int i = 0; i < (int)n.edges.size(); ++i) {
+                float s = puct_score_basic(n.total_N, n.edges[(size_t)i].prior, n.edges[(size_t)i].N, n.edges[(size_t)i].W, c_puct);
+                if (s > best) { best = s; best_idx = i; }
+            }
+
+            path.push_back({cur, best_idx});
+            ChildEdge& e = n.edges[(size_t)best_idx];
+
+            if (e.child >= 0) {
+                cur = e.child;
+                continue;
+            }
+
+            EnvState saved = env.get_state();
+            env.set_state(n.state);
+            auto res = env.step({e.action[0]}, {e.action[1]});
+            
+            float immediate_r = res.rewards.empty() ? 0.0f : res.rewards[0];
+            EnvState next_state = env.get_state();
+            bool done = res.terminated || res.truncated;
+            std::vector<float> next_obs = res.obs.empty() ? std::vector<float>() : res.obs[0];
+
+            env.set_state(saved);
+
+            Node child;
+            child.state = std::move(next_state);
+            if (!next_obs.empty()) {
+                child.obs_seq_flat = shift_append_obs_seq(n.obs_seq_flat, seq_len, obs_dim, next_obs);
+            } else {
+                child.obs_seq_flat = n.obs_seq_flat;
+            }
+
+            int child_idx = (int)nodes.size();
+            nodes.push_back(std::move(child));
+            e.child = child_idx;
+
+            if (!done && !next_obs.empty()) {
+                expand_node_ts(nodes[(size_t)child_idx], false);
+            }
+
+            float leaf_value = nodes[(size_t)child_idx].V;
+            float leaf_backup = immediate_r + gamma * leaf_value;
+            backup_basic(path, nodes, leaf_backup);
+            break;
+        }
+    }
+
+    const Node& rootn = nodes[0];
+    std::vector<float> action_out = {0.0f, 0.0f};
+    if (!rootn.edges.empty()) {
+        std::vector<float> probs(rootn.edges.size(), 0.0f);
+        float sum = 0.0f;
+        for (size_t i = 0; i < rootn.edges.size(); ++i) {
+            float p = float(std::max(0, rootn.edges[i].N));
+            if (temperature > 1e-6f) p = std::pow(p, 1.0f / temperature);
+            probs[i] = p;
+            sum += p;
+        }
+        size_t best_i = 0;
+        if (sum > 0.0f) {
+            for (auto& p : probs) p /= sum;
+            std::discrete_distribution<int> dd(probs.begin(), probs.end());
+            best_i = (size_t)dd(rng);
+        }
+        action_out[0] = rootn.edges[best_i].action[0];
+        action_out[1] = rootn.edges[best_i].action[1];
+    }
+
+    py::dict stats;
+    stats["num_simulations"] = num_simulations;
+
+    if (!rootn.edges.empty()) {
+        py::list edge_stats;
+        float root_v = rootn.V;
+        int root_n_total = rootn.total_N;
+
+        for (size_t i = 0; i < rootn.edges.size(); ++i) {
+            const auto& e = rootn.edges[i];
+            py::dict e_info;
+            e_info["action"] = py::make_tuple(e.action[0], e.action[1]);
+            e_info["n"] = e.N;
+            e_info["w"] = e.W;
+            e_info["q"] = (e.N > 0) ? (e.W / (float)e.N) : 0.0f;
+            e_info["prior"] = e.prior;
+            edge_stats.append(e_info);
+        }
+        stats["root_v"] = root_v;
+        stats["root_n"] = root_n_total;
+        stats["edges"] = edge_stats;
+    }
+
+    prof.ms_total = now_ms() - t_total0;
+    py::dict p;
+    p["ms_total"] = prof.ms_total;
+    p["ms_infer_policy_value"] = prof.ms_infer_pv;
+    p["calls_infer_policy_value"] = (unsigned long long)prof.calls_infer_pv;
+    stats["profile"] = p;
+
+    return {action_out, stats};
+}
+
+void mcts_search_tcn_torchscript_seq_to_shm(
+    ScenarioEnv& env,
+    const EnvState& root_state,
+    const std::vector<float>& root_obs_seq,
+    int seq_len,
+    int obs_dim,
+    const std::string& model_path,
+    int lstm_hidden_dim,
+    int agent_index,
+    int num_simulations,
+    int num_action_samples,
+    int rollout_depth,
+    float c_puct,
+    float temperature,
+    float gamma,
+    float dirichlet_alpha,
+    float dirichlet_eps,
+    unsigned int seed,
+    size_t action_ptr_addr,
+    size_t stats_ptr_addr
+) {
+    float* action_ptr = reinterpret_cast<float*>(action_ptr_addr);
+    float* stats_ptr = reinterpret_cast<float*>(stats_ptr_addr);
+
+    auto res = mcts_search_tcn_torchscript_seq(
+        env, root_state, root_obs_seq, seq_len, obs_dim, model_path,
+        agent_index, num_simulations, num_action_samples, rollout_depth,
+        c_puct, temperature, gamma, dirichlet_alpha, dirichlet_eps, seed
+    );
+
+    if (action_ptr) {
+        action_ptr[0] = res.first.size() > 0 ? res.first[0] : 0.0f;
+        action_ptr[1] = res.first.size() > 1 ? res.first[1] : 0.0f;
+    }
+
+    if (stats_ptr) {
+        const py::dict& stats = res.second;
+        stats_ptr[0] = stats.contains("root_v") ? py::cast<float>(stats["root_v"]) : 0.0f;
+        stats_ptr[1] = stats.contains("root_n") ? (float)py::cast<int>(stats["root_n"]) : 0.0f;
+
+        const int H = lstm_hidden_dim;
+        std::memset(stats_ptr + 2, 0, sizeof(float) * 2 * (size_t)H); 
+
+        const int actions_offset = 2 + 2 * H;
+        const int visits_offset = actions_offset + num_action_samples * 2;
+
+        std::memset(stats_ptr + actions_offset, 0,
+                    sizeof(float) * (size_t)(num_action_samples * 2 + num_action_samples));
+
+        if (stats.contains("edges")) {
+            py::list edges = py::cast<py::list>(stats["edges"]);
+            const int n = std::min((int)edges.size(), num_action_samples);
+
+            for (int i = 0; i < n; ++i) {
+                py::dict e = py::cast<py::dict>(edges[i]);
+                py::tuple act = py::cast<py::tuple>(e["action"]);
+                stats_ptr[actions_offset + i * 2] = py::cast<float>(act[0]);
+                stats_ptr[actions_offset + i * 2 + 1] = py::cast<float>(act[1]);
+                stats_ptr[visits_offset + i] = (float)py::cast<int>(e["n"]);
+            }
+        }
+    }
 }
 
 // ============================================================================
@@ -1666,15 +2255,35 @@ std::pair<std::vector<float>, py::dict> mcts_search_lstm_torchscript(
     std::vector<float> action_out = {0.0f, 0.0f};
     int selected_edge = -1;
 
+    py::dict stats;
+    stats["num_simulations"] = num_simulations;
+
     if (!rootn.edges.empty()) {
+        py::list edge_stats;
+        float root_v = rootn.V;
+        int root_n_total = rootn.total_N;
+
         std::vector<float> probs(rootn.edges.size(), 0.0f);
         float sum = 0.0f;
         for (size_t i = 0; i < rootn.edges.size(); ++i) {
-            float p = float(std::max(0, rootn.edges[i].N));
+            const auto& e = rootn.edges[i];
+            py::dict e_info;
+            e_info["action"] = py::make_tuple(e.action[0], e.action[1]);
+            e_info["n"] = e.N;
+            e_info["w"] = e.W;
+            e_info["q"] = (e.N > 0) ? (e.W / (float)e.N) : 0.0f;
+            e_info["prior"] = e.prior;
+            edge_stats.append(e_info);
+
+            float p = float(std::max(0, e.N));
             if (temperature > 1e-6f) p = std::pow(p, 1.0f / temperature);
             probs[i] = p;
             sum += p;
         }
+        stats["root_v"] = root_v;
+        stats["root_n"] = root_n_total;
+        stats["edges"] = edge_stats;
+
         size_t best_i = 0;
         if (sum > 0.0f) {
             for (auto& p : probs) p /= sum;
@@ -1685,9 +2294,6 @@ std::pair<std::vector<float>, py::dict> mcts_search_lstm_torchscript(
         action_out[0] = rootn.edges[best_i].action[0];
         action_out[1] = rootn.edges[best_i].action[1];
     }
-
-    py::dict stats;
-    stats["num_simulations"] = num_simulations;
 
     if (selected_edge >= 0) {
         py::array_t<float> h_next({lstm_hidden_dim});
@@ -1926,7 +2532,6 @@ std::pair<std::vector<float>, py::dict> mcts_search_lstm(
                 &c_after_rollout,
                 &prof
             );
-
             LSTMNode child;
             child.state = std::move(next_state);
             child.h = std::move(h_after_rollout);

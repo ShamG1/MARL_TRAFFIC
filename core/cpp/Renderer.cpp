@@ -1194,19 +1194,63 @@ void Renderer::draw_hud(const ScenarioEnv& env) const{
 
 #else // NOT _WIN32
 
+// Helper to project 3D world coordinates to screen space
+static bool world_to_screen(float x, float y, float z, float& sx, float& sy, int view_w, int view_h, int vp_x, int vp_y) {
+    float model[16], proj[16];
+    int viewport[4];
+    glGetFloatv(GL_MODELVIEW_MATRIX, model);
+    glGetFloatv(GL_PROJECTION_MATRIX, proj);
+    glGetIntegerv(GL_VIEWPORT, viewport);
+
+    auto project = [&](float objx, float objy, float objz, float* winx, float* winy) {
+        float in[4] = {objx, objy, objz, 1.0f};
+        float out[4] = {0, 0, 0, 0};
+
+        // Modelview transform
+        for (int i = 0; i < 4; i++) {
+            out[i] = in[0] * model[i] + in[1] * model[i+4] + in[2] * model[i+8] + in[3] * model[i+12];
+        }
+
+        // Projection transform
+        float clip[4] = {0, 0, 0, 0};
+        for (int i = 0; i < 4; i++) {
+            clip[i] = out[0] * proj[i] + out[1] * proj[i+4] + out[2] * proj[i+8] + out[3] * proj[i+12];
+        }
+
+        if (clip[3] <= 0.0f) return false;
+
+        // Perspective divide (NDC)
+        float ndc[3] = {clip[0] / clip[3], clip[1] / clip[3], clip[2] / clip[3]};
+
+        // Viewport transform
+        *winx = viewport[0] + (1.0f + ndc[0]) * viewport[2] / 2.0f;
+        *winy = viewport[1] + (1.0f + ndc[1]) * viewport[3] / 2.0f;
+        
+        // OpenGL window coords have Y=0 at bottom, ImGui/GDI has Y=0 at top.
+        // But our viewport is centered in the window (vp_x, vp_y).
+        // Total window height is needed to flip Y.
+        GLint win_viewport[4];
+        glGetIntegerv(GL_VIEWPORT, win_viewport);
+        // Correct flip for ImGui which expects screen-space pixels relative to top-left
+        *winy = (float)(viewport[1] + viewport[3]) - (*winy - viewport[1]);
+        
+        return (ndc[2] >= -1.0f && ndc[2] <= 1.0f);
+    };
+
+    return project(x, y, z, &sx, &sy);
+}
+
 void Renderer::draw_lane_ids(const ScenarioEnv& env) const {
     if (!imgui || !impl || !impl->window) return;
 
-    // Square viewport logic to match render()
-    int full_w = WIDTH;
-    int full_h = HEIGHT;
+    int full_w, full_h;
     glfwGetFramebufferSize(impl->window, &full_w, &full_h);
 
     const int view = (full_w < full_h) ? full_w : full_h;
     const int vp_x = (full_w - view) / 2;
     const int vp_y = (full_h - view) / 2;
 
-    float road_side = impl->v_max_x - impl->v_min_x; // This is now guaranteed square or close to it
+    float road_side = impl->v_max_x - impl->v_min_x;
     if (road_side < 1.0f) road_side = (float)WIDTH;
 
     for (const auto& kv : env.lane_layout.points) {
@@ -1214,23 +1258,31 @@ void Renderer::draw_lane_ids(const ScenarioEnv& env) const {
         const auto& p = kv.second;
         const bool is_in = id.rfind("IN_", 0) == 0;
 
-        float fb_x = (float)vp_x + (p.first - impl->v_min_x) * (float)view / road_side;
-        float fb_y = (float)vp_y + (p.second - impl->v_min_y) * (float)view / road_side;
+        float fb_x, fb_y;
+        if (impl->view_mode == VIEW_2D) {
+            fb_x = (float)vp_x + (p.first - impl->v_min_x) * (float)view / road_side;
+            fb_y = (float)vp_y + (p.second - impl->v_min_y) * (float)view / road_side;
+        } else {
+            // 3D Projection: place text slightly above ground (y=0.2f)
+            if (!world_to_screen(p.first, 0.2f, p.second, fb_x, fb_y, full_w, full_h, vp_x, vp_y)) {
+                continue; // Behind camera
+            }
+        }
 
-        // Keep text fully inside the viewport
         const ImVec2 ts = ImGui::CalcTextSize(id.c_str());
         fb_x -= 0.5f * ts.x;
         fb_y -= 0.5f * ts.y;
 
-        const float min_x_vp = float(vp_x);
-        const float min_y_vp = float(vp_y);
-        const float max_x_vp = float(vp_x + view) - ts.x;
-        const float max_y_vp = float(vp_y + view) - ts.y;
+        // For 2D mode, we clamp to viewport. For 3D, we usually allow it to go off-screen.
+        if (impl->view_mode == VIEW_2D) {
+            const float min_x_vp = float(vp_x);
+            const float min_y_vp = float(vp_y);
+            const float max_x_vp = float(vp_x + view) - ts.x;
+            const float max_y_vp = float(vp_y + view) - ts.y;
+            fb_x = std::max(min_x_vp, std::min(fb_x, max_x_vp));
+            fb_y = std::max(min_y_vp, std::min(fb_y, max_y_vp));
+        }
 
-        fb_x = std::max(min_x_vp, std::min(fb_x, max_x_vp));
-        fb_y = std::max(min_y_vp, std::min(fb_y, max_y_vp));
-
-        // Simple color coding
         const unsigned int rgba = is_in ? 0xFF3333FFu : 0xFF66AAFFu;
         imgui->add_text(fb_x, fb_y, id, rgba);
     }
@@ -1536,22 +1588,28 @@ void Renderer::draw_lidar(const ScenarioEnv& env) const{
 
     const auto &lid = env.lidars[(size_t)idx];
     const auto &car = env.cars[(size_t)idx];
-    float cx = car.state.x; float cy = car.state.y; float heading = car.state.heading;
+    const float cx = car.state.x;
+    const float cy = car.state.y;
+    const float cosH = car.cached_cosH;
+    const float sinH = car.cached_sinH;
 
-    for(size_t k=0;k<lid.distances.size();++k){
-            float dist=lid.distances[k];
-            const bool hit = dist < lid.max_dist - 0.1f;
-            if(!draw_all && !hit) continue;
+    for(size_t k=0; k<lid.distances.size(); ++k){
+        const float dist = lid.distances[k];
+        const bool hit = dist < lid.max_dist - 0.1f;
+        if(!draw_all && !hit) continue;
 
-            float ang=heading + lid.rel_angles[k];
-            float ex=cx + dist*std::cos(ang);
-            float ey=cy - dist*std::sin(ang);
+        // Use the exact same rotation logic as Lidar.cpp
+        const float dx = cosH * lid.rel_cos[k] - sinH * lid.rel_sin[k];
+        const float dy = -(sinH * lid.rel_cos[k] + cosH * lid.rel_sin[k]);
 
-            draw_line_px(cx, cy, ex, ey, 2.0f, line_r, line_g, line_b, line_a,
-                         impl->v_min_x, impl->v_max_x, impl->v_min_y, impl->v_max_y);
-            if(hit){
-                draw_circle_px(ex, ey, 2.0f, 6, hit_r, hit_g, hit_b,
-                               impl->v_min_x, impl->v_max_x, impl->v_min_y, impl->v_max_y);
-            }
+        const float ex = cx + dist * dx;
+        const float ey = cy + dist * dy;
+
+        draw_line_px(cx, cy, ex, ey, 2.0f, line_r, line_g, line_b, line_a,
+                     impl->v_min_x, impl->v_max_x, impl->v_min_y, impl->v_max_y);
+        if(hit){
+            draw_circle_px(ex, ey, 2.0f, 6, hit_r, hit_g, hit_b,
+                           impl->v_min_x, impl->v_max_x, impl->v_min_y, impl->v_max_y);
         }
     }
+}

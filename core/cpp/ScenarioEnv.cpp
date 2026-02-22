@@ -884,7 +884,7 @@ std::vector<std::vector<float>> ScenarioEnv::get_observations() const {
 
     for (size_t i = 0; i < cars.size(); ++i) {
         std::vector<float> obs;
-        obs.assign(135, 0.0f); // New dimension: 127 + 8 = 135
+        obs.assign(145, 0.0f); // New dimension: 145
 
         if (!cars[i].alive) {
             out.push_back(std::move(obs));
